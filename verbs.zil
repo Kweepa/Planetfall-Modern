@@ -2,11 +2,9 @@
 			       PLANETFALL
 	  (c) COPYRIGHT 1983 INFOCOM INC. ALL RIGHTS RESERVED"
 
-<GLOBAL VERBOSE <>>
+<GLOBAL VERBOSE T>
 
 <GLOBAL SUPER-BRIEF <>>
-
-;<GDECL (VERBOSE SUPER-BRIEF) <OR ATOM FALSE>>
 
 <ROUTINE V-VERBOSE ()
 	 <SETG VERBOSE T>
@@ -61,7 +59,7 @@ to look AT that object, please say so." CR>>
 		      (T
 		       <TELL "The " D ,PRSO " is closed." CR>)>)
 	       (T
-		<TELL "I see nothing special about the " D ,PRSO "." CR>)>>
+		<TELL "You see nothing special about the " D ,PRSO "." CR>)>>
 
 <GLOBAL LIT 0>
 
@@ -82,8 +80,6 @@ to look AT that object, please say so." CR>>
 		<CRLF>)>
 	 <COND (<OR .LOOK? <NOT ,SUPER-BRIEF>>
 		<SET AV <LOC ,ADVENTURER>>
-		;<COND (<FSET? .AV ,VEHBIT>
-		       <TELL "(You are in the " D .AV ".)" CR>)>
 		<COND (<AND .V? <APPLY <GETP ,HERE ,P?ACTION> ,M-LOOK>>
 		       <RTRUE>)
 		      (<AND .V? <SET STR <GETP ,HERE ,P?LDESC>>>
@@ -155,7 +151,7 @@ long description (fdesc or ldesc), otherwise will print short."
 	       (T
 		<REPEAT ()
 			<COND (<NOT .Y>  
-			       <RETURN>)   ;<RETURN <NOT .1ST?> arb>
+			       <RETURN>)
 			      (<EQUAL? .Y .AV> <SET PV? T>)
 			      (<EQUAL? .Y ,WINNER>)
 			      (<AND <NOT <FSET? .Y ,INVISIBLE>>
@@ -254,7 +250,7 @@ long description (fdesc or ldesc), otherwise will print short."
 	       (<G? ,SCORE 36> <TELL "Lieutenant">)
 	       (<G? ,SCORE 24> <TELL "Ensign First Class">)
 	       (<G? ,SCORE 12> <TELL "Space Cadet">)
-	       (T <TELL "Beginner">)>
+	       (T <TELL "Grotch Scrubber">)>
 	 <TELL "." CR>
 	 ,SCORE>
 
@@ -329,7 +325,9 @@ position, end this session of the game, or look at hints?|
 	 <SET V <BAND <GET 0 1> *3777*>>
 	 <TELL 
 "PLANETFALL|
-Infocom interactive fiction - a science fiction story|
+Infocom interactive fiction -- a science fiction story|
+By Steve Meretzky|
+Modernized (butchered?) by Steve McCrea|
 Copyright (c) 1983, 1988 by Infocom, Inc. All rights reserved.|
 PLANETFALL is a registered trademark of Infocom, Inc.|
 Release " N .V " / Serial number ">
@@ -359,8 +357,7 @@ Release " N .V " / Serial number ">
 "Floyd looks disappointed, but understanding. \"That part of the game was more
 fun than this part,\" he admits." CR CR>)>
 	 <COND (<RESTORE>
-		<TELL "Ok." CR>
-		;<V-FIRST-LOOK>)
+		<TELL "Ok." CR>)
 	       (T
 		<TELL "Failed." CR>)>>
 
@@ -385,8 +382,6 @@ dangerous now?\"" CR CR>)>
 	        <TELL "Ok." CR>
 		<COND (<NOT <EQUAL? .X 1>>
 		       <PERFORM ,V?LOOK>)>
-		;<COND (<NOT <EQUAL? .X 1>>
-		       <PERFORM ,V?LOOK>)>
 		<RTRUE>)>>
 
 <ROUTINE V-$REFRESH ()
@@ -405,42 +400,13 @@ dangerous now?\"" CR CR>)>
 	 <COND (<YES?>
 		<TELL "Restarting." CR>
 		<RESTART>
-		<TELL "Failed." CR>
-		;<TELL ,FAILED>)>>
-
-;<ROUTINE FAILED ()
-	<TELL "Failed." CR>>
-
-;<CONSTANT REXIT 0>
-;<CONSTANT UEXIT 1>
-;<CONSTANT NEXIT 2>
-;<CONSTANT FEXIT 3>
-;<CONSTANT CEXIT 4>
-;<CONSTANT DEXIT 5>
+		<TELL "Failed." CR>)>>
 
 <CONSTANT NEXITSTR 0>
 <CONSTANT FEXITFCN 0>
-;<CONSTANT CEXITFLAG 1>
-;<CONSTANT CEXITSTR 1>
-;<CONSTANT DEXITOBJ 1>
-;<CONSTANT DEXITSTR 1>
 
 <ROUTINE V-WALK-AROUND ()
 	 <USE-DIRECTIONS>>
-
-;<ROUTINE GO-NEXT (TBL "AUX" VAL)
-	 <COND (<SET VAL <LKP ,HERE .TBL>>
-		<GOTO .VAL>)>>
-
-;<ROUTINE LKP (ITM TBL "AUX" (CNT 0) (LEN <GET .TBL 0>))
-	 <REPEAT ()
-		 <COND (<G? <SET CNT <+ .CNT 1>> .LEN>
-			<RFALSE>)
-		       (<EQUAL? <GET .TBL .CNT> .ITM>
-			<COND (<EQUAL? .CNT .LEN>
-			       <RFALSE>)
-			      (T
-			       <RETURN <GET .TBL <+ .CNT 1>>>)>)>>>
 
 <ROUTINE V-WALK-TO ()
 	 <COND (<OR <IN? ,PRSO ,HERE>
@@ -454,8 +420,6 @@ dangerous now?\"" CR CR>)>
 		<PERFORM ,V?WALK-TO ,PRSO>
 		<RTRUE>)
 	       (<SET PT <GETPT ,HERE ,PRSO>>
-		<SET TEMP-ELAPSED <GET <GETP ,HERE ,P?C-MOVE> 
-				       <- ,PRSO ,LOW-DIRECTION>>>
 		<COND (<EQUAL? .TEMP-ELAPSED 0>
 		       <SET TEMP-ELAPSED ,DEFAULT-MOVE>)>
 		<COND (<EQUAL? <SET PTS <PTSIZE .PT>> ,UEXIT>
@@ -549,9 +513,9 @@ dangerous now?\"" CR CR>)>
 	 <COND (<EQUAL? <ITAKE> T>
 		<TELL "Taken." CR>)>>
 
-<GLOBAL FUMBLE-NUMBER 7>
+<GLOBAL FUMBLE-NUMBER 9> "once carrying this many, possible fumble"
 
-<GLOBAL FUMBLE-PROB 8>
+<GLOBAL FUMBLE-PROB 5> "percentage chance of fumbling per each carried object"
 
 <ROUTINE TRYTAKE ()
 	 <COND (<IN? ,PRSO ,WINNER>
@@ -861,16 +825,9 @@ looking up at you." CR CR>)>
 		 <TELL "You can't turn that off." CR>)>
 	 <RTRUE>>
 
-<ROUTINE V-WAIT () ;("OPTIONAL" (NUM 3))
+<ROUTINE V-WAIT ()
 	 <SETG C-ELAPSED 40>
-	 <TELL "Time passes..." CR>
-	 ;<REPEAT ()
-		 <COND (<L? <SET NUM <- .NUM 1>> 0>
-			<RETURN>)
-		       (<CLOCKER>
-			<RETURN>)>
-		 <SETG INTERNAL-MOVES <+ ,INTERNAL-MOVES 1>>>
-	 ;<SETG CLOCK-WAIT T>>
+	 <TELL "Time passes..." CR>>
 
 <ROUTINE PRE-BOARD ("AUX" AV)
 	 <SET AV <LOC ,ADVENTURER>>
@@ -890,9 +847,6 @@ looking up at you." CR CR>)>
 <ROUTINE V-BOARD ("AUX" AV)
 	 <GOTO ,PRSO>
 	 <TELL "You are now in the " D ,PRSO "." CR>
-	 ;<MOVE ,ADVENTURER ,PRSO>
-	 ;<SETG OHERE <>>
-	 ;<APPLY <GETP ,PRSO ,P?ACTION> ,M-ENTER>
 	 <RTRUE>>
 
 <ROUTINE V-DISEMBARK ()
@@ -919,8 +873,6 @@ looking up at you." CR CR>)>
 
 <ROUTINE OWN-FEET ()
 	 <GOTO ,HERE>
-	 ;<MOVE ,ADVENTURER ,HERE>
-	 ;<SETG OHERE <>>
 	 <TELL "You're on your own feet again." CR>>
 
 <ROUTINE V-STAND ()
@@ -956,25 +908,6 @@ looking up at you." CR CR>)>
 	 <SCORE-OBJ .NEW-LOC>
 	 <COND (.V?
 		<V-FIRST-LOOK>)>
-	 <RTRUE>>
-
-;<ROUTINE GOTO (RM "OPTIONAL" (V? T) "AUX" (WLOC <LOC ,WINNER>) OLIT)
-	 <SET OLIT ,LIT>
-	 <MOVE ,ADVENTURER .RM>
-	 <SETG OHERE <>>
-	 <SETG HERE .RM>
-	 <SETG LIT <LIT? ,HERE>>
-	 <COND (<AND <NOT .OLIT>
-		     <NOT ,LIT>
-		     <PROB 75>>
-		<JIGS-UP
-"Oh, no! Something (a grue?) slithered into the room and devoured you!">
-		<RTRUE>)>
-	 <COND (<EQUAL? <APPLY <GETP ,HERE ,P?ACTION> ,M-ENTER> 2>
-		<RTRUE>)>
-	 <COND (.V?
-		<V-FIRST-LOOK>)>
-	 <SCORE-OBJ .RM>
 	 <RTRUE>>
 
 <ROUTINE V-EAT ()
@@ -1042,11 +975,6 @@ looking up at you." CR CR>)>
 	         "Nice weather we're having."
 	         "Goodbye.">>
 
-;<ROUTINE V-HELP ()
-	 <TELL
-"If you're really stuck, you can order a complete map and InvisiClues
-Hint Booklet using the order form in your game package." CR>>
-
 <CONSTANT WHEEEEE
 	<PLTABLE
 "You've spent too much time among the Leaping Loon-toads of Leonia."
@@ -1060,7 +988,7 @@ Hint Booklet using the order form in your game package." CR>>
 
 <ROUTINE V-READ ()
 	 <COND (<NOT <FSET? ,PRSO ,READBIT>>
-		<TELL "How can I read ">
+		<TELL "How can you read ">
 		<A-AN>
 		<TELL D ,PRSO "?" CR>)
 	       (T
@@ -1084,7 +1012,7 @@ Hint Booklet using the order form in your game package." CR>>
 	       (<FSET? ,PRSO ,DOORBIT>
 		<COND (<FSET? ,PRSO ,OPENBIT>
 		       <TELL
-"The " D ,PRSO " is open, but I can't tell what's beyond it">)
+"The " D ,PRSO " is open, but you can't tell what's beyond it">)
 		      (T
 		       <TELL "The " D ,PRSO " is closed">)>
 		<TELL "." CR>)
@@ -1115,10 +1043,6 @@ Hint Booklet using the order form in your game package." CR>>
 	      <NOT <FSET? .OBJ ,INVISIBLE>>
 	      <OR <FSET? .OBJ ,TRANSBIT>
 	          <FSET? .OBJ ,OPENBIT>>>>
-
-;<ROUTINE SEE-INSIDE? (OBJ)
-	 <AND <NOT <FSET? .OBJ ,INVISIBLE>>
-	      <OR <FSET? .OBJ ,TRANSBIT> <FSET? .OBJ ,OPENBIT>>>>
 
 <ROUTINE V-LOOK-DOWN ()
 	 <PERFORM ,V?EXAMINE ,GROUND>
@@ -1188,7 +1112,7 @@ Hint Booklet using the order form in your game package." CR>>
 <ROUTINE NO-BUTTON (NUMBER)
 	 <TELL "There's no button here that's labelled with the number ">
 	 <COND (<EQUAL? .NUMBER ,BOOTH-1>
-		<TELL "1">)
+ 		<TELL "1">)
 	       (<EQUAL? .NUMBER ,BOOTH-2>
 		<TELL "2">)
 	       (<EQUAL? .NUMBER ,BOOTH-3>
@@ -1229,21 +1153,11 @@ Hint Booklet using the order form in your game package." CR>>
 		<A-AN>
 		<TELL D ,PRSO "?" CR>)>>
 
-;<ROUTINE V-FROBOZZ ()
-	 <TELL "FROBOZZCO is a multiplanetary corporation." CR>>
-
 <ROUTINE V-YELL ()
 	 <TELL "Aarrrrggggggghhhhhhhh!" CR>>
 
 <ROUTINE BATTERY-FALLS ()
 	 <TELL "The battery falls out." CR>>
-
-;<ROUTINE PRE-SHAKE ()
-	 <COND (<OR <HELD? ,PRSO>
-		    <EQUAL? ,PRSO ,HANDS>>
-		<RFALSE>)
-	       (T
-		<NOT-HOLDING>)>>
 
 <ROUTINE V-SHAKE ("AUX" X)
 	 <COND (<AND <NOT <HELD? ,PRSO>>
@@ -1312,9 +1226,6 @@ Hint Booklet using the order form in your game package." CR>>
 	 <COND (<SET TEE <GETPT .OBJ2 ,P?GLOBAL>>
 		<INTBL? .OBJ1 .TEE </ <PTSIZE .TEE> 2>>)>>
 
-;<ROUTINE HERE?? (OBJ)
-	 <OR <IN? .OBJ ,HERE> <GLOBAL-IN? .OBJ ,HERE>>>
-
 <ROUTINE V-SWIM ()
 	 <COND (<EQUAL? ,HERE ,UNDERWATER>
 		<TELL
@@ -1341,19 +1252,16 @@ Hint Booklet using the order form in your game package." CR>>
 <ROUTINE V-ZORK ()
 	 <TELL "Gesundheit!" CR>>
 
-;<ROUTINE V-COMMAND ()
-	 <COND (<FSET? ,PRSO ,ACTORBIT>
-		<TELL "The " D ,PRSO " pays no attention." CR>)
-	       (ELSE
-		<TELL "You cannot talk to that!" CR>)>>
-
 <ROUTINE V-SIT ()
 	 <COND (<EQUAL? ,HERE ,ESCAPE-POD>
 		<TELL "(in the web)" CR>
 		<PERFORM ,V?BOARD ,SAFETY-WEB>
 		<RTRUE>)
-	       (<OR <EQUAL? ,HERE ,DORM-A ,DORM-B ,DORM-C>
-		    <EQUAL? ,HERE ,DORM-D ,INFIRMARY>>
+	       (<EQUAL? ,HERE ,DORM-A ,DORM-B ,DORM-C ,DORM-D>
+		<TELL "(on a bed)" CR>
+		<PERFORM ,V?BOARD ,BED>
+		<RTRUE>)
+	       (<EQUAL? ,HERE ,INFIRMARY>
 		<TELL "(on the bed)" CR>
 		<PERFORM ,V?BOARD ,BED>
 		<RTRUE>)
@@ -1510,20 +1418,8 @@ D ,PRSO "? Dr. Quarnsboggle, the Feinstein's psychiatrist, would ">
 	 <SETG QUOTE-FLAG <>>
 	 <RTRUE>>
 
-;<ROUTINE V-IS-IN ()
-	 <COND (<IN? ,PRSO ,PRSI>
-		<TELL "Yes, it is ">
-		<COND (<FSET? ,PRSI ,SURFACEBIT>
-		       <TELL "on">)
-		      (T <TELL "in">)>
-		<TELL " the " D ,PRSI "." CR>)
-	       (T <TELL "No, it isn't." CR>)>>
-
 <ROUTINE V-KISS ()
 	 <TELL "I'd sooner kiss a pile of Antarian swamp mold." CR>>
-
-<ROUTINE V-RAPE ()
-	 <TELL "What a (ahem!) strange idea." CR>>
 
 <ROUTINE V-DIAGNOSE ()
 	 <SETG C-ELAPSED 18>
@@ -1550,18 +1446,7 @@ D ,PRSO "? Dr. Quarnsboggle, the Feinstein's psychiatrist, would ">
 		       <TELL "quite">)
 		      (T
 		       <TELL "sort of">)>
-		<TELL " tired." CR>)>
-	 <COND (<EQUAL? ,HUNGER-LEVEL 0>
-		<TELL "You seem to be well-fed." CR>)
-	       (T
-		<TELL "You seem to be ">
-		<COND (<G? ,HUNGER-LEVEL 4>
-		       <TELL "awesomely phenomenally">)
-		      (<G? ,HUNGER-LEVEL 2>
-		       <TELL "noticeably">)
-		      (T
-		       <TELL "fairly">)>
-		<TELL " thirsty and hungry." CR>)>>
+		<TELL " tired." CR>)>>
 
 <ROUTINE V-WEAR ()
 	 <COND (<FSET? ,PRSO ,WEARBIT> 
@@ -1738,7 +1623,7 @@ by a momentary queasiness in the pit of your stomach..." CR CR>
 			     (<L? ,P-NUMBER 10>
 			      <TELL
 "After a pause a recorded voice says \"There are no one-digit computer
-sectors...clearing entry...please type damaged sector number.\"" CR>)
+sectors ...clearing entry... please type damaged sector number.\"" CR>)
 			     (<G? ,P-NUMBER 1024>
 			      <TELL 
 "A recorded voice says \"Databanks indicate no computer sector corresponding
@@ -1866,7 +1751,7 @@ want to repair something, you must perform the specific steps required." CR>>
 	       (T
 		<TELL "Why would you want to show something to ">
 		<A-AN>
-		<TELL D ,PRSO "?" CR>)>>
+		<TELL D ,PRSI "?" CR>)>>
 
 <ROUTINE V-INSERT ()
 	 <COND (<EQUAL? ,HERE ,LIBRARY>
@@ -1973,8 +1858,7 @@ We control the disk drives..." CR>)>>
 	 <SETG DEFENSE-FIXED T>
 	 <REMOVE ,GOOD-BOARD>
 	 <SETG COURSE-CONTROL-FIXED T>
-	 <TELL
-"Mother-stabbing father-raping mega-wimp!!!" CR>>
+	 <TELL "Mother-stabbing grotch-tossing mega-wimp!!!" CR>>
 
 
 ;"useful utility routines"
@@ -1999,10 +1883,6 @@ We control the disk drives..." CR>)>>
 		<SETG P-IT-OBJECT .OBJ>
 		<SETG P-IT-LOC ,HERE>)>>
 
-;<ROUTINE THIS-IS-IT (OBJ)
-	 <SETG P-IT-OBJECT .OBJ>
-	 <SETG P-IT-LOC ,HERE>>
-
 <ROUTINE ACCESSIBLE? (OBJ "AUX" (L <LOC .OBJ>)) ;"can player TOUCH object?"
 	 ;"revised 5/2/84 by SEM and SWG"
 	 <COND (<FSET? .OBJ ,INVISIBLE>
@@ -2025,16 +1905,6 @@ We control the disk drives..." CR>)>>
 		<RTRUE>)
 	       (<AND <FSET? .L ,OPENBIT>
 		     <ACCESSIBLE? .L>>
-		<RTRUE>)
-	       (T
-		<RFALSE>)>>
-
-;<ROUTINE VISIBLE? (OBJ "AUX" (L <LOC .OBJ>)) ;"can player SEE object"
-	 ;"revised 5/2/84 by SEM and SWG"
-	 <COND (<ACCESSIBLE? .OBJ>
-		<RTRUE>)
-	       (<AND <SEE-INSIDE? .L>
-		     <VISIBLE? .L>>
 		<RTRUE>)
 	       (T
 		<RFALSE>)>>

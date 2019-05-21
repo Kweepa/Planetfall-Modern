@@ -48,16 +48,13 @@ contains the opening sequence which occurs prior to planetfall."
 
 <ROUTINE UPDATE-STATUS-LINE ()
 	 <SCREEN ,S-WINDOW>
-	 ;<BUFOUT <>>
 	 <HLIGHT ,H-NORMAL>
 	 <HLIGHT ,H-INVERSE>
 	 <COND (<NOT <EQUAL? ,HERE ,OHERE>>
 		<SETG OHERE ,HERE>
-		;<DIROUT ,D-SCREEN-OFF>	        ; "Screen off."
 		<DIROUT ,D-TABLE-ON ,SL-TABLE>  ; "Table on."
 		<SAY-HERE>
 		<DIROUT ,D-TABLE-OFF> 	        ; "Table off."
-		;<DIROUT ,D-SCREEN-ON>		; "Screen on."
 		<CURSET 1 2>
 		<PRINT-SPACES ,OLD-LEN>  ; "Erase old HERE desc"
 		<SETG OLD-LEN <GET ,SL-TABLE 0>> ;"Print new HERE desc."
@@ -67,7 +64,7 @@ contains the opening sequence which occurs prior to planetfall."
 		<CURSET 1 58>
 		<TELL N ,SCORE " ">  ;"for 110 to 80 score bug"
 		<CURSET 1 70>
-		<TELL N ,MOVES>)
+		<COND (<IN? ,CHRONOMETER ,ADVENTURER> <TELL N ,MOVES>) (T <TELL "????">)>)
 	       (T
 		<DIROUT ,D-TABLE-ON ,SL-TABLE>
 		<TELL N ,SCORE "/" N ,MOVES " ">
@@ -98,7 +95,9 @@ contains the opening sequence which occurs prior to planetfall."
 		<TELL D ,HERE>
 	        <COND (<AND <G? ,WIDTH 74>
 			    <FSET? <LOC ,ADVENTURER> ,VEHBIT>>
-		       <TELL ", in the " D <LOC ,ADVENTURER>>)>)>
+             <TELL ", in ">
+             <COND (<EQUAL? ,HERE ,DORM-A ,DORM-B ,DORM-C ,DORM-D> <TELL "a">)(T <TELL "the">)>
+		       <TELL " " D <LOC ,ADVENTURER>>)>)>
 	 <RTRUE>>
 
 <CONSTANT DEFAULT-MOVE 20>
@@ -108,7 +107,7 @@ contains the opening sequence which occurs prior to planetfall."
 
 "SUBTITLE GLOBAL OBJECTS"
 
-<GLOBAL LOAD-ALLOWED 100>
+<GLOBAL LOAD-ALLOWED 200>
 
 <OBJECT GLOBAL-OBJECTS
 	(SYNONYM ZZMGCK)
@@ -173,6 +172,12 @@ contains the opening sequence which occurs prior to planetfall."
 		     <EQUAL? ,HERE ,ADMIN-CORRIDOR-S>>
 		<TELL "A narrow, jagged crevice runs across the floor." CR>)>>
 
+<ROUTINE JIGS-NOT-UP (RARG "AUX" I)
+   <TELL .RARG CR CR>
+   <SET .I <RANDOM 2>>
+   <COND (<EQUAL? .I 1> <TELL "You are jolted out of your reverie by the realization that you nearly did something fatally dumb. Perhaps Blather was right." CR>)
+      (T <TELL "However, I can tell you didn't mean to do that, so let's forget it ever happened." CR>)>>
+
 <OBJECT WINDOW
 	(LOC LOCAL-GLOBALS)
 	(DESC "window")
@@ -220,7 +225,7 @@ within the room.">
 complex in the distance. Water is visible in every direction." CR>)>)
 	       (<AND <VERB? THROUGH>
 		     <EQUAL? ,HERE ,BALCONY>>
-		<JIGS-UP
+		<JIGS-NOT-UP
 "You slice yourself to ribbons on the broken windows and then plummet
 into the swirling ocean below. Very clever.">)
 	       (<VERB? OPEN>
@@ -284,7 +289,7 @@ into the swirling ocean below. Very clever.">)
 		     <EQUAL? ,HERE ,MESS-HALL>>
 		<TELL
 "Wow!!! Under the table are three keys, a sack of food, a reactor elevator
-access pass, one hundred gold pieces ... Just kidding. Actually, there's
+access pass, one hundred gold pieces... Just kidding. Actually, there's
 nothing there." CR>)
 	       (<AND <VERB? PUT-ON>
 		     <EQUAL? ,PRSI ,TABLES>>
@@ -452,7 +457,7 @@ gotten 300 demerits." CR>)
 		<TELL "Auto-cannibalism is not the answer." CR>)
 	       (<VERB? ATTACK MUNG>
 		<COND (<==? ,PRSO ,ME>
-		       <JIGS-UP "If you insist.... Poof, you're dead!">)
+		       <JIGS-UP "If you insist... Poof, you're dead!">)
 		      (ELSE <TELL "What a silly idea!" CR>)>)
 	       (<VERB? TAKE>
 		<TELL "How romantic!" CR>)
@@ -461,11 +466,6 @@ gotten 300 demerits." CR>)
 	       (<VERB? EXAMINE>
 		<TELL "That's difficult unless your eyes are prehensile."
 		      CR>)>>
-
-;<GLOBAL DUMMY
-	<PLTABLE "Look around."
-		"You think it isn't?"
-		"I think you've already done that.">>
 
 <ROUTINE DDESC (DOOR)
 	 <COND (<FSET? .DOOR ,OPENBIT>
@@ -551,10 +551,6 @@ gotten 300 demerits." CR>)
 	   the 0 and >1 cases alike or different. It doesn't matter. Always
 	   return RFALSE (not handled) if you have resolved the problem."
 	<SET M-F <MOBY-FIND .TBL>>
-	;<COND (<AND <G? .M-F 1>
-		    <SET OBJ <GETP <1 .TBL> ,P?GLOBAL>>>
-	       <SET M-F 1>
-	       <SETG P-MOBY-FOUND .OBJ>)>
 	<COND (<==? 1 .M-F>
 	       <COND (.PRSO? <SETG PRSO ,P-MOBY-FOUND>)
 		     (T <SETG PRSI ,P-MOBY-FOUND>)>
@@ -585,10 +581,6 @@ gotten 300 demerits." CR>)
       (LDESC
 "You are in the Feinstein's brig. Graffiti cover
 the walls. The cell door to the south is locked.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH SORRY "The cell door is locked.")
       (FLAGS RLANDBIT ONBIT)
       (PSEUDO "GRAFFITI" GRAFFITI-PSEUDO "DOOR" DOOR-PSEUDO)>
@@ -596,17 +588,13 @@ the walls. The cell door to the south is locked.")
 <ROOM DECK-NINE
       (LOC ROOMS)
       (DESC "Deck Nine")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST"15 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST"15 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO REACTOR-LOBBY IF CORRIDOR-DOOR IS OPEN)
       (WEST TO ESCAPE-POD IF POD-DOOR IS OPEN)
       (IN TO ESCAPE-POD IF POD-DOOR IS OPEN)
       (UP TO GANGWAY IF GANGWAY-DOOR IS OPEN)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL POD-DOOR CORRIDOR-DOOR GANGWAY-DOOR STAIRS GLOBAL-POD)
-      (PSEUDO "TRANSL" TRANSLATOR-PSEUDO "SLIME" SLIME-PSEUDO)
+      (PSEUDO "TRANSLATOR" TRANSLATOR-PSEUDO "SLIME" SLIME-PSEUDO)
       (ACTION DECK-NINE-F)>
 
 <ROUTINE DECK-NINE-F (RARG)
@@ -690,7 +678,7 @@ ID Number:  6172-531-541\"")>
 technology. It will keep its owner warm in cold climates and cool in warm
 locales. It provides protection against mild radiation, repels all insects,
 absorbs sweat, promotes healthy skin tone, and on top of everything else,
-it is supercomfy.">
+it is super comfy.">
 		<COND (<EQUAL? ,TRIP-COUNTER 15>
 		       <TELL
 " There are definitely worse things to find yourself wearing when stranded
@@ -729,13 +717,6 @@ on a strange planet.">)>
 	(SIZE 3)
 	(ACTION DIARY-F)>
 
-;<ROUTINE DIARY-F ()
-	 <COND (<VERB? READ EXAMINE>
-		<TELL "You've scribbled in a diary ever since you can
-remember. You turn on this battered old electro-book; the screen blanks,
-clears and types, \"Doo not plaee with mee until Aamee kodes mee in.\""
-CR>)>>
-
 <GLOBAL DIARY-CTR 0>
 
 <ROUTINE DIARY-F ()
@@ -749,19 +730,12 @@ includes a little button">
 		       <TELL ", which is flashing,">)>
 		<TELL
 " and a microphone/speaker. To read its screen, type READ DIARY." CR>)
-	       ;(<AND <VERB? READ>
-		     <NOT <FSET? ,DIARY ,ACTIVEBIT>>>
-		;<QUEUE I-DIARY-READER -1>
-		<FSET ,DIARY ,ACTIVEBIT>
-		<SETG DIARY-CTR 0>
-		<READ-DIARY>)
 	       (<VERB? READ>
 		<COND (<IN? ,BLATHER ,HERE>
 		       <TELL
 "Blather stops you, scribbling madly. \"I warned you, Ensign!
 That's another two hundred demerits!\"" CR>)
 		      (<NOT <FSET? ,DIARY ,ACTIVEBIT>>
-		       ;<QUEUE I-DIARY-READER -1>
 		       <FSET ,DIARY ,ACTIVEBIT>
 		       <SETG DIARY-CTR 0>
 		       <READ-DIARY>)
@@ -838,7 +812,7 @@ and told me that diaries were against regulations. But I'll be frobbed if
 I'm going to stop. I've started hiding the diary inside my official documents
 file, and I keep that hidden in the air duct. From now on I'll have to sneak
 away somewhere to use it."
-	 "Bozbar 27 -- Greeting from the Deck Four Supply Closet of the
+	 "Bozbar 27 -- Greetings from the Deck Four Supply Closet of the
 S.P.S. Feinstein. I hope I'm not tempting fate, sneaking around with my diary
 this way. I used to be as much of a disbeliever in destiny as the next guy,
 but not anymore. Not since the time my mom warned my dad not to tempt fate
@@ -882,7 +856,7 @@ archaeologists back on Varshon think it might have been part of the Second
 Union. I can't imagine why anyone would settle out here in this remote
 corner of the galaxy."
 	 "Septem 5 -- That krip has done it again! I missed two little
-pellets of trot when I was when I was cleaning out the grotch cages yesterday,
+pellets of trot when I was cleaning out the grotch cages yesterday,
 and Blather gave me 100 demerits and assigned me two extra shifts of deck
 scrubbing -- including Deck Nine, the filthiest deck on the ship! I'm
 considering asking for a transfer -- or if things get worse, I might even
@@ -911,10 +885,6 @@ screen, and the little button flashes.">)>
 "The corridor widens here as it nears the main drive area. To starboard is
 the Ion Reactor that powers the vessel, and aft of here is the Auxiliary
 Control Room. The corridor continues to port.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST"15 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO DECK-NINE IF CORRIDOR-DOOR IS OPEN)
       (SOUTH SORRY "Ensign Blather pushes you roughly back toward your post.")
       (EAST SORRY "Ensign Blather blocks your way, snarling angrily.")
@@ -927,10 +897,6 @@ Control Room. The corridor continues to port.")
       (LDESC
 "This is a steep metal gangway connecting Deck Eight, above, and Deck
 Nine, below.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"10  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (UP TO DECK-EIGHT)
       (DOWN TO DECK-NINE IF GANGWAY-DOOR IS OPEN)
       (FLAGS RLANDBIT ONBIT)
@@ -942,7 +908,7 @@ Nine, below.")
 		<COND (<AND <PROB 15>
 			    <EQUAL? ,BLOWUP-COUNTER 0>>
 		       <TELL
-"You hear a distant bellowing ... something about an Ensign Seventh Class
+"You hear a distant bellowing... something about an Ensign Seventh Class
 whose life is in danger." CR>)>)>>
 
 <ROOM DECK-EIGHT
@@ -951,31 +917,12 @@ whose life is in danger." CR>)>)>>
       (LDESC
 "This is a featureless corridor leading port and starboard. A gangway leads
 down, and to fore is the Hyperspatial Jump Machinery Room.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"10  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (DOWN TO GANGWAY)
       (EAST SORRY "Blather throws you to the deck and makes you do 20 push-ups.")
       (WEST SORRY "Blather throws you to the deck and makes you do 20 push-ups.")
       (NORTH SORRY "Blather blocks your path, growling about extra galley duty.")
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL STAIRS)>
-
-;<OBJECT MEASLE
-	(DESC "Lt. Measle")
-	(LDESC
-"The Feinstein's record officer, Lieutenant Measle, is here.")
-	(SYNONYM MEASLE OFFICER)
-	(ADJECTIVE LT LIEUTENANT RECORD)
-	(FLAGS ACTORBIT)
-	(ACTION MEASLE-F)>
-
-;<ROUTINE MEASLE-F ()
-	 <COND (<VERB? ATTACK KICK>
-		<TELL "Lt. Measle summons Ensign Blather, who throws
-you in the brig." CR>
-		<GOTO ,BRIG>)>> 
 
 <GLOBAL BLATHER-LEAVE 0>
 
@@ -1094,7 +1041,7 @@ here on three of his legs, and watching you with seven of his eyes.")
 
 <ROUTINE CELERY-F ()
 	 <COND (<VERB? EAT>
-		<JIGS-UP
+		<JIGS-NOT-UP
 "Oops. Looks like Blow'k-Bibben-Gordoan metabolism is not
 compatible with our own. You die of all sorts of convulsions.">)
 	       (<VERB? TAKE>
@@ -1193,10 +1140,6 @@ translator slung around his neck." CR>)
 <ROOM ESCAPE-POD
       (LOC ROOMS)
       (DESC "Escape Pod")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST PER POD-EXIT-F)
       (OUT PER POD-EXIT-F)
       (UP PER POD-EXIT-F)
@@ -1272,9 +1215,7 @@ from one to, perhaps, twenty people." CR>)
 grabbing onto." CR>)
 	       (<AND <VERB? BOARD CLIMB-ON>
 		     <EQUAL? .RARG ,M-OBJECT>>
-		<GOTO ,SAFETY-WEB>
-		;<MOVE ,ADVENTURER ,SAFETY-WEB>
-		;<SETG OHERE <>>                   ;"arb"
+		<GOTO ,SAFETY-WEB <>>
 		<TELL
 "You are now safely cushioned within the web." CR>)
 	       (<AND <VERB? OPEN TAKE>
@@ -1289,9 +1230,7 @@ grabbing onto." CR>)
 	       (<AND <VERB? EXIT DISEMBARK DROP STAND>
 		     <EQUAL? .RARG ,M-OBJECT>
 		     <IN? ,ADVENTURER ,SAFETY-WEB>>
-		<GOTO ,HERE>
-		;<MOVE ,ADVENTURER ,HERE>
-		;<SETG OHERE <>>                 ;"arb"
+		<GOTO ,HERE <>>
 		<COND (<AND <G? ,TRIP-COUNTER 14>
 			    <EQUAL? <GET <INT I-SINK-POD> ,C-ENABLED?> 0>>
 		       <ENABLE <QUEUE I-SINK-POD -1>>
@@ -1371,9 +1310,7 @@ have to shake the kit to get the goo out." CR>)>)>>
 		     (T
 		      <REMOVE ,PRSO>
 		      <SETG C-ELAPSED 15>
-		      <SETG HUNGER-LEVEL 0>
-		      <ENABLE <QUEUE I-HUNGER-WARNINGS 1450>>
-		      <TELL "Mmmm...that tasted just like ">
+		      <TELL "Mmmm... that tasted just like ">
 		      <COND (<EQUAL? ,PRSO ,BROWN-GOO>
 			     <TELL "delicious Nebulan fungus pudding">)
 			    (<EQUAL? ,PRSO ,RED-GOO>
@@ -1408,33 +1345,56 @@ bulkhead leading out is ">
 	(ACTION POD-DOOR-F)>
 
 <ROUTINE POD-DOOR-F ()
-	 <COND (<VERB? OPEN>
-		<COND (<FSET? ,POD-DOOR ,OPENBIT>
-		       <ALREADY-OPEN>)
-		      (<G? ,TRIP-COUNTER 14>
-		       <FSET ,POD-DOOR ,OPENBIT>
-		       <TELL 
-"The bulkhead opens and cold ocean water rushes in!" CR>)
-		      (<G? ,BLOWUP-COUNTER 0>
-		       <COND (<EQUAL? ,HERE ,DECK-NINE>
-			      <TELL
-"Too late. The pod's launching procedure has already begun." CR>)
-			     (T
-			      <TELL
-"Opening the door now would be a phenomenally stupid idea." CR>)>)
+   <COND
+      ( <VERB? OPEN>
+   		<COND
+            ( <FSET? ,POD-DOOR ,OPENBIT>
+               <ALREADY-OPEN>
+            )
+            ( <IN? ,ADVENTURER ,SAFETY-WEB>
+               <TELL "You can't reach the pod door from the safety webbing." CR>
+            )
+		      ( <G? ,TRIP-COUNTER 14>
+		         <FSET ,POD-DOOR ,OPENBIT>
+		         <TELL "The bulkhead opens and cold ocean water rushes in!" CR>
+            )
+		      ( <G? ,BLOWUP-COUNTER 0>
+		         <COND
+                  ( <EQUAL? ,HERE ,DECK-NINE>
+			            <TELL "Too late. The pod's launching procedure has already begun." CR>
+                  )
+			         ( T
+                     <TELL "Opening the door now would be a phenomenally stupid idea." CR>
+                  )
+               >
+            )
+		      (
+               T <TELL "Why open the door to the emergency escape pod if there's no emergency?" CR>
+            )
+         >
+      )
+	   ( <VERB? CLOSE>
+		   <COND
+            ( <NOT <FSET? ,POD-DOOR ,OPENBIT>>
+		         <IS-CLOSED>
+            )
+		      ( T
+		         <TELL "You can't close it yourself." CR>
+            )
+         >
+      )
+	   ( <VERB? THROUGH>
+		   <COND
+            ( <EQUAL? ,HERE ,DECK-NINE>
+		         <DO-WALK ,P?WEST>
+            )
 		      (T
-		       <TELL
-"Why open the door to the emergency escape pod if there's no emergency?" CR>)>)
-	       (<VERB? CLOSE>
-		<COND (<NOT <FSET? ,POD-DOOR ,OPENBIT>>
-		       <IS-CLOSED>)
-		      (T
-		       <TELL "You can't close it yourself." CR>)>)
-	       (<VERB? THROUGH>
-		<COND (<EQUAL? ,HERE ,DECK-NINE>
-		       <DO-WALK ,P?WEST>)
-		      (T
-		       <DO-WALK ,P?OUT>)>)>>
+               <DO-WALK ,P?OUT>
+            )
+         >
+      )
+   >
+>
 
 <OBJECT CORRIDOR-DOOR
 	(LOC LOCAL-GLOBALS)
@@ -1594,7 +1554,7 @@ black rectangle." CR>)
 	       (<EQUAL? ,TRIP-COUNTER 3>
 		<TELL CR
 "The main thrusters fire a long, gentle burst. A monotonic voice issues
-from the control panel. \"Approaching planet...human-habitable.\"" CR>)
+from the control panel. \"Approaching planet... human-habitable.\"" CR>)
 	       (<EQUAL? ,TRIP-COUNTER 7>
 		<TELL CR
 "The pod is buffeted as it enters the planet's atmosphere." CR>)
@@ -1612,8 +1572,7 @@ long and hard, slowing the pod's descent." CR>)
 		<TELL CR
 "The pod is now approaching the closer of a pair of islands. It appears
 to be surrounded by sheer cliffs rising from the water, and is topped by
-a wide plateau. The plateau seems to be covered by a sprawling complex
-of buildings." CR>)
+a wide plateau. The plateau is covered by a sprawling complex of buildings." CR>)
 	       (<EQUAL? ,TRIP-COUNTER 11>
 		<COND (<IN? ,ADVENTURER ,SAFETY-WEB>
 		       <MOVE ,FOOD-KIT ,HERE>
@@ -1685,7 +1644,7 @@ It is surrounded on its long sides by parallel ridges of metal." CR>)
 		<MOVE ,PRSO ,ADVENTURER>
 		<COND (<FSET? ,PRSO ,SCRAMBLEDBIT>
 		       <TELL
-"A sign flashes \"Magnetik striip randumiizd...konsult Prajekt Handbuk abowt
+"A sign flashes \"Magnetik striip randumiizd... konsult Prajekt Handbuk abowt
 propur kaar uv awtharazaashun kardz.\"" CR>)
 		      (<EQUAL? ,PRSO ,KITCHEN-CARD>
 		       <COND (<EQUAL? ,HERE ,MESS-HALL>
@@ -1741,7 +1700,7 @@ activated. Please type in damaged sector number.\"" CR>)
 <CONSTANT ELEVATOR-ENABLED "A recorded voice chimes \"Elevator enabled.\"">
 
 <CONSTANT WRONG-CARD 
-"A sign flashes \"Inkorekt awtharazaashun kard...akses deeniid.\"">
+"A sign flashes \"Inkorekt awtharazaashun kard... akses deeniid.\"">
 
 <GLOBAL CARD-REVEALED <>> ;"checks whether Floyd has already revealed his card"
 
@@ -1887,10 +1846,6 @@ nothing. He scratches his head and looks confused." CR>)>)>>
 <ROOM SHUTTLE-CAR-ALFIE
       (LOC ROOMS)
       (DESC "Shuttle Car Alfie")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH PER SHUTTLE-EXIT-F)
       (EAST TO ALFIE-CONTROL-EAST)
       (WEST TO ALFIE-CONTROL-WEST)
@@ -1901,10 +1856,6 @@ nothing. He scratches his head and looks confused." CR>)>)>>
 <ROOM ALFIE-CONTROL-EAST
       (LOC ROOMS)
       (DESC "Alfie Control East")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO SHUTTLE-CAR-ALFIE IF SHUTTLE-DOOR IS OPEN)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL SLOT WINDOW LEVER SHUTTLE-DOOR GLOBAL-SHUTTLE)
@@ -1913,10 +1864,6 @@ nothing. He scratches his head and looks confused." CR>)>)>>
 <ROOM ALFIE-CONTROL-WEST
       (LOC ROOMS)
       (DESC "Alfie Control West")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO SHUTTLE-CAR-ALFIE IF SHUTTLE-DOOR IS OPEN)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL SLOT LEVER WINDOW SHUTTLE-DOOR GLOBAL-SHUTTLE)
@@ -1951,10 +1898,6 @@ of the cabin, and a doorway leads out to a wide platform to the ">
 <ROOM SHUTTLE-CAR-BETTY
       (LOC ROOMS)
       (DESC "Shuttle Car Betty")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH PER SHUTTLE-EXIT-F)
       (EAST TO BETTY-CONTROL-EAST)
       (WEST TO BETTY-CONTROL-WEST)
@@ -1965,10 +1908,6 @@ of the cabin, and a doorway leads out to a wide platform to the ">
 <ROOM BETTY-CONTROL-EAST
       (LOC ROOMS)
       (DESC "Betty Control East")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO SHUTTLE-CAR-BETTY IF SHUTTLE-DOOR IS OPEN)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL GLOBAL-SHUTTLE SLOT WINDOW LEVER SHUTTLE-DOOR)
@@ -1977,10 +1916,6 @@ of the cabin, and a doorway leads out to a wide platform to the ">
 <ROOM BETTY-CONTROL-WEST
       (LOC ROOMS)
       (DESC "Betty Control West")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO SHUTTLE-CAR-BETTY IF SHUTTLE-DOOR IS OPEN)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL GLOBAL-SHUTTLE SLOT LEVER WINDOW SHUTTLE-DOOR)
@@ -2366,8 +2301,6 @@ a nice safe place to sleep." CR>
 		       <TELL CR
 "You climb into one of the bunk beds and immediately fall asleep." CR>
 		       <GOTO ,BED>           ;"arb"
-		       ;<MOVE ,ADVENTURER ,BED>
-		       ;<SETG OHERE <>>
 		       <DREAMING>)
 		      (T
 		       <TELL CR
@@ -2416,27 +2349,23 @@ a slightly safer place to sleep.">)
 		<RFALSE>)
 	       (<VERB? THROUGH BOARD WALK-TO>
 		<COND (<EQUAL? ,HERE ,INFIRMARY>
-		       <JIGS-UP
+		       <TELL
 "You climb into the bed. It is soft and comfortable. After a few moments, a
 previously unseen panel opens, and a diagnostic robot comes wheeling out. It
 is very rusty and sways unsteadily, bumping into several pieces of infirmary
-equipment as it crosses the room. As the robot straps you to the bed, you
-notice some smoke curling from its cracks. Beeping happily, the robot injects
-you with all 347 serums and medicines it carries. The last thing you notice
-before you pass out is the robot preparing to saw your legs off.">)
+equipment as it crosses the room. As the robot approaches, you
+notice some smoke curling from its cracks. Beeping happily, the robot attempts to inject
+you with all 347 serums and medicines it carries. When you leap to your feet, it
+speeds carelessly back inside its panel. Guess you won't be sleeping here!">)
 		      (<G? ,SLEEPY-LEVEL 0>
-		       <GOTO ,BED>          ;"arb"
-		       ;<MOVE ,ADVENTURER ,BED>
-		       ;<SETG OHERE <>>
+		       <GOTO ,BED <>>          ;"arb"
 		       <ENABLE <QUEUE I-FALL-ASLEEP 16>>
 		       <DISABLE <INT I-SLEEP-WARNINGS>>
 		       <TELL 
-"Ahhh...the bed is soft and comfortable. You should be asleep in short
+"Ahhh... the bed is soft and comfortable. You should be asleep in short
 order." CR>)
 		      (T
 		       <GOTO ,BED>            ;"arb"
-		       ;<MOVE ,ADVENTURER ,BED>
-		       ;<SETG OHERE <>>
 		       <TELL "You are now in bed." CR>)>)
 	       (<AND <VERB? DISEMBARK STAND EXIT DROP>
 		     <GET <INT I-FALL-ASLEEP> ,C-TICK>>
@@ -2513,6 +2442,7 @@ closer...">>
 	 <SETG SICKNESS-WARNING-FLAG T>
 	 <SETG SLEEPY-LEVEL 0>
 	 <RESET-TIME>
+    <UPDATE-STATUS-LINE>
 	 <SET X <FIRST? ,ADVENTURER>>
 	 <REPEAT ()
 		 <COND (.X
@@ -2547,13 +2477,6 @@ mysterious world.">)
 	       (T
 		<TELL
 "You wake feeling weak and worn-out. It will be an effort just to stand up.">)>
-	 <COND (<G? ,HUNGER-LEVEL 0>
-		<SETG HUNGER-LEVEL 4>
-		<ENABLE <QUEUE I-HUNGER-WARNINGS 100>>
-		<TELL
-" You are also incredibly famished. Better get some breakfast!">)
-	       (T
-		<ENABLE <QUEUE I-HUNGER-WARNINGS 400>>)>
 	 <CRLF>
 	 <COND (<AND <FSET? ,FLOYD ,RLANDBIT>
 		     ,FLOYD-INTRODUCED>
@@ -2602,34 +2525,9 @@ sleeping on the floor,\" he says." CR>)>)>>
 
 ^L
 
-"Feed me!"
+"Feed me! - no thanks!"
 
-<GLOBAL HUNGER-LEVEL 0>
-
-<ROUTINE I-HUNGER-WARNINGS ()
-	 <SETG HUNGER-LEVEL <+ ,HUNGER-LEVEL 1>>
-	 <COND (<EQUAL? ,HUNGER-LEVEL 1>
-		<ENABLE <QUEUE I-HUNGER-WARNINGS 450>>
-		<TELL CR
-"A growl from your stomach warns that you're getting pretty hungry and
-thirsty." CR>)
-	       (<EQUAL? ,HUNGER-LEVEL 2>
-		<ENABLE <QUEUE I-HUNGER-WARNINGS 150>>
-		<TELL CR
-"You're now really ravenous and your lips are quite parched." CR>)
-	       (<EQUAL? ,HUNGER-LEVEL 3>
-		<ENABLE <QUEUE I-HUNGER-WARNINGS 100>>
-		<TELL CR
-"You're starting to feel faint from lack of food and liquid." CR>)
-	       (<EQUAL? ,HUNGER-LEVEL 4>
-		<ENABLE <QUEUE I-HUNGER-WARNINGS 50>>
-		<TELL CR
-"If you don't eat or drink something in a few millichrons, you'll probably
-pass out." CR>)
-	       (<EQUAL? ,HUNGER-LEVEL 5>
-		<JIGS-UP
-"|
-You collapse from extreme thirst and hunger.">)>>
+<GLOBAL HUNGER-LEVEL 1>
 
 <CONSTANT NOT-HUNGRY "Thanks, but you're not hungry.">
 
@@ -2852,7 +2750,7 @@ around?\"" CR>)>>
 		<TELL
 "Hardly the time or place for reading recreational tapes." CR>)
 	       (<VERB? EXAMINE>
-		<TELL "Let's see...here are some musical selections, here are
+		<TELL "Let's see... here are some musical selections, here are
 some bestselling romantic novels, here is a biography of a famous Double
 Fannucci champion..." CR>)>>
 
@@ -3019,7 +2917,7 @@ SEENIK VISTA
 |
 Xis stuneeng vuu uf xee Kalamontee Valee kuvurz oovur fortee skwaar miilz
 uf xat faamus tuurist spot. Xee larj bildeeng at xee bend in xee Gulmaan Rivur
-iz xee formur pravincul kapitul bildeeng." CR>)>>
+iz xee formur pravinshul kapitul bildeeng." CR>)>>
 
 <ROUTINE FENCE-PSEUDO ()
 	 <COND (<VERB? CLIMB-UP CLIMB-FOO LEAP>

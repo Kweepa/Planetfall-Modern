@@ -43,8 +43,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 <CONSTANT P-LEXSTART 1> ;"Number of words per LEXV entry"  
 <CONSTANT P-LEXELEN 2>   
 <CONSTANT P-WORDLEN 4>  ;"Offset to parts of speech byte"   
-;<CONSTANT P-PSOFF 4>    ;"Offset to first part of speech"
-;<CONSTANT P-P1OFF 5>    ;"First part of speech bit mask in PSOFF byte"  
 
 <CONSTANT P-PSOFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 6) (T 4)>>
 <CONSTANT P-P1OFF %<COND (<AND <GASSIGNED? PLUS-MODE> ,PLUS-MODE> 7) (T 5)>>
@@ -73,8 +71,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 <GLOBAL P-PRSA-WORD <>>
 <GLOBAL QUOTE-FLAG <>>
 
-;<CONSTANT P-INBUF-LENGTH 120> ;"number of bytes in input buffer"
-;<GLOBAL RESERVE-INBUF <ITABLE 120 (BYTE LENGTH) 0>> 
 <CONSTANT RESERVE-INBUF <ITABLE ,P-INBUF-LENGTH (BYTE LENGTH) 0>>
 
 ;"AGAIN stuff"
@@ -86,7 +82,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 
 ;"OOPS stuff"
 <CONSTANT OOPS-INBUF <ITABLE ,P-INBUF-LENGTH (BYTE LENGTH) 0>>
-;<GLOBAL OOPS-INBUF <ITABLE 120 (BYTE LENGTH) 0>>
 <GLOBAL OOPS-TABLE <TABLE <> <> <> <>>>
 <CONSTANT O-PTR 0>
 <CONSTANT O-START 1>
@@ -130,7 +125,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 	      (,P-CONT
 	       <SET PTR ,P-CONT>
 	       <COND (<AND <EQUAL? ,ADVENTURER ,WINNER>
-			   ;<NOT <VERB? TELL>>
 			   <NOT ,SUPER-BRIEF>>
 		      <CRLF>)>)
 	      (T
@@ -216,7 +210,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 		      <SETG RESERVE-PTR .PTR>)
 		     (T
 		      <SETG RESERVE-PTR <>>)>
-	       ;<SETG P-LEN <GETB ,AGAIN-LEXV ,P-LEXWORDS>>
 	       <SETG WINNER .OWINNER>
 	       <SETG P-MERGED .OMERGED>
 	       <INBUF-STUFF ,P-INBUF ,OOPS-INBUF>
@@ -241,7 +234,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 			      <GETB ,P-LEXV <- .LEN 2>>>>)>
 	       <SETG RESERVE-PTR <>>
 	       <SET LEN ,P-LEN>
-	       ;<SETG P-DIRECTION <>>
 	       <SETG P-NCN 0>
 	       <SETG P-GETFLAGS 0>
 	       <REPEAT ()
@@ -313,13 +305,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 				  <EQUAL? .WRD ,W?ALL ,W?ONE ,W?BOTH>
 				  <WT? .WRD ,PS?ADJECTIVE>
 				  <WT? .WRD ,PS?OBJECT>>
-			      ;<COND (<AND .VAL
-					  <EQUAL? .WRD ,W?BACK>
-					  <NOT <EQUAL? .VERB ,ACT?HAND>>>
-				     <SET VAL 0>)>
-			      ;"3/3/86 -- fix OPEN BACK DOOR given that
-				   back is also a prep for HAND BACK OBJ -pdl"
-			      ;"removed for XZIP - GTB"
 			      <COND (<AND <G? ,P-LEN 0>
 					  <EQUAL? .NW ,W?OF>
 					  <ZERO? .VAL>
@@ -373,7 +358,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 	<SETG P-WALK-DIR <>>
 	<SETG AGAIN-DIR <>>
 	<COND (,P-OFLAG <ORPHAN-MERGE>)>
-	;<COND (<==? <GET ,P-ITBL ,P-VERB> 0> <PUT ,P-ITBL ,P-VERB ,ACT?CALL>)>
 	<COND (<AND <SYNTAX-CHECK> <SNARF-OBJECTS> <MANY-CHECK> <TAKE-CHECK>>
 	       T)>>
 
@@ -454,10 +438,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 			   <SET WORD <NUMBER? .PTR>>>
 		       <COND (<0? ,P-LEN> <SET NW 0>)
 			     (T <SET NW <GET ,P-LEXV <+ .PTR ,P-LEXELEN>>>)>
-		       ;<COND (<AND <==? .WORD ,W?OF>
-				   <==? <GET ,P-ITBL ,P-VERB> ,ACT?ACCUSE>>
-			      <PUT ,P-LEXV .PTR ,W?WITH>
-			      <SET WORD ,W?WITH>)>
 		       <COND ;(<AND <EQUAL? .WORD ,W?PERIOD>
 				   <EQUAL? .LW ,W?MRS ,W?MR ,W?MS>>
 			      <SET LW 0>)
@@ -917,8 +897,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 
 <GLOBAL P-ADJ <>>   
 
-;<GLOBAL P-ADJN <>>  
-
 <GLOBAL P-PRSO <ITABLE NONE 50>>   
 
 <GLOBAL P-PRSI <ITABLE NONE 50>>   
@@ -1098,10 +1076,8 @@ begin with 'P-'.  Local variables are not restricted in any way."
 			  <OBJ-FOUND ,NOT-HERE-OBJECT .TBL>
 			  <SETG P-XNAM ,P-NAM>
 			  <SETG P-XADJ ,P-ADJ>
-			  ;<SETG P-XADJN ,P-ADJN>
 			  <SETG P-NAM <>>
 			  <SETG P-ADJ <>>
-			  ;<SETG P-ADJN <>>
 			  <RTRUE>)
 			 (T
 			  <TELL "It's too dark to see!" CR>)>)>
@@ -1138,7 +1114,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 <GLOBAL P-MOBY-FOUND <>>   
 <GLOBAL P-XNAM <>>
 <GLOBAL P-XADJ <>>
-;<GLOBAL P-XADJN <>>   
 
 <ROUTINE WHICH-PRINT (TLEN LEN TBL "AUX" OBJ RLEN)
 	 <SET RLEN .LEN>
@@ -1189,8 +1164,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 				    <GET .RMG <+ <* .CNT 2> 1>>>
 			      <SET FOO
 				   <BACK <GETPT ,PSEUDO-OBJECT ,P?ACTION> 7>>
-			      ;<PUT .FOO 0 <GET ,P-NAM 0>>
-			      ;<PUT .FOO 1 <GET ,P-NAM 1>>
 			      <COPYT ,P-NAM .FOO 6>
 			      <OBJ-FOUND ,PSEUDO-OBJECT .TBL>
 			      <RETURN>)
@@ -1321,12 +1294,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 	       (T
 		<HELD? <LOC .OBJ> .CONT>)>>
 
-;<ROUTINE HELD? (CAN)
-	 <REPEAT ()
-		 <SET CAN <LOC .CAN>>
-		 <COND (<NOT .CAN> <RFALSE>)
-		       (<==? .CAN ,WINNER> <RTRUE>)>>>
-
 <ROUTINE MANY-CHECK ("AUX" (LOSS <>) TMP)
 	<COND (<AND <G? <GET ,P-PRSO ,P-MATCHLEN> 1>
 		    <NOT <BTST <GETB ,P-SYNTAX ,P-SLOC1> ,SMANY>>>
@@ -1335,7 +1302,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 		    <NOT <BTST <GETB ,P-SYNTAX ,P-SLOC2> ,SMANY>>>
 	       <SET LOSS 2>)>
 	<COND (.LOSS
-	       <TELL "I can't use multiple ">
+	       <TELL "You can't use multiple ">
 	       <COND (<==? .LOSS 2> <TELL "in">)>
 	       <TELL "direct objects with \"">
 	       <SET TMP <GET ,P-ITBL ,P-VERBN>>
@@ -1348,19 +1315,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 	       <RFALSE>)
 	      (T)>>  
  
-;<ROUTINE ZMEMQ (ITM TBL "OPTIONAL" (SIZE -1) "AUX" (CNT 1)) 
-	<COND (<NOT .TBL> <RFALSE>)>
-	<COND (<NOT <L? .SIZE 0>> <SET CNT 0>)
-	      (ELSE <SET SIZE <GET .TBL 0>>)>
-	<REPEAT ()
-		<COND (<==? .ITM <GET .TBL .CNT>> <RTRUE>)
-		      (<IGRTR? CNT .SIZE> <RFALSE>)>>>    
-
-;<ROUTINE ZMEMQB (ITM TBL SIZE "AUX" (CNT 0))
-	<REPEAT ()
-		<COND (<==? .ITM <GETB .TBL .CNT>> <RTRUE>)
-		      (<IGRTR? CNT .SIZE> <RFALSE>)>>>
-
 <ROUTINE LIT? (RM "AUX" OHERE (LIT <>))
 	<SETG P-GWIMBIT ,ONBIT>
 	<SET OHERE ,HERE>
@@ -1384,13 +1338,6 @@ begin with 'P-'.  Local variables are not restricted in any way."
 		<TELL " " D ,PRSO>)
 	       (T
 		<BUFFER-PRINT .PTR <GET ,P-ITBL ,P-NC1L> <>>)>>
-
-;<ROUTINE PRSI-PRINT ("AUX" PTR)
-	 <COND (<OR ,P-MERGED
-		    <==? <GET <SET PTR <GET ,P-ITBL ,P-NC2>> 0> ,W?IT>>
-		<TELL " " D ,PRSO>)
-	       (T
-		<BUFFER-PRINT .PTR <GET ,P-ITBL ,P-NC2L> <>>)>>
 
 <ROUTINE THIS-IT? (OBJ "AUX" SYNS CNT)
 	 <COND (<FSET? .OBJ ,INVISIBLE>

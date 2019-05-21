@@ -11,10 +11,6 @@ with Complex One / the Western Complex / the Kalamontee Compleks."
 "You are momentarily disoriented as you enter the turbulent waters.
 Currents buffet you against the sharp rocks of an underwater
 cliff. A dim light filters down from above.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"    35
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (UP TO CRAG)
       (DOWN TO UNDERWATER)
       (WEST TO UNDERWATER)
@@ -42,10 +38,6 @@ under the weight of the escape pod. About two meters below, turbulent waters
 swirl against sharp rocks. A small structure clings to the face of the cliff
 about eight meters above you. Even an out-of-shape Ensign Seventh Class could
 probably climb up to it.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"10  ;"UP"    40
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (DOWN TO UNDERWATER)
       (UP TO BALCONY)
       (FLAGS ONBIT RLANDBIT)
@@ -55,16 +47,15 @@ probably climb up to it.")
       (ACTION CRAG-F)>
 
 <ROUTINE CRAG-F (RARG)
+   <COND (<IN? ,DIARY ,ADVENTURER>
+      <REMOVE ,DIARY>
+      <TELL "Your diary slips from your grasp and quickly sinks from view!" CR CR>)>
 	 <COND (<EQUAL? .RARG ,M-ENTER>
 		<SETG DROWN 3>)>>
 
 <ROOM BALCONY
       (LOC ROOMS)
       (DESC "Balcony")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"25  ;"UP"    30
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (DOWN PER WATER-LEVEL-F)
       (UP TO WINDING-STAIR)
       (FLAGS ONBIT RLANDBIT)
@@ -95,10 +86,6 @@ now underwater!" CR>)
 <ROOM WINDING-STAIR
       (LOC ROOMS)
       (DESC "Winding Stair")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"15  ;"UP"    30
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (DOWN PER WATER-LEVEL-F)
       (UP TO COURTYARD)
       (FLAGS ONBIT RLANDBIT)
@@ -120,10 +107,6 @@ now underwater!" CR>)
 <ROOM COURTYARD
       (LOC ROOMS)
       (DESC "Courtyard")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"15  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (DOWN TO WINDING-STAIR)
       (SOUTH TO WINDING-STAIR)
       (WEST TO WEST-WING)
@@ -166,10 +149,6 @@ and a stairway downward is visible to the south. ">
 "This was once the west wing of the castle, but the walls are now mostly
 rubble, allowing a view of the cliff and ocean below. Rubble blocks all exits
 save one, eastward to the courtyard.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO COURTYARD)
       (DOWN SORRY "Certain death.")
       (FLAGS ONBIT RLANDBIT FLOYDBIT)
@@ -183,10 +162,6 @@ save one, eastward to the courtyard.")
 "This is a featureless hall leading north and south. Although the hallway is
 old and dusty, the construction is of a much more modern style than the
 castle to the south. A similar hall branches off to the northeast.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"  25  ;"NORTH"  0>)
       (SOUTH TO COURTYARD)
       (NORTH TO REC-AREA)
       (NE TO REC-CORRIDOR)
@@ -195,10 +170,6 @@ castle to the south. A similar hall branches off to the northeast.")
 <ROOM REC-AREA
       (LOC ROOMS)
       (DESC "Rec Area")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO CONFERENCE-ROOM IF CONFERENCE-DOOR IS OPEN)
       (SOUTH TO PLAIN-HALL)
       (EAST TO REC-CORRIDOR)
@@ -228,10 +199,6 @@ N ,DIAL-NUMBER>)>
 <ROOM CONFERENCE-ROOM
       (LOC ROOMS)
       (DESC "Conference Room")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH TO REC-AREA IF CONFERENCE-DOOR IS OPEN)
       (OUT TO REC-AREA IF CONFERENCE-DOOR IS OPEN)
       (IN TO BOOTH-1)
@@ -315,10 +282,6 @@ open it." CR>)
 "This is a tiny room with a large \"1\" painted on the wall. A panel contains
 a slot about ten centimeters wide, a beige button labelled \"2\" and a tan
 button labelled \"3.\"")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH TO CONFERENCE-ROOM)
       (OUT TO CONFERENCE-ROOM)
       (PSEUDO "BOOTH" IN-BOOTH-PSEUDO)
@@ -331,10 +294,6 @@ button labelled \"3.\"")
       (LDESC
 "This is a wide, east-west hallway. Portals lead north and south, and another
 corridor branches southwest.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"  25  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO REC-AREA)
       (NORTH TO DORM-B)
       (SOUTH TO DORM-A)
@@ -342,18 +301,22 @@ corridor branches southwest.")
       (SW TO PLAIN-HALL)
       (FLAGS ONBIT RLANDBIT)>
 
+<CONSTANT DORM-DESC 
+"This is a very long room lined with multi-tiered bunks. Flimsy partitions
+between the tiers may have provided a modicum of privacy. These spartan
+living quarters could have once housed many hundreds, but seem quite
+deserted now. There are openings at the north and south ends of the room.">
+
+<CONSTANT SANFAC-DESC
+"This must be the sanitary facility for the adjacent dormitory. The fixtures
+are dry and dusty, the room dead and deserted. You marvel at how little the
+millenia and cultural gulfs have changed toilet bowl design. The only exit is
+north.">
+
 <ROOM DORM-A
       (LOC ROOMS)
       (DESC "Dorm A")
-      (LDESC
-"This is a very long room lined with multi-tiered bunks. Flimsy partitions
-between the tiers may have provided a modicum of privacy. These spartan
-living quarters could have once housed many hundreds, but it seems quite
-deserted now. There are openings at the north and south ends of the room.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC ,DORM-DESC)
       (SOUTH TO SANFAC-A)
       (NORTH TO REC-CORRIDOR)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
@@ -363,15 +326,7 @@ deserted now. There are openings at the north and south ends of the room.")
 <ROOM SANFAC-A
       (LOC ROOMS)
       (DESC "SanFac A")
-      (LDESC
-"This must be the sanitary facility for the adjacent dormitory. The fixtures
-are dry and dusty, the room dead and deserted. You marvel at how little the
-millenia and cultural gulfs have changed toilet bowl design. The only exit is
-north.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC ,SANFAC-DESC)
       (NORTH TO DORM-A)
       (FLAGS ONBIT RLANDBIT FLOYDBIT)
       (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
@@ -379,15 +334,7 @@ north.")
 <ROOM DORM-B
       (LOC ROOMS)
       (DESC "Dorm B")
-      (LDESC
-"This is a very long room lined with multi-tiered bunks. Flimsy partitions
-between the tiers may have provided a modicum of privacy. These spartan
-living quarters could have once housed many hundreds, but it seems quite
-deserted now. There are openings at the north and south ends of the room.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC ,DORM-DESC)
       (SOUTH TO REC-CORRIDOR)
       (NORTH TO SANFAC-B)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
@@ -397,15 +344,7 @@ deserted now. There are openings at the north and south ends of the room.")
 <ROOM SANFAC-B
       (LOC ROOMS)
       (DESC "SanFac B")
-      (LDESC
-"This must be the sanitary facility for the adjacent dormitory. The fixtures
-are dry and dusty, the room dead and deserted. You marvel at how little the
-millenia and cultural gulfs have changed toilet bowl design. The only exit is
-south.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC , SANFAC-DESC)
       (SOUTH TO DORM-B)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
       (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
@@ -413,15 +352,7 @@ south.")
 <ROOM DORM-C
       (LOC ROOMS)
       (DESC "Dorm C")
-      (LDESC
-"This is a very long room lined with multi-tiered bunks. Flimsy partitions
-between the tiers may have provided a modicum of privacy. These spartan
-living quarters could have once housed many hundreds, but it seems quite
-deserted now. There are openings at the north and south ends of the room.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC ,DORM-DESC)
       (NORTH TO DORM-CORRIDOR)
       (SOUTH TO SANFAC-C)
       (FLAGS ONBIT FLOYDBIT RLANDBIT)
@@ -431,15 +362,7 @@ deserted now. There are openings at the north and south ends of the room.")
 <ROOM SANFAC-C
       (LOC ROOMS)
       (DESC "SanFac C")
-      (LDESC
-"This must be the sanitary facility for the adjacent dormitory. The fixtures
-are dry and dusty, the room dead and deserted. You marvel at how little the
-millenia and cultural gulfs have changed toilet bowl design. The only exit is
-north.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC ,SANFAC-DESC)
       (NORTH TO DORM-C)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
       (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
@@ -447,15 +370,7 @@ north.")
 <ROOM DORM-D
       (LOC ROOMS)
       (DESC "Dorm D")
-      (LDESC
-"This is a very long room lined with multi-tiered bunks. Flimsy partitions
-between the tiers may have provided a modicum of privacy. These spartan
-living quarters could have once housed many hundreds, but it seems quite
-deserted now. There are openings at the north and south ends of the room.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC ,DORM-DESC)
       (SOUTH TO DORM-CORRIDOR)
       (NORTH TO SANFAC-D)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
@@ -465,15 +380,7 @@ deserted now. There are openings at the north and south ends of the room.")
 <ROOM SANFAC-D
       (LOC ROOMS)
       (DESC "SanFac D")
-      (LDESC
-"This must be the sanitary facility for the adjacent dormitory. The fixtures
-are dry and dusty, the room dead and deserted. You marvel at how little the
-millenia and cultural gulfs have changed toilet bowl design. The only exit is
-south.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
+      (LDESC ,SANFAC-DESC)
       (SOUTH TO DORM-D)
       (FLAGS ONBIT FLOYDBIT RLANDBIT)
       (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
@@ -481,10 +388,6 @@ south.")
 <ROOM MESS-CORRIDOR
       (LOC ROOMS)
       (DESC "Mess Corridor")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH TO MESS-HALL)
       (NORTH TO STORAGE-WEST IF STORAGE-WEST-DOOR IS OPEN)
       (EAST TO DORM-CORRIDOR)
@@ -532,9 +435,8 @@ small door to the north is ">
 		       <IS-CLOSED>)>)
 	       (<VERB? UNLOCK>
 		<TELL "The door itself isn't locked.">
-		<COND (<NOT <FSET? ,PADLOCK ,OPENBIT>>
-		       <TELL
-" It is the padlock on the door which is locked.">)>
+		<COND (<AND <NOT <FSET? ,PADLOCK ,OPENBIT>> <NOT ,PADLOCK-REMOVED>>
+		       <TELL " It is the padlock on the door which is locked.">)>
 		<TELL CR>)>>
 
 <OBJECT PADLOCK
@@ -563,7 +465,7 @@ small door to the north is ">
 			     (<EQUAL? ,PRSI ,KEY>
 			      <COND (<FSET? ,PADLOCK ,MUNGEDBIT>
 			             <TELL
-"Tsk, tsk ... the padlock seems to be fused shut." CR>)
+"Tsk, tsk... the padlock seems to be fused shut." CR>)
 				    (T
 				     <FSET ,PADLOCK ,OPENBIT>
 				     <TELL "The padlock springs open." CR>)>)
@@ -595,10 +497,6 @@ small door to the north is ">
       (DESC "Storage West")
       (LDESC
 "This is a small room obviously intended as a storage area.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH TO MESS-CORRIDOR IF STORAGE-WEST-DOOR IS OPEN)
       (OUT TO MESS-CORRIDOR IF STORAGE-WEST-DOOR IS OPEN)
       (FLAGS RLANDBIT ONBIT)
@@ -706,10 +604,9 @@ obviously be much longer." CR>)>)
 "The ladder swings out across the rift and comes to rest on the far edge,
 spanning the precipice." CR>)
 			     (T
-			      <REMOVE ,LADDER>
 			      <TELL
-"The ladder, far too short to reach the other edge of the rift, plunges into
-the rift and is lost forever." CR>)>)>)
+"The ladder is far too short to reach the other edge of the rift. It would plunge into
+the rift and be lost forever!" CR>)>)>)
 	       (<VERB? CLIMB-UP CLIMB-FOO>
 		<COND (,LADDER-FLAG
 		       <TELL "You can't climb a horizontal ladder!" CR>)
@@ -724,12 +621,8 @@ the rift and is lost forever." CR>)>)>)
 "This is a wide, east-west hallway with openings to the north and south.
 To the east, the corridor stretches off into the distance. That section of
 the hallway is lined with a motorized walkway (no longer running) that
-was probably intended to transport people or cargo down that tremendously
+was probably intended to transport people or cargo down the tremendously
 long hall.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 160 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO DORM-D)
       (SOUTH TO DORM-C)
       (WEST TO MESS-CORRIDOR)
@@ -740,10 +633,6 @@ long hall.")
 <ROOM MESS-HALL
       (LOC ROOMS)
       (DESC "Mess Hall")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO MESS-CORRIDOR)
       (OUT TO MESS-CORRIDOR)
       (SOUTH TO KITCHEN IF KITCHEN-DOOR IS OPEN)
@@ -761,6 +650,7 @@ leads back to the corridor. A door to the south is ">
 		<DDESC ,KITCHEN-DOOR>
 		<TELL ". Next to the door is a small slot." CR>)>>
 
+
 <OBJECT KITCHEN-DOOR
 	(LOC LOCAL-GLOBALS)
 	(DESC "door")
@@ -772,7 +662,8 @@ leads back to the corridor. A door to the south is ">
 <ROUTINE KITCHEN-DOOR-F ()
 	 <COND (<VERB? OPEN>
 	        <TELL
-"A light flashes \"Pleez yuuz kitcin akses kard.\"" CR>)>>
+"A light flashes \"Pleez yuuz kichin akses kard.\"" CR>)>
+   <COND (<VERB? CLOSE> <TELL "There's no obvious way to do that." CR>)>>
 
 <ROOM KITCHEN
       (LOC ROOMS)
@@ -781,10 +672,6 @@ leads back to the corridor. A door to the south is ">
 "This is the food production and dispensary area for the dining hall to the
 north. Of particular interest is a machine near the door. You should probably
 examine it more closely.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO MESS-HALL)
       (OUT TO MESS-HALL)
       (GLOBAL KITCHEN-DOOR)
@@ -852,10 +739,8 @@ its mouth resting just below the spout of the machine." CR>)
 			     (T
 			      <REMOVE ,HIGH-PROTEIN>
 			      <SETG C-ELAPSED 15>
-			      <SETG HUNGER-LEVEL 0>
-			      <ENABLE <QUEUE I-HUNGER-WARNINGS 3600>>
 			      <TELL
-"Mmmm....that was good. It certainly quenched your thirst and satisfied your
+"Mmmm... that was good. It certainly quenched your thirst and satisfied your
 hunger." CR>)>)>)
 	       (<AND <VERB? POUR>
 		     <EQUAL? ,PRSO ,HIGH-PROTEIN>>
@@ -893,10 +778,6 @@ like this one to handle." CR>>
 main corridor extends as far as you can see; a nonworking walkway from
 that direction ends here. To the east, the corridor widens into a well-lit
 area.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 160 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST"  30 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO ADMIN-CORRIDOR-S)
       (SOUTH TO MECH-CORRIDOR-N)
       (WEST PER LONG-HALL-F)
@@ -923,10 +804,6 @@ you see ">
 "This section of hallway seems to have suffered some minor structural
 damage. The walls are cracked, and a jagged crevice crosses the floor.
 An opening leads east and the corridor heads north and south.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH TO CORRIDOR-JUNCTION)
       (NORTH TO ADMIN-CORRIDOR)
       (EAST TO SANFAC-E)
@@ -993,10 +870,6 @@ is a shiny steel key!" CR>)>)>>
 <ROOM ADMIN-CORRIDOR
       (LOC ROOMS)
       (DESC "Admin Corridor") 
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH TO ADMIN-CORRIDOR-S)
       (NORTH PER LADDER-EXIT-F)
       (WEST TO SYSTEMS-MONITORS)
@@ -1023,10 +896,6 @@ meters across and thirty meters deep. ">
 <ROOM ADMIN-CORRIDOR-N
       (LOC ROOMS)
       (DESC "Admin Corridor North")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH PER LADDER-EXIT-F)
       (NORTH TO TRANSPORTATION-SUPPLY)
       (EAST TO PLAN-ROOM)
@@ -1074,7 +943,7 @@ pointy rocks at the bottom of the rift, far below..." CR CR>
 
 <ROUTINE RIFT-F ()
 	 <COND (<VERB? LEAP>
-		<JIGS-UP
+		<JIGS-NOT-UP
 "You get a brief (but much closer) view of the sharp and nasty rocks at
 the bottom of the rift.">)
 	       (<AND <VERB? PUT>
@@ -1099,10 +968,6 @@ bottom is covered with sharp and nasty rocks." CR>)>>
       (LDESC
 "Here is another sanitary facility. Like the others, it is dusty and
 nonfunctional.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO ADMIN-CORRIDOR-S)
       (OUT TO ADMIN-CORRIDOR-S)
       (FLAGS FLOYDBIT RLANDBIT ONBIT)
@@ -1111,10 +976,6 @@ nonfunctional.")
 <ROOM SYSTEMS-MONITORS
       (LOC ROOMS)
       (DESC "Systems Monitors")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO ADMIN-CORRIDOR)
       (OUT TO ADMIN-CORRIDOR)
       (FLAGS FLOYDBIT RLANDBIT ONBIT)
@@ -1125,12 +986,12 @@ nonfunctional.")
 <ROUTINE SYSTEMS-MONITORS-F (RARG)
 	 <COND (<EQUAL? .RARG ,M-LOOK>
 		<TELL
-"This is a large room filled with tables full of strange equipment. ">
+"This is a large room packed with tables full of strange equipment. ">
 		<DESCRIBE-MONITORS>)>>
 
 <ROUTINE DESCRIBE-MONITORS ()
 	 <TELL
-"The far wall is filled with a number of monitors. Of these,
+"The far wall is covered with a number of monitors. Of these,
 the ones labelled ">
 	 <COND (,DEFENSE-FIXED
 		<TELL "PLANATEREE DEFENS, ">)>
@@ -1171,10 +1032,6 @@ hallway. Near the upper part of this map is a red arrow saying \"Yuu ar
 heer.\" The right wall is covered with a similar map, labelled \"Lawanda
 Kompleks\", showing two installations, one apparently buried deep
 underground.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO ADMIN-CORRIDOR-N)
       (FLAGS RLANDBIT ONBIT FLOYDBIT)
       (PSEUDO "CUBBYHOLE" CUBBYHOLE-PSEUDO "MAPS" MAPS-PSEUDO)>
@@ -1183,10 +1040,6 @@ underground.")
       (LOC ROOMS)
       (DESC "Transportation Supply")
       (LDESC "You have just located a serious bug.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SOUTH TO ADMIN-CORRIDOR-N)
       (NORTH TO TRANSPORTATION-SUPPLY)
       (EAST TO TRANSPORTATION-SUPPLY)
@@ -1200,10 +1053,6 @@ underground.")
       (LDESC
 "You have entered a small office of some sort. A small desk faces the main
 doorway which lies to the east. Another exit leads west.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO ADMIN-CORRIDOR-N)
       (WEST TO LARGE-OFFICE)
       (FLAGS RLANDBIT FLOYDBIT ONBIT)>
@@ -1224,8 +1073,9 @@ doorway which lies to the east. Another exit leads west.")
 	(ADJECTIVE KITCHEN ACCESS)
 	(SIZE 3)
 	(FLAGS TAKEBIT READBIT)
-        (TEXT "The card is embossed \"kitcin akses kard.\"")
-	(VALUE 1)>
+      (TEXT "The card is embossed \"kichin akses kard.\"")
+	(VALUE 1)
+   (ACTION CARD-F)>
 
 <OBJECT UPPER-ELEVATOR-CARD
 	(LOC SMALL-DESK)
@@ -1235,7 +1085,8 @@ doorway which lies to the east. Another exit leads west.")
 	(SIZE 3)
 	(FLAGS VOWELBIT TAKEBIT READBIT)
 	(TEXT "The card is embossed \"upur elivaatur akses kard.\"")
-	(VALUE 1)>
+	(VALUE 1)
+   (ACTION CARD-F)>
 
 <OBJECT SHUTTLE-CARD
 	(LOC LARGE-DESK)
@@ -1245,7 +1096,8 @@ doorway which lies to the east. Another exit leads west.")
 	(SIZE 3)
 	(FLAGS TAKEBIT READBIT)
 	(TEXT "The card is embossed \"shutul akses kard.\"")
-	(VALUE 1)>
+	(VALUE 1)
+   (ACTION CARD-F)>
 
 <OBJECT LOWER-ELEVATOR-CARD
 	(DESC "lower elevator access card")
@@ -1254,7 +1106,11 @@ doorway which lies to the east. Another exit leads west.")
 	(SIZE 3)
 	(FLAGS TAKEBIT READBIT)
 	(TEXT "The card is embossed \"loowur elivaatur akses kard.\"")
-	(VALUE 1)>
+	(VALUE 1)
+   (ACTION CARD-F)>
+
+<ROUTINE CARD-F ()
+   <COND (<VERB? RUB> <TELL "You optimistically rub the magnetic stripe." CR> <FCLEAR ,PRSO ,SCRAMBLEDBIT>)>>
 
 <ROOM LARGE-OFFICE
       (LOC ROOMS)
@@ -1263,10 +1119,6 @@ doorway which lies to the east. Another exit leads west.")
 "This is a large, plush office. The far wall is one large picture window,
 scratched but unbroken, offering a view of this installation and the ocean
 beyond. In front of the window is a wide wooden desk. The only exit is east.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO SMALL-OFFICE)
       (FLAGS FLOYDBIT RLANDBIT ONBIT)
       (GLOBAL WINDOW OCEAN)>
@@ -1291,10 +1143,6 @@ beyond. In front of the window is a wide wooden desk. The only exit is east.")
       (DESC "Mech Corridor North")
       (LDESC
 "Entrances to rooms lie to the east and west from this north-south hall.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO STORAGE-EAST)
       (WEST TO PHYSICAL-PLANT)
       (NORTH TO CORRIDOR-JUNCTION)
@@ -1306,10 +1154,6 @@ beyond. In front of the window is a wide wooden desk. The only exit is east.")
       (DESC "Mech Corridor")
       (LDESC
 "Entrances to rooms lie to the east and west from this north-south hall.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO REACTOR-CONTROL)
       (WEST TO PHYSICAL-PLANT)
       (NORTH TO MECH-CORRIDOR-N)
@@ -1321,10 +1165,6 @@ beyond. In front of the window is a wide wooden desk. The only exit is east.")
       (DESC "Mech Corridor South")
       (LDESC
 "The corridor ends here with doorways to the southwest, south, and southeast.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"  25  ;"SOUTH"  0 
-	 ;"SE" 25 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO MECH-CORRIDOR)
       (SW TO TOOL-ROOM)
       (SOUTH TO MACHINE-SHOP)
@@ -1336,10 +1176,6 @@ beyond. In front of the window is a wide wooden desk. The only exit is east.")
       (DESC "Storage East")
       (LDESC
 "A small room for storage. The exit is to the west.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO MECH-CORRIDOR-N)
       (FLAGS RLANDBIT FLOYDBIT ONBIT)
       (GLOBAL SHELVES)>
@@ -1435,10 +1271,6 @@ beyond. In front of the window is a wide wooden desk. The only exit is east.")
 corners. The room is criss-crossed with catwalks and is filled with
 heavy equipment presumably intended to heat and ventilate this complex.
 Hardly any of the equipment is still operating.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NE TO MECH-CORRIDOR-N)
       (SE TO MECH-CORRIDOR)
       (FLAGS FLOYDBIT RLANDBIT ONBIT)
@@ -1452,10 +1284,6 @@ Hardly any of the equipment is still operating.")
 power reactor which, according to a diagram on the wall, must be buried far
 below this very complex. The exit is to the west. To the east is a metal door,
 and next to it, a button. A dark stairway winds downward.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"20  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO MECH-CORRIDOR)
       (EAST TO REACTOR-ELEVATOR IF REACTOR-ELEVATOR-DOOR IS OPEN)
       (IN TO REACTOR-ELEVATOR IF REACTOR-ELEVATOR-DOOR IS OPEN)
@@ -1468,10 +1296,6 @@ and next to it, a button. A dark stairway winds downward.")
       (LOC ROOMS)
       (DESC "Reactor Access Stairs")
       (LDESC "You have just located a serious bug.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"    30
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (DOWN TO REACTOR-ACCESS-STAIRS)
       (UP TO REACTOR-CONTROL)
       (FLAGS RLANDBIT)
@@ -1503,10 +1327,6 @@ and next to it, a button. A dark stairway winds downward.")
       (LDESC
 "This is an elevator with a door to the west, currently open. A control panel
 contains an Up button, a Down button, and a small slot.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO REACTOR-CONTROL)
       (OUT TO REACTOR-CONTROL)
       (FLAGS RLANDBIT ONBIT)
@@ -1517,10 +1337,6 @@ contains an Up button, a Down button, and a small slot.")
       (DESC "Tool Room")
       (LDESC
 "This is apparently a storage room for tools. Exits lead northeast and east.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"  25  ;"NORTH"  0>)
       (NE TO MECH-CORRIDOR-S)
       (EAST TO MACHINE-SHOP)
       (FLAGS RLANDBIT FLOYDBIT ONBIT)
@@ -1623,10 +1439,6 @@ you remove the key from the magnet." CR>)>)>>
 <ROOM MACHINE-SHOP
       (LOC ROOMS)
       (DESC "Machine Shop")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO MECH-CORRIDOR-S)
       (EAST TO ROBOT-SHOP)
       (WEST TO TOOL-ROOM)
@@ -1637,7 +1449,7 @@ you remove the key from the magnet." CR>)>)>>
 <ROUTINE MACHINE-SHOP-F (RARG)
 	 <COND (<EQUAL? .RARG ,M-LOOK>
 		<TELL
-"This room is probably some sort of machine shop filled with a variety
+"This room is some sort of machine shop filled with a variety
 of unusual machines. Doorways lead north, east, and west.|
 |
 Standing against the rear wall is a large dispensing machine with a
@@ -1666,14 +1478,6 @@ says \"ASID.\"" CR>)
 		<TELL
 "Floyd pushes one of the dispenser buttons. Fluid pours from the spout and
 splashes across the floor. Floyd jumps up and down, giggling." CR>)>>
-
-;<OBJECT DIGGER
-	(LOC MACHINE-SHOP)
-	(DESC "wheelbarrow-like machine")
-	(FDESC
-"In the far corner is an odd machine, somewhat reminiscent of a wheelbarrow.")
-	(SYNONYM WHEELBARROW MACHINE DIGGER)
-	(ADJECTIVE ODD)>
 
 <OBJECT CHEMICAL-DISPENSER
 	(LOC MACHINE-SHOP)
@@ -1827,6 +1631,7 @@ D ,SPOUT-PLACED ", and dries up." CR>
 			      <RTRUE>)>
 		       <RTRUE>)>)>>
 
+
 <ROOM ROBOT-SHOP
       (LOC ROOMS)
       (DESC "Robot Shop")
@@ -1834,10 +1639,6 @@ D ,SPOUT-PLACED ", and dries up." CR>
 "This room, with exits west and northwest, is filled with robot-like
 devices of every conceivable description, all in various states of
 disassembly.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW" 25 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO MACHINE-SHOP)
       (NW TO MECH-CORRIDOR-S)
       (FLAGS RLANDBIT FLOYDBIT ONBIT)
@@ -2007,7 +1808,7 @@ He goes off into a corner and sulks." CR>)
 		       <TELL
 "Floyd giggles and pushes you away. \"You're tickling Floyd!\" He clutches at
 his side panels, laughing hysterically. Oil drops stream from his eyes." CR>)
-		      (<AND <VERB? GIVE PUT>
+		      (<AND <VERB? GIVE PUT SHOW>
 			    <EQUAL? ,FLOYD ,PRSI>>
 		       <COND (<EQUAL? ,PRSO ,LAZARUS-PART>
 			      <REMOVE ,FLOYD>
@@ -2235,7 +2036,7 @@ this is a tiny room,\" he remarks." CR>)
 				     <CALL-ME-FLOYD>
 				     <RTRUE>)>
 			      <TELL CR
-"Floyd glides after you. \"Is this...is this a squash court?\" he asks." CR>)
+"Floyd glides after you. \"Is this... is this a squash court?\" he asks." CR>)
 			     (<OR <EQUAL? ,HERE ,ALFIE-CONTROL-EAST
 					        ,ALFIE-CONTROL-WEST>
 			          <EQUAL? ,HERE ,BETTY-CONTROL-EAST
@@ -2362,10 +2163,6 @@ his name on the wall">>
 <ROOM ELEVATOR-LOBBY
       (LOC ROOMS)
       (DESC "Elevator Lobby")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST"30 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH PER ELEVATOR-ENTER-F)
       (SOUTH PER ELEVATOR-ENTER-F)
       (WEST TO CORRIDOR-JUNCTION)
@@ -2406,10 +2203,6 @@ about the size of a telephone booth." CR>)>>
 <ROOM UPPER-ELEVATOR
       (LOC ROOMS)
       (DESC "Upper Elevator")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (OUT PER ELEVATOR-EXIT-F)
       (SOUTH PER ELEVATOR-EXIT-F)
       (UP SORRY "You'll have to use the elevator controls.")
@@ -2435,10 +2228,6 @@ narrow slot." CR>)
 <ROOM LOWER-ELEVATOR
        (LOC ROOMS)
        (DESC "Lower Elevator")
-       (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
        (NORTH PER ELEVATOR-EXIT-F)
        (OUT PER ELEVATOR-EXIT-F)
        (UP SORRY "You'll have to use the elevator controls.")
@@ -2496,7 +2285,7 @@ a narrow slot." CR>)>>
 	(LOC LOCAL-GLOBALS)
 	(DESC "blue door")
 	(SYNONYM DOOR)
-	(ADJECTIVE UPPER ELEVATOR BLUE)
+	(ADJECTIVE ELEVATOR BLUE METAL)
 	(FLAGS NDESCBIT DOORBIT)
 	(ACTION UPPER-ELEVATOR-DOOR-F)>
 
@@ -2516,7 +2305,7 @@ a narrow slot." CR>)>>
 	(LOC LOCAL-GLOBALS)
 	(DESC "red door")
 	(SYNONYM DOOR)
-	(ADJECTIVE RED LOWER ELEVATOR METAL)
+	(ADJECTIVE RED ELEVATOR METAL)
 	(FLAGS NDESCBIT DOORBIT)
 	(ACTION LOWER-ELEVATOR-DOOR-F)>
 
@@ -2729,10 +2518,6 @@ vertical movement.">
 "This is a tiny room with a large \"2\" painted on the wall. A panel contains
 a slot about ten centimeters wide, a brown button labelled \"1\" and a tan
 button labelled \"3.\"")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO ELEVATOR-LOBBY)
       (OUT TO ELEVATOR-LOBBY)
       (FLAGS RLANDBIT ONBIT)
@@ -2745,10 +2530,6 @@ button labelled \"3.\"")
       (LDESC
 "This is a small, circular room. A sliding door leads north, and a spiral
 staircase heads upwards. Other exits lie to the northeast and southwest.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"    30
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NORTH TO UPPER-ELEVATOR)
       (UP TO HELIPAD)
       (SW TO OBSERVATION-DECK)
@@ -2765,10 +2546,6 @@ staircase heads upwards. Other exits lie to the northeast and southwest.")
 prevents you from approaching the perimeter, so your view is limited to
 cloud-filled sky. A large vehicle, severely weathered and topped with rotor
 blades, lies nearby. A spiral staircase leads down into the tower.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN"15  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (DOWN TO TOWER-CORE)
       (IN TO HELICOPTER)
       (EAST SORRY "A fence keeps you away from the edge, where you would
@@ -2816,10 +2593,6 @@ probably be swept over the brink by the high winds.")
 is closed and locked. Everything is covered with a thick layer of rust.
 Through the windows of the vehicle you can see a wide Helipad, and beyond
 that, endless ocean far below. Several doors lead out to the Helipad.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (OUT TO HELIPAD)
       (FLAGS RLANDBIT ONBIT)
       (PSEUDO "LOCK" LOCK-PSEUDO)
@@ -2828,10 +2601,6 @@ that, endless ocean far below. Several doors lead out to the Helipad.")
 <ROOM COMM-ROOM
       (LOC ROOMS)
       (DESC "Comm Room")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (SW TO TOWER-CORE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL LIGHTS)
@@ -2885,7 +2654,7 @@ labelled \"Kuulint Sistum Manyuuwul Oovuriid.\"" CR>)
 		      (<EQUAL? ,CHEMICAL-REQUIRED 7>
 		       <TELL "black">)>
 		<TELL
-" colored light is flashing on the enunciator panel." CR>)>>
+" colored light flashes briefly on the enunciator panel." CR>)>>
 
 <GLOBAL JUST-ENTERED T>
 
@@ -2898,10 +2667,6 @@ labelled \"Kuulint Sistum Manyuuwul Oovuriid.\"" CR>)
 <OBJECT RECEIVE-CONSOLE
 	(LOC COMM-ROOM)
 	(DESC "communications receive console")
-	(C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
 	(SYNONYM CONSOLE CONTROL)
 	(ADJECTIVE COMMUNICATIONS RECEIVE LEFT FIRST)
 	(FLAGS NDESCBIT)>
@@ -2917,11 +2682,11 @@ labelled \"Kuulint Sistum Manyuuwul Oovuriid.\"" CR>)
 <ROUTINE PLAYBACK-BUTTON-F ()
 	 <COND (<VERB? PUSH>
 		<TELL
-"A voice fills the room ... the voice of the Feinstein's communications
-officer! \"Stellar Patrol Ship Feinstein to planetside ... Please respond
-on frequency 48.5 ... SPS Feinstein to planetside ... Please come in ...\"
+"A voice fills the room... the voice of the Feinstein's communications
+officer! \"Stellar Patrol Ship Feinstein to planetside... Please respond
+on frequency 48.5... S.P.S. Feinstein to planetside... Please come in...\"
 After a pause you hear the officer, in a quieter voice, say \"Admiral, no
-response on any of the standard frequen...\" The sentence is cut short by the
+response on any of the standard frequen--\" The sentence is cut short by the
 sound of an explosion and a loud burst of static, followed by silence." CR>)>>
 
 <OBJECT SEND-CONSOLE
@@ -2985,7 +2750,7 @@ entiir popyuulaashun. Tiim iz kritikul. Eemurjensee asistins reekwestid.
 <ROUTINE CHEMICAL-FLUID-F ()
 	 <COND (<VERB? EAT>
 		<JIGS-UP
-"Mmmmm....that tasted just like delicious poisonous chemicals!">)
+"Mmmmm... that tasted just like delicious poisonous chemicals!">)
 	       (<AND <VERB? PUT>
 		     <EQUAL? ,PRSI ,CHEMICAL-FLUID>>
 		<PERFORM ,V?PUT ,PRSO ,FLASK>
@@ -3161,10 +2926,6 @@ island. The dormitory section of the complex is visible on the other side
 of the island, and the rest of the complex sprawls out directly below. In
 the distance, about 20 kilometers to the east, you can spot another island
 similar to this one. The only exit is a doorway leading northeast.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (NE TO TOWER-CORE)
       (FLAGS RLANDBIT ONBIT)
       (GLOBAL OCEAN)>
@@ -3175,10 +2936,6 @@ similar to this one. The only exit is a doorway leading northeast.")
       (LDESC
 "This is a concrete platform sparsely furnished with benches. The platform
 continues to the east, and to the south is a metal door.")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (EAST TO KALAMONTEE-PLATFORM)
       (SOUTH PER OTHER-ELEVATOR-ENTER-F)
       (IN PER OTHER-ELEVATOR-ENTER-F)
@@ -3198,10 +2955,6 @@ continues to the east, and to the south is a metal door.")
 <ROOM KALAMONTEE-PLATFORM
       (LOC ROOMS)
       (DESC "Kalamontee Platform")
-      (C-MOVE  <TABLE
-         ;"OUT" 0 ;"IN"   0 ;"DOWN" 0  ;"UP"     0
-         ;"NW"  0 ;"WEST" 0 ;"SW"   0  ;"SOUTH"  0 
-	 ;"SE"  0 ;"EAST" 0 ;"NE"   0  ;"NORTH"  0>)
       (WEST TO WAITING-AREA)
       (SOUTH PER SHUTTLE-ENTER-F)
       (NORTH PER SHUTTLE-ENTER-F)

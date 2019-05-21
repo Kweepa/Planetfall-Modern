@@ -10,7 +10,6 @@ OFF!-INITIAL	;"makes debugging possible -- pdl"
 <VERSION XZIP>
 <SETG PLUS-MODE T>
 <FUNNY-GLOBALS? T>
-;<SETG NEW-VOC? T>
 <FREQUENT-WORDS?>
 <SET REDEFINE T>
 

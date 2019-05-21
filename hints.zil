@@ -601,8 +601,6 @@ hint now, indicate HINT.]" CR>
 	(,HINTS-OFF
 	 <PERFORM ,V?HINTS-NO ,ROOMS>
 	 <RFATAL>)>
-  ;<IFSOUND <SETG SOUND-QUEUED? <>>
-	   <KILL-SOUNDS>>
   <SET MAXC <GET ,HINTS 0>>
   <INIT-HINT-SCREEN>
   <CURSET 5 1>
@@ -642,9 +640,7 @@ hint now, indicate HINT.]" CR>
 	 <AGAIN>	;"AGAIN does whole routine?")>
   <CLEAR -1>
   <INIT-STATUS-LINE>
-  <TELL "Back to the story ..." CR>
-  ;<IFSOUND <COND (,SOUND-ON?
-		  <CHECK-LOOPING>)>>
+  <TELL "Back to the story..." CR>
   <RFATAL>>
 
 <ROUTINE PICK-QUESTION ("AUX" CHR MAXQ (Q <>))

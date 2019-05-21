@@ -17,22 +17,6 @@
 <DEFMAC VERB? ("ARGS" ATMS)
 	<MULTIFROB PRSA .ATMS>>
 
-;<DEFMAC VERB? ("TUPLE" ATMS "AUX" (O ()) (L ())) 
-	<REPEAT ()
-		<COND (<EMPTY? .ATMS>
-		       <RETURN!- <COND (<LENGTH? .O 1> <NTH .O 1>)
-				     (ELSE <FORM OR !.O>)>>)>
-		<REPEAT ()
-			<COND (<EMPTY? .ATMS> <RETURN!->)>
-			<SET ATM <NTH .ATMS 1>>
-			<SET L
-			     (<FORM GVAL <PARSE <STRING "V?" <SPNAME .ATM>>>>
-			      !.L)>
-			<SET ATMS <REST .ATMS>>
-			<COND (<==? <LENGTH .L> 3> <RETURN!->)>>
-		<SET O (<FORM EQUAL? ',PRSA !.L> !.O)>
-		<SET L ()>>>
-
 <DEFMAC PRSO? ("ARGS" ATMS)
 	<MULTIFROB PRSO .ATMS>>
 
@@ -71,9 +55,6 @@
 
 <DEFMAC PROB ('BASE?)
 	 <FORM NOT <FORM L? .BASE? '<RANDOM 100>>>>
-
-;<ROUTINE ZPROB (BASE)
-	 <G? .BASE <RANDOM 300>>>
 
 <ROUTINE PICK-ONE (FROB)
 	 <GET .FROB <RANDOM <GET .FROB 0>>>>
@@ -124,13 +105,11 @@
 <ROUTINE GO () 
 	 <SETG HOST <LOWCORE INTID>>
 	 <SETG WIDTH <LOWCORE SCRH>>
-	 ;<PUTB ,P-LEXV 0 59>
 ;"put interrupts on clock chain"
 	 <ENABLE <QUEUE I-BLATHER -1>>
 	 <ENABLE <QUEUE I-AMBASSADOR -1>>
 	 <ENABLE <QUEUE I-RANDOM-INTERRUPTS 1>>
 	 <ENABLE <QUEUE I-SLEEP-WARNINGS 3600>>
-	 <ENABLE <QUEUE I-HUNGER-WARNINGS 2000>>
 	 <ENABLE <QUEUE I-SICKNESS-WARNINGS 1000>>
 ;"set up and go"
 	 <SETG SPOUT-PLACED ,GROUND>
@@ -364,10 +343,6 @@ Class Blather, the bane of your shipboard existence, could appear." CR CR>)>
 	       (T
 		<RTRUE>)>>
 
-;<GLOBAL L-PRSA <>>
-;<GLOBAL L-PRSO <>>
-;<GLOBAL L-PRSI <>>
-
 <ROUTINE FAKE-ORPHAN ("OPTIONAL" (IT-WAS-USED <>) "AUX" TMP)
 	 <ORPHAN ,P-SYNTAX <>>
 	 <SET TMP <GET ,P-OTBL ,P-VERBN>>
@@ -500,10 +475,6 @@ Class Blather, the bane of your shipboard existence, could appear." CR CR>)>
 
 <CONSTANT C-RTN 2>
 
-;<ROUTINE DEMON (RTN TICK "AUX" CINT)
-	 <PUT <SET CINT <INT .RTN T>> ,C-TICK .TICK>
-	 .CINT>
-
 <ROUTINE QUEUE (RTN TICK "AUX" CINT)
 	 <PUT <SET CINT <INT .RTN>> ,C-TICK .TICK>
 	 .CINT>
@@ -521,15 +492,7 @@ Class Blather, the bane of your shipboard existence, could appear." CR CR>)>
 		       (<EQUAL? <GET .C ,C-RTN> .RTN> <RETURN .C>)>
 		 <SET C <REST .C ,C-INTLEN>>>>
 
-;<GLOBAL CLOCK-WAIT <>>
-
-;<GLOBAL ELAPSED-MOVES 0>
-
 <ROUTINE CLOCKER ("AUX" C E TICK (FLG <>))
-	 ;<SETG ELAPSED-MOVES <+ ,ELAPSED-MOVES 1>>
-	 ;<COND (,DEBUG-ON
-		<TELL "[Elapsed time: " N ,C-ELAPSED "]" CR>)>
-	 ;<COND (,CLOCK-WAIT <SETG CLOCK-WAIT <>> <RFALSE>)>
 	 <SET C <REST ,C-TABLE <COND (,P-WON ,C-INTS) (T ,C-DEMONS)>>>
 	 <SET E <REST ,C-TABLE ,C-TABLELEN>>
 	 <REPEAT ()
@@ -547,9 +510,6 @@ Class Blather, the bane of your shipboard existence, could appear." CR CR>)>
 				      <COND (<APPLY <GET .C ,C-RTN>>
 					     <SET FLG T>)>)>)>)>
 		 <SET C <REST .C ,C-INTLEN>>>>
-
-;<ROUTINE NULL-F ("OPTIONAL" A1 A2)
-	<RFALSE>>
 
 <ROUTINE REFERRING ("OPTIONAL" (HIM-HER <>))
 	 <TELL "I don't see wh">
