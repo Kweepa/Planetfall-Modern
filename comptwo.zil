@@ -1231,7 +1231,7 @@ The screen is currently ">
 
 <CONSTANT GREEN-TEXT
 "\"Oonlee peepul wix propur traaneeng shud piilot xe helikopturz. Reekwiird
-ekwipmint inkluudz aa Helikoptur Akses Kard and aa Kuntrool Panul Kee. Xeez
+ekwipmint inkluudz aa helikoptur akses kard and aa kuntrool panul kee. Xeez
 kan bee obtaand frum Tranzportaashun Stoorij.\"|
 The rest is all very technical.">
 

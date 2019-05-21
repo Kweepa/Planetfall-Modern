@@ -310,7 +310,7 @@ deserted now. There are openings at the north and south ends of the room.">
 <CONSTANT SANFAC-DESC
 "This must be the sanitary facility for the adjacent dormitory. The fixtures
 are dry and dusty, the room dead and deserted. You marvel at how little the
-millenia and cultural gulfs have changed toilet bowl design. The only exit is
+millennia and cultural gulfs have changed toilet bowl design. The only exit is
 north.">
 
 <ROOM DORM-A
@@ -1904,7 +1904,7 @@ apparently been turned off." CR>)
 			      <SETG CARD-STOLEN T>
 			      <TELL
 "In one of the robot's compartments you find and take a magnetic-striped card
-embossed \"Loowur Elavaatur Akses Kard.\"" CR>)
+embossed \"loowur elivaatur akses kard.\"" CR>)
 			     (T
 			      <TELL
 "Your search discovers nothing in the robot's compartments except a

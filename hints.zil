@@ -344,7 +344,7 @@
 		 "Put the good bedistor into the cube.">
 	<PLTABLE "Why is this Physical Plant so big?"
 		 "True, this plant is larger than its counterpart in the Kalamontee Complex, even though the Lawanda Complex is slightly smaller."
-		 "Perhaps there is a large section of the Lawanda Compex that you haven't seen yet..."
+		 "Perhaps there is a large section of the Lawanda Complex that you haven't seen yet..."
 		 "...such as the cryo-chambers, buried deep underground.">
 	<PLTABLE "How do I use the computer terminal?"
 		 "Firstly, turn it on."
@@ -358,7 +358,7 @@
 		 "You can't."
 		 "Really!">
 	"PROJCON AND LAB"
-	<PLTABLE "What is the signficance of SanFac F?"
+	<PLTABLE "What is the significance of SanFac F?"
 		 "Haven't you realized by now that these SanFacs are of no interest?">
 	<PLTABLE "What about the ProjCon Office?"
 		 "The library might be of some help."
@@ -487,7 +487,7 @@
 		 "Of course! But you'll have to find the teleportation access card first."
 		 "It's in the lab area, which you may not have been to yet."
 		 "It's in the pocket of the lab uniform."
-		 "Slide the card thru the slot, then press the button corresponding to the booth you want to teleport to.">
+		 "Slide the card through the slot, then press the button corresponding to the booth you want to teleport to.">
 	<PLTABLE "How does the laser work?"
 		 "You must be holding it to fire it."
 		 "It has six settings. Each setting produces a different colored beam."
@@ -761,7 +761,7 @@ the cursor and text"
 	    <COND (<L=? .CNT .MX>
 		   <SET FLG T>	;".cnt starts as 2"
 		   <TELL <GET .H .CNT> CR>
-		   ; "3rd = line 7, 4th = line 9, ect"
+		   ; "3rd = line 7, 4th = line 9, etc"
 		   <COND (<G? <SET CNT <+ .CNT 1>> .MX>
 			  <SET FLG <>>
 			  <TELL "[Final hint]" CR>)>)>)>>>

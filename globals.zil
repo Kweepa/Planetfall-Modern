@@ -758,7 +758,7 @@ That's another two hundred demerits!\"" CR>)
 			      <FCLEAR ,DIARY ,ACTIVEBIT>
 			      <SETG DIARY-CTR 0>
 			      <TELL
-"\"END OF DIARY -- REWINDING\" flashes across the screen; the machine whirrs,
+"\"END OF DIARY -- REWINDING\" flashes across the screen; the machine whirs,
 stops, and the little button flickers off." CR>)
 			     (T
 			      <READ-DIARY>)>)
@@ -787,7 +787,7 @@ other ensigns, and I've got one-and-a-half cubic meters of locker space!"
 Class Blather. He seems like a real krip. (Excuse the language, Diary.) But
 that might just be a bad first impression."
 	 "July 25 -- One of my cabin mates, Gorund, organized a Double
-Fanucci tournament among all the Ensigns Seventh Class. We were playing
+Fannucci tournament among all the Ensigns Seventh Class. We were playing
 during the 150-millichron rec period after lunch, and Blather burst in and
 confiscated the sets and told us that playing war games was a violation of
 patrol regulations. But Ensign Whirp, who's studying to be a patrol lawyer,
@@ -1206,7 +1206,7 @@ translator slung around his neck." CR>)
 	 <COND (<AND <VERB? EXAMINE>
 		     <EQUAL? .RARG ,M-OBJECT>>
 		<TELL
-"The safety webbing fills most of the pod. It could accomodate
+"The safety webbing fills most of the pod. It could accommodate
 from one to, perhaps, twenty people." CR>)
 	       (<AND <VERB? TAKE>
 		     <EQUAL? .RARG ,M-OBJECT>>
@@ -2425,7 +2425,7 @@ You try to scream, but cannot. You feel your life draining away..."
 "...Your vision slowly returns. You are on a wooded cliff overlooking
 a waterfall. A rainbow spans the falls. Blather stands above you, bellowing
 that the ground is filthy -- scrub harder! You throw your brush at Blather,
-but it passes thru him as though he were a ghost, and sails over the cliff.
+but it passes through him as though he were a ghost, and sails over the cliff.
 Blather leaps after the valuable piece of Patrol property, and both plummet
 into the void..."
 
@@ -2884,7 +2884,7 @@ Planetfall, you blow it all in one amazingly dumb input.|
 |
 The doors close and the elevator rises quickly to the top of the shaft. The
 doors open, and the mutants, which were waiting impatiently in the ProjCon
-Office for just such an occurence, happily saunter in and begin munching.">)>>
+Office for just such an occurrence, happily saunter in and begin munching.">)>>
 
 <ROUTINE CASTLE-PSEUDO ()
 	 <COND (<VERB? EXAMINE>
