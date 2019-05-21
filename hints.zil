@@ -1,7 +1,7 @@
 "HINTS for
 
 			 SOLID GOLD PLANETFALL
-	(c) Copyright 1988 Infocom, Inc.  All Rights Reserved."
+	(c) Copyright 1988 Infocom, Inc. All Rights Reserved."
 
 ;"modify ROUTINE FINISH in VERBS to include Hint"
 ;"Check HELP or HINT syntaxes to match V-HINT (and CLOCKER-VERBS)"
@@ -93,13 +93,15 @@
 		 "I wouldn't worry too much; demerits aren't that important.">
 	<PLTABLE "What about Lieutenant Measle?"
 		 "All he wants is some information for your records."
-		 "Ahem.  Lieutenant Measle???">
+		 "Ahem. Lieutenant Measle???">
 	<PLTABLE "What do I do with the Ambassador?"
 		 "Enjoy his company. He's just there to liven up the game opening.">
 	<PLTABLE "How do I get the translator?" 
 		 "You can't.">
 	<PLTABLE "How do I get the celery?"
-		 "You can't.">
+		 "You can't take it."
+       "What did you plan to do with it?"
+       "Try eating it.">
 	<PLTABLE "How do I get the Ambassador's map?"
 		 "The Ambassador doesn't have any map!">
 	<PLTABLE "What should I do in the Galley?"
@@ -197,9 +199,9 @@
 		 "Turn it on.">
 	<PLTABLE "How do I run the reactor elevator?"
 		 "The slot in the elevator is important."
-		 "You'll need the reactor elevator access pass."
+		 "You'll need the reactor elevator access card."
 		 "Don't develop further until you've been on the helicopter trip."
-		 "Cheating again, eh?  There's no way to operate that elevator.">
+		 "Cheating again, eh? There's no way to operate that elevator.">
 	<PLTABLE "How do I fix the reactors?"
 		 "Have you opened the repair panel?"
 		 "Some of the megafuses seem to be burned out."
@@ -220,16 +222,16 @@
 		 "You'll need the coolants and catalysts for the Comm Room problem.">
 	<PLTABLE "What do I do with the acid and base?"
 		 "Batteries are made out of acids and bases."
-		 "Have you run into any dangerous creatures?  You might be able to use the acid or base as a weapon."
+		 "Have you run into any dangerous creatures? You might be able to use the acid or base as a weapon."
 		 "Actually, these two chemicals are totally useless.">
 	<PLTABLE "Can I fix the disassembled robots?"
 		 "A repair robot might be of help."
 		 "Don't go on until you've repaired Achilles."
 		 "There's no way to reassemble those robots.">
 	<PLTABLE "What about the Plan Room?"
-		 "There's nothing for you to do in there, but you might pick up some useful information there.">
+		 "There's nothing for you to do in there, but you might pick up some useful information.">
 	<PLTABLE "What about the Systems Monitors?"
-		 "There's nothing for you to do in there, but you might pick up some useful information there.">
+		 "There's nothing for you to do in there, but you might pick up some useful information.">
 	<PLTABLE "Is there any way to take the hose?"
 		 "What hose?">
 		
@@ -239,7 +241,7 @@
 		 "Then wait a little while.">
 	<PLTABLE "How do the elevators work?"
 		 "The slot on the control panels is important."
-		 "You'll need to find the respective access passes."
+		 "You'll need to find the respective access cards."
 		 "When you find them, slide them through the slot, and then say PUSH UP BUTTON or PUSH DOWN BUTTON."
 		 "The upper elevator access card is located beyond the rift."
 		 "It's in the desk in the Small Office."
@@ -254,7 +256,7 @@
 	<PLTABLE "Should I do anything with the birds?"
 		 "Try feeding them."
 		 "Birds like insects."
-		 "What birds?  What insects?">
+		 "What birds? What insects?">
 	<PLTABLE "What is the comm. receive console?"
 		 "Try pressing the button on it."
 		 "Apparently, it received a transmission from the Feinstein just before the ship blew up.">
@@ -263,7 +265,7 @@
 		 "The message isn't being sent, however."
 		 "You can repair the communication system using the chemical dispenser in the Machine Shop."
 		 "The colored light on the enunciator panel refers to one of the colored buttons on the dispenser."
-		 "Keep pouring the proper chemical fluid into the hole on the console until it is fixed.  It will take anywhere from three to five trips.">
+		 "Keep pouring the proper chemical fluid into the hole on the console until it is fixed. It will take anywhere from three to five trips.">
 	
 	"HELICOPTER TRIP"
 	<PLTABLE "Where do I find the helicopter?"
@@ -290,14 +292,14 @@
 	<PLTABLE "Where do I find the shuttle?"
 		 "You need to use the lower elevator to get to it.">
 	<PLTABLE "How do I operate the shuttle?"
-		 "You'll need the shuttle access card.  By now you should know how to use these cards."
+		 "You'll need the shuttle access card. By now you should know how to use these cards."
 		 "You can't operate the shuttle after 6000."
 		 "Hopefully, you can figure out that you want to be in the control cabin facing the set of tracks, not the one facing the blank wall.">
 	<PLTABLE "How do I use the shuttle controls?"
-                 "First, activate the controls (see previous question)."
+       "First, activate the controls (see previous question)."
 		 "Pushing the lever up into the \"+\" position causes the shuttle to accelerate. Pulling the lever down into the \"-\" position causes the shuttle to decelerate."
 		 "When the lever is in the central position, the shuttle will continue to move at its current velocity."
-		 "The digital display tells the current velocity of the shuttle.">
+		 "The digital display shows the current velocity of the shuttle.">
 	<PLTABLE "I always crash at the other station!"
 		 "You're going too fast. Decelerate sooner."
 		 "If you're going faster than 20 when you get to the far station, you'll be killed."
@@ -396,7 +398,7 @@
 		 "Do you know what the card is and what you would use it for?"
 		 "The Miniaturization Booth is for repairing the Computer."
 		 "Show Floyd the computer printout, or let him see the warning light in the Computer Room."
-                 "Then take him into Bio-Lock East and do what he says.">
+       "Then take him into Bio-Lock East and do what he says.">
 	
 	"COMPUTER/ENDGAME"
 	<PLTABLE "What does the computer do?"
@@ -716,8 +718,8 @@ the cursor and text"
   <HLIGHT ,H-BOLD>
   <SET H <GET <GET ,HINTS ,CHAPT-NUM> <+ ,QUEST-NUM 1>>>
   ; "Byte table to use for showing questions already seen"
-  ; "Actually a nibble table.  The high four bits of each byte are for
-     quest-num odd; the low for bits are for quest-num even.  See SHIFT?
+  ; "Actually a nibble table. The high four bits of each byte are for
+     quest-num odd; the low for bits are for quest-num even. See SHIFT?
      and COUNT-OFFS."
   <SET CV <GET ,HINT-COUNTS <- ,CHAPT-NUM 1>>>
   <CENTER-LINE 2 <GET .H 1>>
