@@ -1842,7 +1842,7 @@ We control the disk drives..." CR>)>>
 	 <GOTO ,CRAG>>
 
 ;<ROUTINE V-FORK ()
-	 <TELL "Is this trip really necesary?" CR>
+	 <TELL "Is this trip really necessary?" CR>
 	 <GOTO ,FORK>>
 
 ;<ROUTINE V-BOOTH ()

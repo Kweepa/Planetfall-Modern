@@ -568,7 +568,6 @@
 		  "Removing your uniform while Blather or Floyd are present?"
 		  "Destroying the mural?"
 		  "\"Stealing\" the lower elevator card from Floyd and then showing it to him?"
-		  "Giving Floyd the Lazarus breast plate?"
 		  "Typing ZORK?">>>
 
 <GLOBAL CUR-POS 0>	;"determines where to place the highlight cursor

@@ -89,8 +89,11 @@ some complicated looking equipment, and many shelves that are mostly bare.")
 	(DESC "medical robot breastplate")
 	(SYNONYM LAZARUS PART PLATE BREASTPLATE)
 	(ADJECTIVE MEDICAL BREAST)
-	(SIZE 35)
-	(FLAGS TAKEBIT)>
+   (ACTION LAZARUS-PART-F)>
+
+<ROUTINE LAZARUS-PART-F ()
+   <COND (<VERB? TAKE>
+            <TELL "It's too awkward a shape to lug about." CR>)>>
 
 <GLOBAL LAZARUS-FLAG <>>
 
