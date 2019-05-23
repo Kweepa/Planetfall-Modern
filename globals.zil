@@ -114,7 +114,7 @@ contains the opening sequence which occurs prior to planetfall."
 	(DESC "it")
 	(FLAGS INVISIBLE TOUCHBIT SURFACEBIT TRYTAKEBIT MUNGBIT MUNGEDBIT
 	       SCRAMBLEDBIT WORNBIT OPENBIT SEARCHBIT TRANSBIT WEARBIT
-	       READBIT ACIDBIT ACTIVEBIT)>
+	       READBIT ACIDBIT ACTIVEBIT LIQUIDBIT)>
 
 <OBJECT LOCAL-GLOBALS
 	(LOC GLOBAL-OBJECTS)
@@ -1318,10 +1318,10 @@ have to shake the kit to get the goo out." CR>)>)>>
 			    (T
 			     <TELL "yummy lima beans">)>
 		      <TELL "." CR>)>)
-	      (<VERB? TAKE DROP>
+	      (<VERB? TAKE DROP THROW>
 	       <COND (<VERB? DROP>	
 	       	      <TELL "The goo, being gooey, sticks where it is">)
-	             (<VERB? TAKE>
+	             (<VERB? TAKE THROW>
 	              <TELL "It would ooze through your fingers">)>
 	       <TELL
 ". You'll have to eat it right from the survival kit." CR>)>>

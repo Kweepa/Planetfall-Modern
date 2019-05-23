@@ -652,6 +652,12 @@ the place and then evaporates." CR>)>
 	 <COND (<NOT <HELD? ,PRSO>>
 		<TELL "You're not carrying the " D ,PRSO "." CR>
 		<RFALSE>)
+          (<EQUAL? ,PRSO ,LASER-DIAL>
+		<TELL "The dial is attached to the laser!" CR>
+		<RFALSE>)
+	       (<FSET? ,PRSO ,LIQUIDBIT>
+		<TELL "That would make a mess!" CR>
+		<RFALSE>)
 	       (<FSET? ,PRSO ,WORNBIT>
 		<TAKE-IT-OFF>
 		<RFALSE>)

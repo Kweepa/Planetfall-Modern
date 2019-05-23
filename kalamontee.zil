@@ -661,9 +661,9 @@ leads back to the corridor. A door to the south is ">
 
 <ROUTINE KITCHEN-DOOR-F ()
 	 <COND (<VERB? OPEN>
-	        <TELL
-"A light flashes \"Pleez yuuz kichin akses kard.\"" CR>)>
-   <COND (<VERB? CLOSE> <TELL "There's no obvious way to do that." CR>)>>
+	        <TELL "A light flashes \"Pleez yuuz kichin akses kard.\"" CR>)
+          (<AND <VERB? CLOSE> <FSET? ,KITCHEN-DOOR ,OPENBIT>>
+           <TELL "There's no obvious way to do that." CR>)>>
 
 <ROOM KITCHEN
       (LOC ROOMS)
@@ -725,7 +725,7 @@ its mouth resting just below the spout of the machine." CR>)
 	(SYNONYM LIQUID FLUID FOOD QUANTITY)
 	(ADJECTIVE BROWN PROTEIN-RICH PROTEIN RICH)
 	(SIZE 5)
-	(FLAGS FOODBIT)
+	(FLAGS FOODBIT LIQUIDBIT)
 	(ACTION HIGH-PROTEIN-F)>
 
 <ROUTINE HIGH-PROTEIN-F ("AUX" (X <>))
@@ -2203,6 +2203,7 @@ entiir popyuulaashun. Tiim iz kritikul. Eemurjensee asistins reekwestid.
 	(DESC "quantity of chemical fluid")
 	(SYNONYM QUANTITY LIQUID FLUID CHEMICAL)
 	(ADJECTIVE MILKY WHITE CHEMICAL)
+   (FLAGS LIQUIDBIT)
 	(ACTION CHEMICAL-FLUID-F)>
 
 <ROUTINE RANDOMIZE-ORDER ("AUX" (COUNT 0) TEMP)
