@@ -26,11 +26,12 @@ __Bugs fixed__
 
 * prevented the pod from being opened from the webbing (Cree #9)
 * prevented kitchen door from being manually closed (Simpson #35)
-* prevented diary from interfering with the elevator controls, by removing the diary when you reach the Crag (Simpson #24)
+* prevented diary from interfering with the elevator controls, by removing the diary when you reach the Crag. I might do this a better way later (Simpson #24)
 * removed UPPER adjective from the blue door so that SLIDE UPPER THROUGH SLOT works
 * Floyd reacts appropriately to SHOW PLATE TO FLOYD (Simpson #38)
 * fixed DROP/THROW dial, goo and liquids (Simpson #28, #29, #30)
-* fixed Floyd leaving closed rooms when seeing the breastplate, by making the breastplate non-portable (Simpson #37)
+* fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
+* fixed Floyd leaving closed rooms when seeing the breastplate, by making the breastplate non-portable. I might do this a better way later (Simpson #37)
 
 Where appropriate, taken from
 * Graham Cree's list http://graeme.50webs.com/infobugs/planetfa.htm

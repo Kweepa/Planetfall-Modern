@@ -500,7 +500,7 @@
 		 "Have you tried making one?"
 		 "Some batteries are made by mixing acids and bases."
 		 "However, there's no way to make your own battery. There is a fresh battery lying around somewhere."
-                 "It's in Lab Storage.">
+		 "It's in Lab Storage.">
 	<PLTABLE "What are megafuses for?"
 		 "They're electrical components."
 		 "They're usually used for repairing Reactor systems.">
@@ -535,7 +535,7 @@
 		  "4 points for entering the Tower Core."
 		  "4 points for entering the Kalamontee Platform."
 		  "4 points for entering the Lawanda Platform."
-                  "1 point for taking the kitchen access card."
+		"1 point for taking the kitchen access card."
 		  "1 point for taking the shuttle access card."
 		  "1 point for taking the upper elevator access card."
 		  "1 point for taking the lower elevator access card."
@@ -842,4 +842,3 @@ the cursor and text"
 	<TELL .STR>
 	<COND (.INV
 	       <HLIGHT ,H-NORMAL>)>>
-OW

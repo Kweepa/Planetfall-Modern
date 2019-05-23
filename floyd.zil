@@ -177,9 +177,13 @@ his side panels, laughing hysterically. Oil drops stream from his eyes." CR>)
 			      <TELL
 "At first, Floyd is all grins because of your gift. Then, he realizes what
 it is, begins weeping, drops the breastplate, and rushes out of the room." CR>)
-			     (<EQUAL? ,PRSO ,RED-GOO ,GREEN-GOO ,BROWN-GOO>
+			     (<EQUAL? ,PRSO ,RED-GOO ,GREEN-GOO ,BROWN-GOO ,HIGH-PROTEIN ,MEDICINE>
 			      <TELL
-"Floyd looks at the goo. \"Yech! Got any Number Seven Heavy Grease?\"" CR>)
+"Floyd looks at the " D ,PRSO ". \"Yech! Got any Number Seven Heavy Grease?\"" CR>)
+				 (<FSET? ,PRSO ,LIQUIDBIT>
+				  <TELL "Floyd scans the " D ,PRSO ". \"Nope! Floyd all topped up!\"" CR>)
+				 (<EQUAL? ,PRSO ,LASER-DIAL ,LASER>
+				  <TELL "Floyd peers at the laser. \"Doctor-persons told Floyd not to play with danger-things!\"" CR>)
 			     (<OR <FIRST? ,FLOYD>
 				  <PROB 25>>
 			      <MOVE ,PRSO ,HERE>
