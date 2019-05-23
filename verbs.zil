@@ -1503,7 +1503,7 @@ D ,PRSO "? Dr. Quarnsboggle, the Feinstein's psychiatrist, would ">
 	 <TELL "You sound rather indecisive." CR>>
 
 <ROUTINE V-POINT ()
-	 <COND (<IN? ,FLOYD ,HERE>
+	 <COND (<AND <IN? ,FLOYD ,HERE> <FSET? ,FLOYD ,ACTORBIT>>
 		<FLOYDS-FAMOUS-DOOR-ROUTINE>)
 	       (T
 		<TELL "It's usually impolite to point." CR>)>>
@@ -1659,7 +1659,9 @@ computer. You are fried by powerful electric currents.">)>)
 		<PERFORM ,V?ZAP ,LASER ,PRSO>
 		<RTRUE>)
 	       (T
-		<TELL "You have nothing to shoot it with." CR>)>>
+			<TELL "You have nothing to shoot ">
+			<COND (<FSET? ,PRSO ,ACTORBIT> <TELL "them">) (T <TELL "it">)>
+			<TELL " with." CR>)>>
 
 <ROUTINE V-ZAP ()
 	 <COND (<NOT <HELD? ,PRSO>>

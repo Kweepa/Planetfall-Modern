@@ -24,6 +24,8 @@ __Overview of Projected Changes__
 
 __Bugs fixed__
 
+* fixed sexlessness of ambassador and blather when being shot (Cree #6)
+* fixed switched off Floyd responding to pointing at things (Cree #7)
 * prevented the pod from being opened from the webbing (Cree #9)
 * prevented kitchen door from being manually closed (Simpson #35)
 * prevented diary from interfering with the elevator controls, by removing the diary when you reach the Crag. I might do this a better way later (Simpson #24)
