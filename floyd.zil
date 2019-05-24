@@ -175,6 +175,7 @@ his side panels, laughing hysterically. Oil drops stream from his eyes." CR>)
 				  <COND (<FSET? ,HERE ,FLOYDBIT>
 						 <TELL "rushes out of the room." CR>
 						 <REMOVE ,FLOYD>
+						 <SETG FLOYD-WAITING <>>
 						 <SETG FLOYD-FOLLOW <>>
 						 <ENABLE <QUEUE I-FLOYD 40>>)
 						(T <TELL "moves a respectable distance away." CR>)>)

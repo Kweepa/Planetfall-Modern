@@ -117,7 +117,7 @@ it." CR>)>>
 	(LOC INFIRMARY)
 	(DESC "red spool")
 	(FDESC
-"Lying on one of the beds is a small red spool.")
+"Lying near one of the beds is a small red spool.")
 	(SYNONYM SPOOL SPOOLS OBJECT)
 	(ADJECTIVE RED SMALL)
 	(SIZE 3)
@@ -1789,7 +1789,7 @@ point.\"")
 		      (<FSET? ,BIO-DOOR-WEST ,OPENBIT>
 		       <TELL ,BOTH-DOORS CR>)
 		      (<AND ,FLOYD-WAITING
-			    <FSET? ,FLOYD ,RLANDBIT>
+			    <FLOYD-HERE-AWAKE>
 			    <EQUAL? ,FORAY-COUNTER 0>>
 		       <ENABLE <QUEUE I-FLOYD-FORAY -1>>
 		       <SETG FLOYD-FORAYED T>

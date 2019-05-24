@@ -37,8 +37,12 @@ __Bugs fixed__
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
 * prevented kitchen door from being manually closed (Simpson #35)
 * fixed Floyd leaving closed rooms when seeing the breastplate (Simpson #37)
+* fixed Floyd entering lab when not there (Simpson #37)
 * Floyd reacts appropriately to SHOW PLATE TO FLOYD (Simpson #38)
 * fixed confusion with UNLOCK DOOR when padlock removed (Simpson #41)
+* fixed error message when showing something to inanimate object (Simpson #42)
+* fixed spool is/isn't on bed confusion (Simpson #43)
+* fixed new battery having OBJECT adjective (Simpson #44)
 * removed UPPER adjective from the blue door so that SLIDE UPPER THROUGH SLOT works
 
 Where appropriate, taken from
