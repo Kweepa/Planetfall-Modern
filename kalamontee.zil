@@ -54,9 +54,6 @@ probably climb up to it.")
       (ACTION CRAG-F)>
 
 <ROUTINE CRAG-F (RARG)
-   <COND (<IN? ,DIARY ,ADVENTURER>
-      <REMOVE ,DIARY>
-      <TELL "Your diary slips from your grasp and quickly sinks from view!" CR CR>)>
 	 <COND (<EQUAL? .RARG ,M-ENTER>
 		<SETG DROWN 3>)>>
 
@@ -1873,7 +1870,7 @@ a narrow slot." CR>)>>
 	(DESC "button")
 	(SYNONYM BUTTON)
 	(FLAGS NDESCBIT)
-        (ACTION ELEVATOR-BUTTON-F)>
+	(ACTION ELEVATOR-BUTTON-F)>
 
 ;"*-ELEVATOR-UP should be <> if elevator is at bottom of shaft and T if
 elevator is at top of shaft"

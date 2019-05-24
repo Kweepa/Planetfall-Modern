@@ -32,7 +32,7 @@ __Bugs fixed__
 * fixed switched off Floyd responding to things (Cree #7, Simpson #36)
 * fixed behavior of water level as the days progress (Cree #8)
 * prevented the pod from being opened from the webbing (Cree #9)
-* prevented diary from interfering with the elevator controls, by removing the diary when you reach the Crag. I might do this a better way later (Simpson #24)
+* fixed diary interfering with the elevator controls (Simpson #24)
 * fixed DROP/THROW dial, goo and liquids (Simpson #28, #29, #30)
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
 * prevented kitchen door from being manually closed (Simpson #35)
