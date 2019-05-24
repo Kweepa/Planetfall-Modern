@@ -389,7 +389,7 @@ be thinking about touching them." CR>)>)
 
 <ROUTINE GLOBAL-GAMES-F ()
 	 <COND (<VERB? PLAY>
-		<COND (<IN? ,FLOYD ,HERE>
+		<COND (<FLOYD-HERE-AWAKE>
 		       <PERFORM ,V?PLAY-WITH ,FLOYD>
 		       <RTRUE>)
 		      (T
@@ -409,8 +409,7 @@ be thinking about touching them." CR>)>)
 		       <TELL "A repulsive idea." CR>)
 		      (<IN? ,BLATHER ,HERE>
 		       <TELL "Saluting might be a better idea." CR>)
-		      (<AND <IN? ,FLOYD ,HERE>
-			    <FSET? ,FLOYD ,RLANDBIT>>
+		      (<FLOYD-HERE-AWAKE>
 		       <TELL
 "You shake one of Floyd's grasping extensions." CR>)
 		      (T
@@ -700,7 +699,7 @@ on a strange planet.">)>
 		<COND (<IN? ,BLATHER ,HERE>
 		       <TELL
 " \"Removing your uniform while on duty? Five hundred demerits!\"">)
-		      (<IN? ,FLOYD ,HERE>
+		      (<FLOYD-HERE-AWAKE>
 		       <TELL
 " Floyd giggles. \"You look funny without any clothes on.\"">)>
 		<TELL CR>)
@@ -1707,7 +1706,7 @@ activated. Please type in damaged sector number.\"" CR>)
 <GLOBAL CARD-REVEALED <>> ;"checks whether Floyd has already revealed his card"
 
 <ROUTINE FLOYD-REVEAL-CARD-F ()
-	 <COND (<AND <IN? ,FLOYD ,HERE>
+	 <COND (<AND <FLOYD-HERE-AWAKE>
 		     <NOT ,CARD-REVEALED>
 		     <OR <AND <EQUAL? ,DAY 2>
 			      <L? ,INTERNAL-MOVES 5000>
@@ -1781,7 +1780,7 @@ nothing. He scratches his head and looks confused." CR>)>)>>
 		<COND (<EQUAL? ,TELEPORTATION-ON T>
 		       <TELL
 "You experience a strange feeling in the pit of your stomach." CR>
-		       <COND (<IN? ,FLOYD ,HERE>
+		       <COND (<FLOYD-HERE-AWAKE>
 			      <TELL
 "Floyd gives a terrified squeal, and clutches at his guidance mechanism." CR>
 			      <SETG FLOYD-SPOKE T>

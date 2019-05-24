@@ -100,8 +100,7 @@ some complicated looking equipment, and many shelves that are mostly bare.")
 <ROUTINE INFIRMARY-F (RARG)
 	 <COND (<AND <EQUAL? .RARG ,M-END>
 		     <NOT ,LAZARUS-FLAG>
-		     <IN? ,FLOYD ,HERE>
-		     <FSET? ,FLOYD ,RLANDBIT>
+		     <FLOYD-HERE-AWAKE>
 		     <PROB 30>>
 		<SETG LAZARUS-FLAG T>
 		<MOVE ,LAZARUS-PART ,HERE>
@@ -409,7 +408,7 @@ Faalyur. WORNEENG: xis boord kuntroolz xe diskriminaashun surkits.\"" >)>
 		       <MOVE ,SECOND-BOARD ,ACCESS-PANEL>
 		       <SETG ACCESS-PANEL-FULL T>
 		       <COND (<EQUAL? ,PRSO ,CRACKED-BOARD>
-			      <SETG ITS-CRACKED T>)>			      
+			      <SETG ITS-CRACKED T>)>
 		       <PUT-BOARD>
 		       <CRLF>)
 		      (T
@@ -906,7 +905,7 @@ the screen:" CR>
 		       <SETG SCREEN-TEXT ,61-TEXT>
 		       <TELL ,SCREEN-TEXT CR>
 		       <TELL ,MORE-INFO CR>
-		       <COND (<IN? ,FLOYD ,HERE>
+		       <COND (<FLOYD-HERE-AWAKE>
 			      <SETG FLOYD-SPOKE T>
 			      <TELL
 "Floyd, peering over your shoulder, says \"Oh, I love that game! Solved every
@@ -1307,7 +1306,7 @@ an open doorway to a large elevator!" CR>)
 "The south wall is completely covered by a garish mural which clashes
 with the other decor of the room." CR>)>)
 	       (<AND <EQUAL? .RARG ,M-END>
-		     <IN? ,FLOYD ,HERE>
+		     <FLOYD-HERE-AWAKE>
 		     <NOT ,MURAL-FLAG>>
 		<SETG MURAL-FLAG T>
 		<SETG FLOYD-SPOKE T>
@@ -1682,8 +1681,7 @@ window. The bio lock continues to the west.")
 
 <ROUTINE BIO-LOCK-EAST-F (RARG)
 	 <COND (<AND <EQUAL? .RARG ,M-END>
-		     <IN? ,FLOYD ,HERE>
-		     <FSET? ,FLOYD ,RLANDBIT>
+		     <FLOYD-HERE-AWAKE>
 		     <NOT <EQUAL? ,FLOYD ,WINNER>>>
 		<COND (,FLOYD-WAITING
 		       <COND (<G? ,WAITING-COUNTER 3>
@@ -2121,7 +2119,7 @@ suffused with a pale blue glow.")
 		<TELL CR
 "You feel incredibly nauseous and begin vomiting. Also, all your
 hair has fallen out.">
-		<COND (<IN? ,FLOYD ,HERE>
+		<COND (<FLOYD-HERE-AWAKE>
 		       <TELL
 " Floyd points at you and laughs hysterically. \"You look funny with no
 hair,\" he gasps.">)>

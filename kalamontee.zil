@@ -1463,8 +1463,7 @@ these is square and says \"BAAS.\" The other white button is round and
 says \"ASID.\"" CR>)
 	       (<AND <EQUAL? .RARG ,M-END>
 		     <EQUAL? ,SPOUT-PLACED ,GROUND>
-		     <IN? ,FLOYD ,HERE>
-		     <FSET? ,FLOYD ,RLANDBIT>
+		     <FLOYD-HERE-AWAKE>
 		     <PROB 15>>
 		<SETG FLOYD-SPOKE T>
 		<TELL

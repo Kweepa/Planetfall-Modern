@@ -1514,7 +1514,7 @@ D ,PRSO "? Dr. Quarnsboggle, the Feinstein's psychiatrist, would ">
 	 <TELL "You sound rather indecisive." CR>>
 
 <ROUTINE V-POINT ()
-	 <COND (<AND <IN? ,FLOYD ,HERE> <FSET? ,FLOYD ,ACTORBIT>>
+	 <COND (<FLOYD-HERE-AWAKE>
 		<FLOYDS-FAMOUS-DOOR-ROUTINE>)
 	       (T
 		<TELL "It's usually impolite to point." CR>)>>

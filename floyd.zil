@@ -518,3 +518,6 @@ that great robot shop in the sky." CR>)>>
 	 "yawns and looks bored"
 	 "produces a crayon from one of his compartments and scrawls
 his name on the wall">>
+
+<ROUTINE FLOYD-HERE-AWAKE ()
+	<AND <IN? ,FLOYD ,HERE> <FSET? ,FLOYD ,RLANDBIT>>>
