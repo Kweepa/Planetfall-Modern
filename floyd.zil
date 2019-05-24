@@ -170,13 +170,14 @@ his side panels, laughing hysterically. Oil drops stream from his eyes." CR>)
 		      (<AND <VERB? GIVE PUT SHOW>
 			    <EQUAL? ,FLOYD ,PRSI>>
 		       <COND (<EQUAL? ,PRSO ,LAZARUS-PART>
-			      <REMOVE ,FLOYD>
-			      <SETG FLOYD-FOLLOW <>>
 			      <MOVE ,LAZARUS-PART ,HERE>
-			      <ENABLE <QUEUE I-FLOYD 40>>
-			      <TELL
-"At first, Floyd is all grins because of your gift. Then, he realizes what
-it is, begins weeping, drops the breastplate, and rushes out of the room." CR>)
+			      <TELL "At first, Floyd is all grins because of your gift. Then, he realizes what it is, begins weeping, drops the breastplate, and ">
+				  <COND (<FSET? ,HERE ,FLOYDBIT>
+						 <TELL "rushes out of the room." CR>
+						 <REMOVE ,FLOYD>
+						 <SETG FLOYD-FOLLOW <>>
+						 <ENABLE <QUEUE I-FLOYD 40>>)
+						(T <TELL "moves a respectable distance away." CR>)>)
 			     (<EQUAL? ,PRSO ,RED-GOO ,GREEN-GOO ,BROWN-GOO ,HIGH-PROTEIN ,MEDICINE>
 			      <TELL
 "Floyd looks at the " D ,PRSO ". \"Yech! Got any Number Seven Heavy Grease?\"" CR>)

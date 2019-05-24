@@ -36,8 +36,9 @@ __Bugs fixed__
 * fixed DROP/THROW dial, goo and liquids (Simpson #28, #29, #30)
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
 * prevented kitchen door from being manually closed (Simpson #35)
-* fixed Floyd leaving closed rooms when seeing the breastplate, by making the breastplate non-portable. I might do this a better way later (Simpson #37)
+* fixed Floyd leaving closed rooms when seeing the breastplate (Simpson #37)
 * Floyd reacts appropriately to SHOW PLATE TO FLOYD (Simpson #38)
+* fixed confusion with UNLOCK DOOR when padlock removed (Simpson #41)
 * removed UPPER adjective from the blue door so that SLIDE UPPER THROUGH SLOT works
 
 Where appropriate, taken from
