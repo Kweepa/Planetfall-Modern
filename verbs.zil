@@ -21,6 +21,16 @@
 	 <SETG SUPER-BRIEF T>
 	 <TELL "Superbrief descriptions." CR>>
 
+<GLOBAL MODERN 0>
+
+<ROUTINE V-CLASSIC ()
+	<SETG MODERN 0>
+	<TELL "Planetfall is now in classic mode. It may kill you or leave you in an unwinnable situation unfairly. You will also need to eat to survive." CR>>
+
+<ROUTINE V-MODERN ()
+	<SETG MODERN 1>
+	<TELL "Planetfall is now in modern mode. It won't kill you or leave you in an unwinnable situation unfairly, by some definition of unfairly. You will not need to eat to survive." CR>>
+
 <ROUTINE V-LOOK ()
 	 <SETG C-ELAPSED 9>
 	 <COND (<DESCRIBE-ROOM T>
@@ -942,6 +952,7 @@ looking up at you." CR CR>)>
 	 <TELL "The " D ,PRSO " is right here!" CR>>
 
 <ROUTINE V-LEAP ()
+	 ;<SETG DAY <+ ,DAY 1>> "remove before submit!"
 	 <COND (,PRSO
 		<COND (<IN? ,PRSO ,HERE>
 		       <COND (<FSET? ,PRSO ,ACTORBIT>

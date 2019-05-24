@@ -11,7 +11,7 @@ with Complex One / the Western Complex / the Kalamontee Compleks."
 "You are momentarily disoriented as you enter the turbulent waters.
 Currents buffet you against the sharp rocks of an underwater
 cliff. A dim light filters down from above.")
-      (UP TO CRAG)
+      (UP PER UNDERWATER-UP-F)
       (DOWN TO UNDERWATER)
       (WEST TO UNDERWATER)
       (NORTH TO UNDERWATER)
@@ -27,6 +27,13 @@ cliff. A dim light filters down from above.")
 		<COND (<G? ,DROWN 2>
 		       <JIGS-UP
 "A mighty undertow drags you across some underwater obstructions.">)>)>>
+
+<ROUTINE UNDERWATER-UP-F ()
+	 <SETG DROWN 0>
+	 <COND (<L? ,DAY 2> ,CRAG)
+	       (<L? ,DAY 4> ,BALCONY)
+	       (<L? ,DAY 6> ,WINDING-STAIR)
+		   (T ,COURTYARD)>>
 
 <ROOM CRAG
       (LOC ROOMS)
@@ -71,17 +78,13 @@ wall. Through the shattered windows which ring the outer wall you can see
 ocean to the horizon. A weathered metal plaque with barely readable lettering
 rests below the windows. The language seems to be a corrupt form of
 Galalingua. A steep stairway, roughly cut into the face of the cliff, leads
-upward. ">
+upward.">
 		<COND (<EQUAL? ,DAY 1>
-		       <TELL
-"A rocky crag can be seen about eight meters below." CR>)
+		       <TELL " A rocky crag can be seen about eight meters below." CR>)
 		      (<EQUAL? ,DAY 2>
-		       <TELL
-"The ocean waters swirl below. The crag where you landed yesterday is
-now underwater!" CR>)
-		      (<EQUAL? ,DAY 3>
-		       <TELL
-"Ocean waters are lapping at the base of the balcony." CR>)>)>>
+		       <TELL " The ocean waters swirl below. The crag where you landed yesterday is now underwater!" CR>)
+		      (<G? ,DAY 2>
+		       <TELL " Ocean waters are lapping at the base of the balcony." CR>)>)>>
 
 <ROOM WINDING-STAIR
       (LOC ROOMS)
@@ -94,14 +97,9 @@ now underwater!" CR>)
 
 <ROUTINE WINDING-STAIR-F (RARG)
 	 <COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL
-"The middle of a long, steep stairway carved into the face of a cliff.">
-		<COND (<EQUAL? ,DAY 4>
-		       <TELL
-" You hear the lapping of water from below.">)
-		      (<EQUAL? ,DAY 5>
-		       <TELL
-" You can see ocean water splashing against the steps below you.">)>
+		<TELL "The middle of a long, steep stairway carved into the face of a cliff.">
+		<COND (<EQUAL? ,DAY 4> <TELL " You hear the lapping of water from below.">)
+		      (<G? ,DAY 4> <TELL " You can see ocean water splashing against the steps below you.">)>
 		<CRLF>)>>
 
 <ROOM COURTYARD
@@ -122,25 +120,17 @@ now underwater!" CR>)
 "You are in the courtyard of an ancient stone edifice, vaguely reminiscent of
 the castles you saw during your leave on Ramos Two. It has decayed to
 the point where it can probably be termed a ruin. Openings lead north and west,
-and a stairway downward is visible to the south. ">
+and a stairway downward is visible to the south.">
 		<COND (<EQUAL? ,DAY 6 7>
-		       <TELL
-"From the direction of the stairway comes the sound of ocean surf.">)
+		       <TELL " From the direction of the stairway comes the sound of ocean surf.">)
 		      (<EQUAL? ,DAY 8>
-		       <TELL
-"Ocean water washes against the top few steps.">)>
+		       <TELL " Ocean water washes against the top few steps.">)>
 		<CRLF>)>>
 
 <ROUTINE WATER-LEVEL-F ()
-	 <COND (<EQUAL? ,HERE ,BALCONY>
-		<COND (<EQUAL? ,DAY 1> ,CRAG)
-		      (T ,UNDERWATER)>)
-	       (<EQUAL? ,HERE ,WINDING-STAIR>
-		<COND (<L? ,DAY 4> ,BALCONY)
-		      (T ,UNDERWATER)>)
-	       (<EQUAL? ,HERE ,COURTYARD>
-		<COND (<L? ,DAY 6> ,WINDING-STAIR)
-		      (T ,UNDERWATER)>)>>
+	 <COND (<EQUAL? ,HERE ,BALCONY>       <COND (<L? ,DAY 2> ,CRAG) (T ,UNDERWATER)>)
+	       (<EQUAL? ,HERE ,WINDING-STAIR> <COND (<L? ,DAY 4> ,BALCONY) (T ,UNDERWATER)>)
+	       (<EQUAL? ,HERE ,COURTYARD>     <COND (<L? ,DAY 6> ,WINDING-STAIR) (T ,UNDERWATER)>)>>
 
 <ROOM WEST-WING
       (LOC ROOMS)
@@ -603,16 +593,18 @@ obviously be much longer." CR>)>)
 			      <TELL
 "The ladder swings out across the rift and comes to rest on the far edge,
 spanning the precipice." CR>)
-			     (T
-			      <TELL
-"The ladder is far too short to reach the other edge of the rift. It would plunge into
-the rift and be lost forever!" CR>)>)>)
+			     (T <SHORT-LADDER-RIFT-F>)>)>)
 	       (<VERB? CLIMB-UP CLIMB-FOO>
 		<COND (,LADDER-FLAG
 		       <TELL "You can't climb a horizontal ladder!" CR>)
 		      (<IN? ,LADDER ,ADVENTURER>
 		       <TELL
 "That would be a neat trick, considering that you're holding it." CR>)>)>>
+
+<ROUTINE SHORT-LADDER-RIFT-F ()
+	<TELL "The ladder is far too short to reach the other edge of the rift. It ">
+	<COND (<EQUAL? ,MODERN 1> <TELL "would plunge into the rift and be lost forever!" CR>)
+		  (T <REMOVE ,LADDER> <TELL "plunges into the rift and is lost forever!" CR>)>>
 
 <ROOM DORM-CORRIDOR
       (LOC ROOMS)
@@ -943,7 +935,7 @@ pointy rocks at the bottom of the rift, far below..." CR CR>
 
 <ROUTINE RIFT-F ()
 	 <COND (<VERB? LEAP>
-		<JIGS-NOT-UP
+		<JIGS-UP
 "You get a brief (but much closer) view of the sharp and nasty rocks at
 the bottom of the rift.">)
 	       (<AND <VERB? PUT>

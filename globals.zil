@@ -173,10 +173,12 @@ contains the opening sequence which occurs prior to planetfall."
 		<TELL "A narrow, jagged crevice runs across the floor." CR>)>>
 
 <ROUTINE JIGS-NOT-UP (RARG "AUX" I)
-   <TELL .RARG CR CR>
-   <SET .I <RANDOM 2>>
-   <COND (<EQUAL? .I 1> <TELL "You are jolted out of your reverie by the realization that you nearly did something fatally dumb. Perhaps Blather was right." CR>)
-      (T <TELL "However, I can tell you didn't mean to do that, so let's forget it ever happened." CR>)>>
+   <COND (<EQUAL? ,MODERN 0> <JIGS-UP .RARG>)
+		 (T
+		   <TELL .RARG CR CR>
+		   <SET .I <RANDOM 2>>
+		   <COND (<EQUAL? .I 1> <TELL "You are jolted out of your reverie by the realization that you nearly did something fatally dumb. Perhaps Blather was right." CR>)
+			  (T <TELL "However, I can tell you didn't mean to do that, so let's forget it ever happened." CR>)>)>>
 
 <OBJECT WINDOW
 	(LOC LOCAL-GLOBALS)
@@ -823,7 +825,7 @@ SUMMER HE WENT WALKING AT NIGHT ON THE PLAINS AND STUMBLED OVER A CRATER AND
 BRUISED HIS KNEE! Gosh!"
 	 "Bozbar 28 -- We entered planetary orbit today, a non-human
 world called Accardi-3 (although the natives call it something like
-Blow'k-bibben-gordo). They're not officially part of the union. The rumors
+Blow'k-bibben-Gordo). They're not officially part of the union. The rumors
 say that we're picking up a special ambassador to take back to Tremain for
 negotiations on joining the union. Tomorrow we have to put on our dress
 uniforms for some special welcoming ceremony."
@@ -1042,7 +1044,7 @@ here on three of his legs, and watching you with seven of his eyes.")
 <ROUTINE CELERY-F ()
 	 <COND (<VERB? EAT>
 		<JIGS-NOT-UP
-"Oops. Looks like Blow'k-Bibben-Gordoan metabolism is not
+"Oops. Looks like Blow'k-bibben-Gordoan metabolism is not
 compatible with our own. You die of all sorts of convulsions.">)
 	       (<VERB? TAKE>
 		<TELL
@@ -2442,7 +2444,7 @@ closer...">>
 	 <SETG SICKNESS-WARNING-FLAG T>
 	 <SETG SLEEPY-LEVEL 0>
 	 <RESET-TIME>
-    <UPDATE-STATUS-LINE>
+	 <UPDATE-STATUS-LINE>
 	 <SET X <FIRST? ,ADVENTURER>>
 	 <REPEAT ()
 		 <COND (.X

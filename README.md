@@ -21,10 +21,14 @@ __Overview of Projected Changes__
 * removal of need to eat (done)
 * removal of some egregious deaths (in progress)
 * removal of "walking deads" (in progress)
+* addition of CLASSIC and MODERN pseudo-verbs (in progress)
+
+CLASSIC will allow the player to take advantage of the bug fixes while still playing the game as it was intended.
+MODERN will allow the player to enjoy the game without having to worry about unfair deaths or hunger.
 
 __Bugs fixed__
 
-* fixed sexlessness of ambassador and blather when being shot (Cree #6)
+* fixed sexlessness of ambassador and Blather when being shot (Cree #6)
 * fixed switched off Floyd responding to pointing at things (Cree #7)
 * prevented the pod from being opened from the webbing (Cree #9)
 * prevented kitchen door from being manually closed (Simpson #35)
@@ -34,6 +38,7 @@ __Bugs fixed__
 * fixed DROP/THROW dial, goo and liquids (Simpson #28, #29, #30)
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
 * fixed Floyd leaving closed rooms when seeing the breastplate, by making the breastplate non-portable. I might do this a better way later (Simpson #37)
+* fixed behavior of water level as the days progress (Cree #8)
 
 Where appropriate, taken from
 * Graham Cree's list http://graeme.50webs.com/infobugs/planetfa.htm
