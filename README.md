@@ -33,6 +33,7 @@ __Bugs fixed__
 * fixed behavior of water level as the days progress (Cree #8)
 * prevented the pod from being opened from the webbing (Cree #9)
 * fixed diary interfering with the elevator controls (Simpson #24)
+* fixed wearing uniform in carried container (Simpson #26)
 * fixed DROP/THROW dial, goo and liquids (Simpson #28, #29, #30)
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
 * prevented kitchen door from being manually closed (Simpson #35)

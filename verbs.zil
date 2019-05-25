@@ -1467,6 +1467,7 @@ D ,PRSO "? Dr. Quarnsboggle, the Feinstein's psychiatrist, would ">
 
 <ROUTINE V-WEAR ()
 	 <COND (<FSET? ,PRSO ,WEARBIT> 
+      <COND (<NOT <IN? ,PRSO ,ADVENTURER>> <ITAKE> <TELL "(First taking the " D ,PRSO ")" CR>)>
 		<TELL "You are wearing the " D ,PRSO "." CR>
 		<SETG C-ELAPSED 18>
 		<FSET ,PRSO ,WORNBIT>)
