@@ -186,6 +186,8 @@ his side panels, laughing hysterically. Oil drops stream from his eyes." CR>)
 				  <TELL "Floyd scans the " D ,PRSO ". \"Nope! Floyd all topped up!\"" CR>)
 				 (<EQUAL? ,PRSO ,LASER-DIAL ,LASER>
 				  <TELL "Floyd peers at the laser. \"Doctor-persons told Floyd not to play with danger-things!\"" CR>)
+				 (<EQUAL? ,PRSO ,DIARY-BUTTON>
+				  <TELL "Floyd barely gives it a glance before refusing your offer." CR>)
 			     (<OR <FIRST? ,FLOYD>
 				  <PROB 25>>
 			      <MOVE ,PRSO ,HERE>

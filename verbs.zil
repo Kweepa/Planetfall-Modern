@@ -662,8 +662,8 @@ the place and then evaporates." CR>)>
 	 <COND (<NOT <HELD? ,PRSO>>
          <COND (<EQUAL? ,PRSO ,HANDS> <TELL "Your hands are not detachable." CR>)(T <TELL "You're not carrying the " D ,PRSO "." CR>)>
 		<RFALSE>)
-          (<EQUAL? ,PRSO ,LASER-DIAL>
-		<TELL "The dial is attached to the laser!" CR>
+          (<FSET? ,PRSO ,PARTBIT>
+		<TELL "The " D ,PRSO " is attached to the " D <LOC ,PRSO> "!" CR>
 		<RFALSE>)
 	       (<FSET? ,PRSO ,LIQUIDBIT>
 		<TELL "That would make a mess!" CR>
@@ -1706,8 +1706,10 @@ computer. You are fried by powerful electric currents.">)>)
 by section 17.9.2 of the Galactic Adventure Game Compendium of Rules." CR>>
 
 <ROUTINE V-EMPTY ("AUX" X)
-	 <COND (<NOT <FSET? ,PRSO ,OPENBIT>>
-		<TELL "You can't empty it when it's closed!" CR>)
+	 <COND (<NOT <FSET? ,PRSO ,CONTBIT>>
+            <TELL "That's not a container!" CR>)
+          (<NOT <FSET? ,PRSO ,OPENBIT>>
+            <TELL "You can't empty it when it's closed!" CR>)
 	       (<FIRST? ,PRSO>
 		       <REPEAT ()
 			       <COND (<SET X <FIRST? ,PRSO>>

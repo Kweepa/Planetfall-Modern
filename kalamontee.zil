@@ -1481,10 +1481,11 @@ splashes across the floor. Floyd jumps up and down, giggling." CR>)>>
 	 <COND (<AND <VERB? PUT-UNDER>
 		     <EQUAL? ,PRSI ,CHEMICAL-DISPENSER>>
 		<COND (<EQUAL? ,SPOUT-PLACED ,GROUND>
-		       <MOVE ,PRSO ,HERE>
-		       <TELL
-"The " D ,PRSO " is now sitting under the spout." CR>
-		       <SETG SPOUT-PLACED ,PRSO>)
+            <COND (<FSET? ,PRSO ,PARTBIT> <TELL "You can't do that." CR>)
+                  (T
+                   <MOVE ,PRSO ,HERE>
+                   <TELL "The " D ,PRSO " is now sitting under the spout." CR>
+                   <SETG SPOUT-PLACED ,PRSO>)>)
 		      (T
 		       <TELL
 "The " D ,SPOUT-PLACED " is already resting under the spout." CR>)>)>>
