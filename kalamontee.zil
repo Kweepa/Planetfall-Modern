@@ -2241,7 +2241,7 @@ entiir popyuulaashun. Tiim iz kritikul. Eemurjensee asistins reekwestid.
 "The mutants lap up the chemical, howling with delight. One immediately
 grows three new mouths." CR>)
 	       (<VERB? PUT POUR>
-		<COND (<NOT <HELD? ,FLASK>>
+		<COND (<AND <NOT <HELD? ,FLASK>> <NOT <EQUAL? ,PRSI ,SPOUT-PLACED>>>
 		       <TELL "You're not holding the flask." CR>
 		       <RTRUE>)
 		      (<EQUAL? ,PRSI ,CANTEEN>
