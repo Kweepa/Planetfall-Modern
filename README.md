@@ -35,6 +35,7 @@ __Bugs fixed__
 * fixed diary interfering with the elevator controls (Simpson #24)
 * fixed "You're not holding the flask" when non-flask under spout (Simpson #25)
 * fixed wearing uniform in carried container (Simpson #26)
+* fixed some THROW/DROP HANDS bugs (Simpson #27)
 * fixed DROP/THROW dial, goo and liquids (Simpson #28, #29, #30)
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
 * prevented kitchen door from being manually closed (Simpson #35)

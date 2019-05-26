@@ -2981,10 +2981,10 @@ it. Both the laser and the microbe plummet into the void. (Whew!)" CR>
 		      (T
 		       <COND (<EQUAL? ,PRSO ,LASER>
 			      <DISABLE <INT I-WARMTH>>)>
-		       <REMOVE ,PRSO>
-		       <TELL
-"The " D ,PRSO " flies over the edge of the strip and disappears into the
-void." CR>)>)>>
+             <COND (<EQUAL? ,PRSO ,HANDS> <TELL "Your hands remain firmly attached." CR>)
+                   (T 
+                    <REMOVE ,PRSO>
+                    <TELL "The " D ,PRSO " flies over the edge of the strip and disappears into the void." CR>)>)>)>>
 
 ^L
 

@@ -660,7 +660,7 @@ the place and then evaporates." CR>)>
 
 <ROUTINE IDROP ()
 	 <COND (<NOT <HELD? ,PRSO>>
-		<TELL "You're not carrying the " D ,PRSO "." CR>
+         <COND (<EQUAL? ,PRSO ,HANDS> <TELL "Your hands are not detachable." CR>)(T <TELL "You're not carrying the " D ,PRSO "." CR>)>
 		<RFALSE>)
           (<EQUAL? ,PRSO ,LASER-DIAL>
 		<TELL "The dial is attached to the laser!" CR>

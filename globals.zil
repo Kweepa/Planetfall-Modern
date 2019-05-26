@@ -1011,11 +1011,15 @@ breaks three pencil points in a frenzied rush to give you more demerits." CR>
 five demerits.\"" CR>)
 	       (<AND <VERB? THROW>
 		     <EQUAL? ,BLATHER ,PRSI>>
-		<MOVE ,PRSO ,HERE>
-		<TELL
+           <COND (<EQUAL? ,PRSO ,HANDS> <TELL
+"Your hands remain firmly attached. Blather interprets the attempt as a
+feeble salute and gives you a hundred demerits." CR>)
+                 (T
+                  <MOVE ,PRSO ,HERE>
+                  <TELL
 "The " D ,PRSO " bounces off Blather's bulbous nose. He becomes livid, orders
 you to do five hundred push-ups, gives you ten thousand demerits, and assigns
-you five years of extra galley duty." CR>)
+you five years of extra galley duty." CR>)>)
 	       (<VERB? EXAMINE>
 		<TELL
 "Ensign Blather is a tall, beefy officer with a tremendous, misshapen nose.
