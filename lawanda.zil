@@ -142,10 +142,17 @@ it." CR>)>>
 	(SYNONYM BOTTLE LABEL)
 	(ADJECTIVE MEDICINE SMALL WHITE TRANSLUCENT)
 	(SIZE 7)
-	(CAPACITY 7)
+	(CAPACITY 2)
 	(TEXT
 "\"Dizeez supreshun medisin -- eksperimentul\"")
-	(FLAGS CONTBIT SEARCHBIT TAKEBIT TRANSBIT READBIT)>
+	(FLAGS CONTBIT SEARCHBIT TAKEBIT TRANSBIT READBIT)
+   (ACTION MEDICINE-BOTTLE-F)>
+   
+<ROUTINE MEDICINE-BOTTLE-F ()
+   <COND (<VERB? LOOK-INSIDE>
+      <COND (<FIRST? ,PRSO> <TELL "The bottle contains a quantity of medicine." CR>)(T <TELL "The bottle is empty." CR>)>)
+         (<VERB? SHAKE>
+      <COND (<FIRST? ,PRSO> <TELL "The medicine swirls around in the bottle." CR>)(T <TELL "The bottle is empty." CR>)>)>>
 
 <OBJECT MEDICINE
 	(LOC MEDICINE-BOTTLE)
@@ -153,7 +160,7 @@ it." CR>)>>
 	(FDESC "At the bottom of the bottle is a small quantity of medicine.")
 	(SYNONYM MEDICINE QUANTITY)
 	(ADJECTIVE SMALL QUANTITY EXPERIMENTAL)
-	(SIZE 7)
+	(SIZE 2)
 	(FLAGS FOODBIT LIQUIDBIT)
 	(ACTION MEDICINE-F)>
 

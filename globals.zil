@@ -1277,9 +1277,9 @@ rising past the viewport." CR>)
 	 <COND (<VERB? EMPTY>
 		<COND (<NOT <FSET? ,FOOD-KIT ,OPENBIT>>
 		       <TELL "The kit is closed!" CR>)
-		      (<FIRST? ,PRSO>
+		      (<OR <IN? ,RED-GOO ,PRSO> <IN? ,GREEN-GOO ,PRSO> <IN? ,BROWN-GOO ,PRSO>>
 		       <TELL
-"The goo, being gooey, sticks to the inside of the kit. You would probably
+"The goo, being gooey, would stick to the inside of the kit. You would probably
 have to shake the kit to get the goo out." CR>)>)>>
 
 <OBJECT RED-GOO
@@ -2394,6 +2394,7 @@ bed is so comfy?" CR>)
 
 <ROUTINE DREAMING ()
 	 <COND (<AND <FSET? ,FORK ,TOUCHBIT>
+            ,FLOYD-INTRODUCED
 		     <PROB 13>>
 		<TELL
 "You are in a busy office crowded with people. The only one you

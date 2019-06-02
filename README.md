@@ -41,16 +41,27 @@ __Bugs fixed__
 * fixed GIVE LITTLE BUTTON TO FLOYD
 * fixed DROP/THROW dial, goo and liquids (Simpson #28, #29, #30)
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
+* fixed EMPTY/SHAKE BOTTLE (Simpson #31)
+* fixed medicine bottle bugs by making only the medicine fit inside (Simpson #32)
 * prevented kitchen door from being manually closed (Simpson #35)
 * fixed Floyd leaving closed rooms when seeing the breastplate (Simpson #37)
 * fixed Floyd entering lab when not there (Simpson #37)
 * Floyd reacts appropriately to SHOW PLATE TO FLOYD (Simpson #38)
+* fixed dreaming of Floyd before meeting him (Simpson #39)
+* fixed EMPTY X INTO Y (Simpson #40)
 * fixed confusion with UNLOCK DOOR when padlock removed (Simpson #41)
 * fixed error message when showing something to inanimate object (Simpson #42)
 * fixed spool is/isn't on bed confusion (Simpson #43)
 * fixed new battery having OBJECT adjective (Simpson #44)
 * removed UPPER adjective from the blue door so that SLIDE UPPER THROUGH SLOT works
 
-Where appropriate, taken from
+__To do list__
+
+* Cree #10 is a tough one because it's pervasive (sleeping pauses timers etc). Some combo of delaying sleeping and killing the player should do it.
+* Simpson #34 is also tough (FLOYD, PUSH RED [BUTTON]) because it's deep in the guts of the parser. Probably have to hack it...
+* restore the need to eat for CLASSIC mode (I foolishly wholesale deleted it earlier)
+* some more CLASSIC/MODERN modifications...?
+
+Where appropriate, bugs taken from
 * Graham Cree's list http://graeme.50webs.com/infobugs/planetfa.htm
 * Nathan Simpson's list http://www.microheaven.com/InfocomBugs/planetfa.shtml

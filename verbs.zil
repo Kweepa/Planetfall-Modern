@@ -1705,24 +1705,51 @@ computer. You are fried by powerful electric currents.">)>)
 	 <TELL "Pouring or spilling nonliquids is specifically forbidden
 by section 17.9.2 of the Galactic Adventure Game Compendium of Rules." CR>>
 
-<ROUTINE V-EMPTY ("AUX" X)
+<ROUTINE V-EMPTY ()
 	 <COND (<NOT <FSET? ,PRSO ,CONTBIT>>
             <TELL "That's not a container!" CR>)
           (<NOT <FSET? ,PRSO ,OPENBIT>>
             <TELL "You can't empty it when it's closed!" CR>)
 	       (<FIRST? ,PRSO>
+            <COND (,PRSI <TRY-EMPTY-INTO-OTHER>)
+                  (T <EMPTY-ONTO-FLOOR>)>)
+	       (T
+		<TELL "There's nothing in the " D ,PRSO "." CR>)>>
+      
+<ROUTINE EMPTY-ONTO-FLOOR ("AUX" X)
 		       <REPEAT ()
 			       <COND (<SET X <FIRST? ,PRSO>>
-			              <COND (<EQUAL? .X ,HIGH-PROTEIN
-					                ,CHEMICAL-FLUID>
+			              <COND (<FSET? .X ,LIQUIDBIT>
+                         <TELL "You pour the " D .X " onto the floor and it evaporates!" CR>
 				             <REMOVE .X>)
 				            (T
 				             <MOVE .X ,HERE>)>)
 			             (T
 				      <RETURN>)>>
-		       <TELL "The " D ,PRSO " is now empty." CR>)
-	       (T
-		<TELL "There's nothing in the " D ,PRSO "." CR>)>>
+		       <TELL "The " D ,PRSO " is now empty." CR>>   
+
+<ROUTINE TRY-EMPTY-INTO-OTHER ()
+      <COND (<NOT <FSET ,PRSI ,CONTBIT>> <TELL "The " D ,PRSI " is not a container!" CR>)
+            (<NOT <FSET ,PRSI ,OPENBIT>> <TELL "The " D ,PRSO " is closed!" CR>)
+            (T <EMPTY-INTO-OTHER>)>>
+
+<ROUTINE EMPTY-INTO-OTHER ("AUX" W X Y)
+   <SET W <WEIGHT ,PRSO>>
+   <SET X <FIRST? ,PRSO>>
+   <REPEAT ()
+      <COND (.X
+             <SET Y <NEXT? .X>>
+             <TELL "Trying " D .X ": " N <WEIGHT, PRSI> " + " N <WEIGHT .X> "-" N <GETP ,PRSI ,P?SIZE> ">" N <GETP ,PRSI ,P?CAPACITY> CR>
+             <COND (<AND <NOT <FSET? .X ,LIQUIDBIT>>
+                     <NOT <G? <- <+ <WEIGHT ,PRSI> <WEIGHT .X>> <GETP ,PRSI ,P?SIZE>> <GETP ,PRSI ,P?CAPACITY>>>>
+                    <MOVE .X ,PRSI>)>
+             <SET X .Y>)
+            (T <RETURN>)>>
+   <COND (<EQUAL? <WEIGHT ,PRSO> <GETP ,PRSO ,P?SIZE>> <TELL "You move everything">)
+         (<EQUAL? .W <WEIGHT ,PRSO>> <TELL "You can't move anything">)
+         (T <TELL "You move what you can">)>
+   <TELL " from the " D ,PRSO " to the " D ,PRSI "." CR>>
+
 
 <ROUTINE V-THROW-OFF ()
 	 <TELL "It's difficult to see how that can be done." CR>>

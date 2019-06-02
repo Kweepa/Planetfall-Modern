@@ -297,8 +297,7 @@ deserted now. There are openings at the north and south ends of the room.">
 <CONSTANT SANFAC-DESC
 "This must be the sanitary facility for the adjacent dormitory. The fixtures
 are dry and dusty, the room dead and deserted. You marvel at how little the
-millennia and cultural gulfs have changed toilet bowl design. The only exit is
-north.">
+millennia and cultural gulfs have changed toilet bowl design. The only exit is ">
 
 <ROOM DORM-A
       (LOC ROOMS)
@@ -313,10 +312,19 @@ north.">
 <ROOM SANFAC-A
       (LOC ROOMS)
       (DESC "SanFac A")
-      (LDESC ,SANFAC-DESC)
       (NORTH TO DORM-A)
       (FLAGS ONBIT RLANDBIT FLOYDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-SOUTH-F)>
+      
+<ROUTINE SANFAC-SOUTH-F (RARG)
+	 <COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL SANFAC-DESC "north." CR>)>>
+      
+<ROUTINE SANFAC-NORTH-F (RARG)
+	 <COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL SANFAC-DESC "south." CR>)>>
+
 
 <ROOM DORM-B
       (LOC ROOMS)
@@ -331,10 +339,10 @@ north.">
 <ROOM SANFAC-B
       (LOC ROOMS)
       (DESC "SanFac B")
-      (LDESC , SANFAC-DESC)
       (SOUTH TO DORM-B)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-NORTH-F)>
 
 <ROOM DORM-C
       (LOC ROOMS)
@@ -349,10 +357,10 @@ north.">
 <ROOM SANFAC-C
       (LOC ROOMS)
       (DESC "SanFac C")
-      (LDESC ,SANFAC-DESC)
       (NORTH TO DORM-C)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-SOUTH-F)>
 
 <ROOM DORM-D
       (LOC ROOMS)
@@ -367,10 +375,10 @@ north.">
 <ROOM SANFAC-D
       (LOC ROOMS)
       (DESC "SanFac D")
-      (LDESC ,SANFAC-DESC)
       (SOUTH TO DORM-D)
       (FLAGS ONBIT FLOYDBIT RLANDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-NORTH-F)>
 
 <ROOM MESS-CORRIDOR
       (LOC ROOMS)
