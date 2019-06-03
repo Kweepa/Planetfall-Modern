@@ -12,19 +12,19 @@ Further information on Planetfall:
 
 __What is this Repository?__
 
-This repository is a modification of the original Planetfall source code, with the goal to make it more playable by a modern audience with some minor tweaks.
+This repository is a modification of the original Planetfall source code, with the goal to make it more playable by a modern audience with some minor tweaks and all known bugs fixed.
 
-__Overview of Projected Changes__
+__Overview of Changes__
 
+CLASSIC allows the player to take advantage of the bug fixes while still playing the game as it was intended.
+MODERN allows the player to enjoy the game without having to worry about unfair deaths or hunger.
+
+* addition of CLASSIC and MODERN pseudo-verbs
 * bug fixes (in progress)
 * spelling corrections (done)
-* removal of need to eat (done)
-* removal of some egregious deaths (in progress)
-* removal of "walking deads" (in progress)
-* addition of CLASSIC and MODERN pseudo-verbs (in progress)
-
-CLASSIC will allow the player to take advantage of the bug fixes while still playing the game as it was intended.
-MODERN will allow the player to enjoy the game without having to worry about unfair deaths or hunger.
+* removal of need to eat for MODERN mode (done)
+* removal of some egregious deaths in MODERN mode (in progress)
+* removal of "walking deads" in MODERN mode (in progress)
 
 __Bugs fixed__
 
@@ -59,7 +59,6 @@ __To do list__
 
 * Cree #10 is a tough one because it's pervasive (sleeping pauses timers etc). Some combo of delaying sleeping and killing the player should do it.
 * Simpson #34 is also tough (FLOYD, PUSH RED [BUTTON]) because it's deep in the guts of the parser. Probably have to hack it...
-* restore the need to eat for CLASSIC mode (I foolishly wholesale deleted it earlier)
 * some more CLASSIC/MODERN modifications...?
 
 Where appropriate, bugs taken from

@@ -1810,10 +1810,12 @@ are heading straight toward the open door! Floyd shrieks and yells to you to
 close the door." CR>)
 		      (<AND <NOT ,FLOYD-FORAYED>
 			    <EQUAL? <GET <INT I-CHASE-SCENE> ,C-ENABLED?> 0>>
-		       <TELL
+               <TELL
 "Opening the door reveals a Bio-Lab full of horrible mutations. You stare at
 them, frozen with horror. Growling with hunger and delight, the mutations
-march toward the bio-lock to devour you. You slam the door just in time.">)
+march ">
+               <COND (<EQUAL? ,MODERN <>> <JIGS-UP "into the bio-lock and devour you.">)
+                     (T <TELL "toward the bio-lock to devour you. You slam the door just in time.">)>)
 		      (T
 		       <FSET ,BIO-DOOR-EAST ,OPENBIT>
 		       <ENABLE <QUEUE I-BIO-EAST-CLOSES 30>>

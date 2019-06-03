@@ -21,14 +21,24 @@
 	 <SETG SUPER-BRIEF T>
 	 <TELL "Superbrief descriptions." CR>>
 
-<GLOBAL MODERN 0>
+<GLOBAL MODERN <>>
 
 <ROUTINE V-CLASSIC ()
-	<SETG MODERN 0>
+	<SETG MODERN <>>
+   <SETG HUNGER-LEVEL 0>
+   <ENABLE <QUEUE I-HUNGER-WARNINGS 2000>>
+   <SETG FUMBLE-NUMBER 7>
+   <SETG FUMBLE-PROB 8>
+   <SETG LOAD-ALLOWED 100>
 	<TELL "Planetfall is now in classic mode. It may kill you or leave you in an unwinnable situation unfairly. You will also need to eat to survive." CR>>
 
 <ROUTINE V-MODERN ()
-	<SETG MODERN 1>
+	<SETG MODERN T>
+   <SETG HUNGER-LEVEL 1>
+   <DISABLE INT I-HUNGER-WARNINGS>
+   <SETG FUMBLE-NUMBER 9>
+   <SETG FUMBLE-PROB 5>
+   <SETG LOAD-ALLOWED 200>
 	<TELL "Planetfall is now in modern mode. It won't kill you or leave you in an unwinnable situation unfairly, by some definition of unfairly. You will not need to eat to survive." CR>>
 
 <ROUTINE V-LOOK ()
@@ -337,7 +347,7 @@ position, end this session of the game, or look at hints?|
 "PLANETFALL|
 Infocom interactive fiction -- a science fiction story|
 By Steve Meretzky|
-Modernized (butchered?) by Steve McCrea|
+Modernized and bug fixed by Steve McCrea. To play in modern mode, type MODERN at the prompt.|
 Copyright (c) 1983, 1988 by Infocom, Inc. All rights reserved.|
 PLANETFALL is a registered trademark of Infocom, Inc.|
 Release " N .V " / Serial number ">
@@ -350,7 +360,6 @@ Release " N .V " / Serial number ">
 	 <V-$ID>
 	 <CRLF>>
 
-
 ;"death"
 
 <ROUTINE JIGS-UP (DESC "OPTIONAL" (PLAYER? <>))
@@ -523,9 +532,9 @@ dangerous now?\"" CR CR>)>
 	 <COND (<EQUAL? <ITAKE> T>
 		<TELL "Taken." CR>)>>
 
-<GLOBAL FUMBLE-NUMBER 9> "once carrying this many, possible fumble"
+<GLOBAL FUMBLE-NUMBER 7> "once carrying this many, possible fumble"
 
-<GLOBAL FUMBLE-PROB 5> "percentage chance of fumbling per each carried object"
+<GLOBAL FUMBLE-PROB 8> "percentage chance of fumbling per each carried object"
 
 <ROUTINE TRYTAKE ()
 	 <COND (<IN? ,PRSO ,WINNER>
@@ -1463,7 +1472,19 @@ D ,PRSO "? Dr. Quarnsboggle, the Feinstein's psychiatrist, would ">
 		       <TELL "quite">)
 		      (T
 		       <TELL "sort of">)>
-		<TELL " tired." CR>)>>
+		<TELL " tired." CR>)>
+      <COND (<EQUAL? ,MODERN <>>
+       <COND (<EQUAL? ,HUNGER-LEVEL 0>	
+         <TELL "You seem to be well-fed." CR>)	
+             (T	
+         <TELL "You seem to be ">	
+         <COND (<G? ,HUNGER-LEVEL 4>	
+                <TELL "awesomely phenomenally">)	
+               (<G? ,HUNGER-LEVEL 2>	
+                <TELL "noticeably">)	
+               (T	
+                <TELL "fairly">)>	
+         <TELL " thirsty and hungry." CR>)>)>>
 
 <ROUTINE V-WEAR ()
 	 <COND (<FSET? ,PRSO ,WEARBIT> 

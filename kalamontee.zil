@@ -608,7 +608,7 @@ spanning the precipice." CR>)
 
 <ROUTINE SHORT-LADDER-RIFT-F ()
 	<TELL "The ladder is far too short to reach the other edge of the rift. It ">
-	<COND (<EQUAL? ,MODERN 1> <TELL "would plunge into the rift and be lost forever!" CR>)
+	<COND (<EQUAL? ,MODERN T> <TELL "would plunge into the rift and be lost forever!" CR>)
 		  (T <REMOVE ,LADDER> <TELL "plunges into the rift and is lost forever!" CR>)>>
 
 <ROOM DORM-CORRIDOR
@@ -736,6 +736,9 @@ its mouth resting just below the spout of the machine." CR>)
 			     (T
 			      <REMOVE ,HIGH-PROTEIN>
 			      <SETG C-ELAPSED 15>
+               <COND (<EQUAL? ,MODERN <>>
+                  <SETG HUNGER-LEVEL 0>
+                  <ENABLE QUEUE I-HUNGER-WARNINGS 3600>)>
 			      <TELL
 "Mmmm... that was good. It certainly quenched your thirst and satisfied your
 hunger." CR>)>)>)
@@ -1107,7 +1110,7 @@ doorway which lies to the east. Another exit leads west.")
    (ACTION CARD-F)>
 
 <ROUTINE CARD-F ()
-   <COND (<VERB? RUB> <TELL "You optimistically rub the magnetic stripe." CR> <FCLEAR ,PRSO ,SCRAMBLEDBIT>)>>
+   <COND (<AND <EQUAL? ,MODERN T> <VERB? RUB>> <TELL "You optimistically rub the magnetic stripe." CR> <FCLEAR ,PRSO ,SCRAMBLEDBIT>)>>
 
 <ROOM LARGE-OFFICE
       (LOC ROOMS)

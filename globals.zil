@@ -107,7 +107,7 @@ contains the opening sequence which occurs prior to planetfall."
 
 "SUBTITLE GLOBAL OBJECTS"
 
-<GLOBAL LOAD-ALLOWED 200>
+<GLOBAL LOAD-ALLOWED 100>
 
 <OBJECT GLOBAL-OBJECTS
 	(SYNONYM ZZMGCK)
@@ -173,7 +173,7 @@ contains the opening sequence which occurs prior to planetfall."
 		<TELL "A narrow, jagged crevice runs across the floor." CR>)>>
 
 <ROUTINE JIGS-NOT-UP (RARG "AUX" I)
-   <COND (<EQUAL? ,MODERN 0> <JIGS-UP .RARG>)
+   <COND (<EQUAL? ,MODERN <>> <JIGS-UP .RARG>)
 		 (T
 		   <TELL .RARG CR CR>
 		   <SET .I <RANDOM 2>>
@@ -1317,6 +1317,9 @@ have to shake the kit to get the goo out." CR>)>)>>
 		     (T
 		      <REMOVE ,PRSO>
 		      <SETG C-ELAPSED 15>
+            <COND (<EQUAL? ,MODERN <>>
+               <SETG HUNGER-LEVEL 0>
+               <ENABLE <QUEUE I-HUNGER-WARNINGS 1450>>)>
 		      <TELL "Mmmm... that tasted just like ">
 		      <COND (<EQUAL? ,PRSO ,BROWN-GOO>
 			     <TELL "delicious Nebulan fungus pudding">)
@@ -2345,47 +2348,48 @@ a slightly safer place to sleep.">)
 	(ACTION BED-F)>
 
 <ROUTINE BED-F ("OPTIONAL" (RARG ,M-OBJECT))
-	 <COND (<AND <VERB? WALK>
-		     <EQUAL? .RARG ,M-BEG>>
-		<TELL "You'll have to stand up, first." CR>)
-	       (<AND <VERB? TAKE OPEN CLOSE RUB>
-		     <EQUAL? .RARG ,M-BEG>
-		     <NOT <EQUAL? ,PRSO ,BED>>>
-		<TELL "You can't reach it from here." CR>)
+	 <COND (<AND <VERB? WALK> <EQUAL? .RARG ,M-BEG>>
+               <TELL "You'll have to stand up, first." CR>)
+	       (<AND <VERB? TAKE OPEN CLOSE RUB> <EQUAL? .RARG ,M-BEG> <NOT <EQUAL? ,PRSO ,BED>>>
+               <TELL "You can't reach it from here." CR>)
 	       (.RARG
-		<RFALSE>)
+               <RFALSE>)
 	       (<VERB? THROUGH BOARD WALK-TO>
-		<COND (<EQUAL? ,HERE ,INFIRMARY>
-		       <TELL
+               <COND (<EQUAL? ,HERE ,INFIRMARY> <ENTER-INFIRMARY-BED>)
+                     (<G? ,SLEEPY-LEVEL 0>
+                         <GOTO ,BED <>>          ;"arb"
+                         <ENABLE <QUEUE I-FALL-ASLEEP 16>>
+                         <DISABLE <INT I-SLEEP-WARNINGS>>
+                         <TELL  "Ahhh... the bed is soft and comfortable. You should be asleep in short order." CR>)
+                     (T
+                         <GOTO ,BED>            ;"arb"
+                         <TELL "You are now in bed." CR>)>)
+	       (<AND <VERB? DISEMBARK STAND EXIT DROP> <GET <INT I-FALL-ASLEEP> ,C-TICK>>
+               <TELL "How could you suggest such a thing when you're so tired and this bed is so comfy?" CR>)
+	       (<VERB? LEAVE EXIT DROP>
+               <PERFORM ,V?DISEMBARK ,BED>
+               <RTRUE>)
+	       (<AND <VERB? PUT> <EQUAL? ,BED ,PRSI>>
+               <MOVE ,PRSO ,HERE>
+               <TELL "The " D ,PRSO " bounces off the bed and lands on the floor." CR>)>>
+
+<ROUTINE ENTER-INFIRMARY-BED ()
+   <TELL
 "You climb into the bed. It is soft and comfortable. After a few moments, a
 previously unseen panel opens, and a diagnostic robot comes wheeling out. It
 is very rusty and sways unsteadily, bumping into several pieces of infirmary
-equipment as it crosses the room. As the robot approaches, you
+equipment as it crosses the room. ">
+   <COND (<EQUAL? ,MODERN <>>
+            <JIGS-UP
+"As the robot straps you to the bed, you
+notice some smoke curling from its cracks. Beeping happily, the robot injects
+you with all 347 serums and medicines it carries. The last thing you notice
+before you pass out is the robot preparing to saw your legs off.">)
+         (T <TELL
+"As the robot approaches, you
 notice some smoke curling from its cracks. Beeping happily, the robot attempts to inject
 you with all 347 serums and medicines it carries. When you leap to your feet, it
-speeds carelessly back inside its panel. Guess you won't be sleeping here!">)
-		      (<G? ,SLEEPY-LEVEL 0>
-		       <GOTO ,BED <>>          ;"arb"
-		       <ENABLE <QUEUE I-FALL-ASLEEP 16>>
-		       <DISABLE <INT I-SLEEP-WARNINGS>>
-		       <TELL 
-"Ahhh... the bed is soft and comfortable. You should be asleep in short
-order." CR>)
-		      (T
-		       <GOTO ,BED>            ;"arb"
-		       <TELL "You are now in bed." CR>)>)
-	       (<AND <VERB? DISEMBARK STAND EXIT DROP>
-		     <GET <INT I-FALL-ASLEEP> ,C-TICK>>
-		<TELL
-"How could you suggest such a thing when you're so tired and this
-bed is so comfy?" CR>)
-	       (<VERB? LEAVE EXIT DROP>
-		<PERFORM ,V?DISEMBARK ,BED>
-		<RTRUE>)
-	       (<AND <VERB? PUT> <EQUAL? ,BED ,PRSI>>
-		<MOVE ,PRSO ,HERE>
-		<TELL
-"The " D ,PRSO " bounces off the bed and lands on the floor." CR>)>>
+speeds carelessly back inside its panel. Guess you won't be sleeping here!">)>>
 
 <ROUTINE I-FALL-ASLEEP ()
 	 <TELL CR "You slowly sink into a deep and restful sleep." CR>
@@ -2485,7 +2489,15 @@ mysterious world.">)
 	       (T
 		<TELL
 "You wake feeling weak and worn-out. It will be an effort just to stand up.">)>
-	 <CRLF>
+    <COND (<EQUAL? ,MODERN <>>
+       <COND (<G? ,HUNGER-LEVEL 0>	
+         <SETG HUNGER-LEVEL 4>	
+         <ENABLE <QUEUE I-HUNGER-WARNINGS 100>>	
+         <TELL	
+" You are also incredibly famished. Better get some breakfast!">)	
+             (T	
+         <ENABLE <QUEUE I-HUNGER-WARNINGS 400>>)>)>
+    <CRLF>
 	 <COND (<AND <FSET? ,FLOYD ,RLANDBIT>
 		     ,FLOYD-INTRODUCED>
 		<MOVE ,FLOYD ,HERE>
@@ -2533,9 +2545,34 @@ sleeping on the floor,\" he says." CR>)>)>>
 
 ^L
 
-"Feed me! - no thanks!"
+"Feed me!"
 
-<GLOBAL HUNGER-LEVEL 1>
+<GLOBAL HUNGER-LEVEL 0>	
+
+<ROUTINE I-HUNGER-WARNINGS ()
+	 <SETG HUNGER-LEVEL <+ ,HUNGER-LEVEL 1>>	
+	 <COND (<EQUAL? ,HUNGER-LEVEL 1>	
+		<ENABLE <QUEUE I-HUNGER-WARNINGS 450>>	
+		<TELL CR	
+"A growl from your stomach warns that you're getting pretty hungry and	
+thirsty." CR>)	
+	       (<EQUAL? ,HUNGER-LEVEL 2>	
+		<ENABLE <QUEUE I-HUNGER-WARNINGS 150>>	
+		<TELL CR	
+"You're now really ravenous and your lips are quite parched." CR>)	
+	       (<EQUAL? ,HUNGER-LEVEL 3>	
+		<ENABLE <QUEUE I-HUNGER-WARNINGS 100>>	
+		<TELL CR	
+"You're starting to feel faint from lack of food and liquid." CR>)	
+	       (<EQUAL? ,HUNGER-LEVEL 4>	
+		<ENABLE <QUEUE I-HUNGER-WARNINGS 50>>	
+		<TELL CR	
+"If you don't eat or drink something in a few millichrons, you'll probably	
+pass out." CR>)	
+	       (<EQUAL? ,HUNGER-LEVEL 5>	
+		<JIGS-UP	
+"|	
+You collapse from extreme thirst and hunger.">)>>
 
 <CONSTANT NOT-HUNGRY "Thanks, but you're not hungry.">
 
