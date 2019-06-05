@@ -35,7 +35,7 @@ cliff. A dim light filters down from above.")
 		 <COND (<L? ,DAY 2> ,CRAG)
 			   (<L? ,DAY 4> ,BALCONY)
 			   (<L? ,DAY 6> ,WINDING-STAIR)
-			   (T ,COURTYARD)>>
+			   (T ,COURTYARD)>)
 			(T ,CRAG)>>
 
 <ROOM CRAG

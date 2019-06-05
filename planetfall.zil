@@ -2,7 +2,7 @@
 			       PLANETFALL
 	  (c) COPYRIGHT 1983, 1988 INFOCOM INC. ALL RIGHTS RESERVED"
 
-<PRINC "*** S3: Planetfall ***">
+<PRINC "*** S3: Planetfall *** ">
 
 ON!-INITIAL
 OFF!-INITIAL	;"makes debugging possible -- pdl"
