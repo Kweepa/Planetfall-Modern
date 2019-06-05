@@ -38,7 +38,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 <CONSTANT P-ORPHLEN 7>   
 <CONSTANT P-RTLEN 3>     ;"Byte offset to # of entries in LEXV"
 
-
+
 <CONSTANT P-LEXWORDS 1> ;"Word offset to start of LEXV entries" 
 <CONSTANT P-LEXSTART 1> ;"Number of words per LEXV entry"  
 <CONSTANT P-LEXELEN 2>   
@@ -92,7 +92,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
    If the input is <direction> or <walk> <direction>, fall out immediately
    setting PRSA to ,V?WALK and PRSO to <direction>.  Otherwise, perform
    all required orphaning, syntax checking, and noun clause lookup."   
-
+
 <ROUTINE PARSER ("AUX" (PTR ,P-LEXSTART) WRD (VAL 0) (VERB <>)
 		 OMERGED OWINNER ;OLEN LEN (DIR <>) (NW 0) (LW 0) (CNT -1)) 
 	<REPEAT ()
@@ -409,7 +409,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
    The second argument is the part of speech (,PS?<part of speech>).  The
    3rd argument (,P1?<part of speech>), if given, causes the value
    for that part of speech to be returned." 
-
+
 <ROUTINE WT? (PTR BIT "OPTIONAL" (B1 5) "AUX" (OFFST ,P-P1OFF) TYP) 
 	<COND (<BTST <SET TYP <GETB .PTR ,P-PSOFF>> .BIT>
 	       <COND (<G? .B1 4> <RTRUE>)
@@ -511,7 +511,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 
 <GLOBAL P-NUMBER 0>
 
-
+
 <ROUTINE ORPHAN-MERGE ("AUX" (CNT -1) TEMP VERB BEG END (ADJ <>) WRD) 
    <SETG P-OFLAG <>>
    <COND (<WT? <SET WRD <GET <GET ,P-ITBL ,P-VERBN> 0>>
@@ -599,7 +599,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 
 ;"Print undefined word in input.
    PTR points to the unknown word in P-LEXV"   
-
+
 <ROUTINE WORD-PRINT (CNT BUF)
 	 <REPEAT ()
 		 <COND (<DLESS? CNT 0> <RETURN>)
@@ -634,7 +634,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 	<SETG P-OFLAG <>>>
 
 <ROUTINE CANT-USE (PTR "AUX" BUF)
-	<TELL "I can't use the word \"">
+	<TELL "You can't use the word \"">
 	<WORD-PRINT <GETB <REST ,P-LEXV <SET BUF <* .PTR 2>>> 2>
 		    <GETB <REST ,P-LEXV .BUF> 3>>
 	<TELL "\" here." CR>
@@ -643,7 +643,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 
 ;" Perform syntax matching operations, using P-ITBL as the source of
    the verb and adjectives for this input.  Returns false if no
-   syntax matches, and does it's own orphaning.  If return is true,
+   syntax matches, and does its own orphaning.  If return is true,
    the syntax is saved in P-SYNTAX."
 
 <GLOBAL P-SLOCBITS 0>    
@@ -667,7 +667,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 <CONSTANT P-SACTION 7>   
 
 <CONSTANT P-SONUMS 3>    
-
+
 <ROUTINE SYNTAX-CHECK
 	("AUX" SYN LEN NUM OBJ (DRIVE1 <>) (DRIVE2 <>) PREP VERB TMP)
 	<COND (<0? <SET VERB <GET ,P-ITBL ,P-VERB>>>
@@ -737,9 +737,9 @@ begin with 'P-'.  Local variables are not restricted in any way."
 				 (T <GETB .DRIVE2 ,P-SPREP2>)>>
 	       <TELL "?" CR>
 	       <RFALSE>)>> 
-
+
 <ROUTINE CANT-ORPHAN ()
-	 <TELL "\"I don't understand! What are you referring to?\"" CR>
+    <TELL "\"I don't understand! What are you referring to?\"" CR>
 	 <RFALSE>>
 
 <ROUTINE ORPHAN (D1 D2 "AUX" (CNT -1))
@@ -818,7 +818,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 			 <CLAUSE-ADD .INSRT>)>
 		  <CLAUSE-ADD <GET .BEG 0>>)>
 	   <SET BEG <REST .BEG ,P-WORDLEN>>>>  
-
+
 <ROUTINE CLAUSE-ADD (WRD "AUX" PTR)
 	<SET PTR <+ <GET ,P-OCLAUSE ,P-MATCHLEN> 2>>
 	<PUT ,P-OCLAUSE <- .PTR 1> .WRD>
@@ -916,7 +916,7 @@ begin with 'P-'.  Local variables are not restricted in any way."
 <CONSTANT P-ONE 2>  
 
 <CONSTANT P-INHIBIT 4>   
-
+
 <GLOBAL P-CSPTR <>>
 <GLOBAL P-CEPTR <>>
 <GLOBAL P-AND <>> ;"WHICH retrofix"
@@ -1052,6 +1052,8 @@ begin with 'P-'.  Local variables are not restricted in any way."
 		   <COND (<0? .LEN> <SET LEN .OLEN>)>
 		   <COND (<NOT <==? ,WINNER ,ADVENTURER>>
 			  <CANT-ORPHAN>
+		     <SETG P-NAM <>>
+		     <SETG P-ADJ <>>
 			  <RFALSE>)
 			 (<AND .VRB ,P-NAM>
 			  <WHICH-PRINT .TLEN .LEN .TBL>

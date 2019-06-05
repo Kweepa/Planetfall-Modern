@@ -572,7 +572,7 @@ gotten 300 demerits." CR>)
        (T
 	<BUFFER-PRINT <GET ,P-ITBL ,P-NC2> <GET ,P-ITBL ,P-NC2L> <>>)>>
 
-^L
+
 
 ;"Begin-game stuff aboard the Feinstein"
 
@@ -1628,7 +1628,7 @@ for you. Perhaps you should have left the pod a bit sooner.">)
 "|
 The pod splits open, and water pours in.">)>)>>
 
-^L
+
 "The next bunch of stuff is for the cards, slots, and associated junk."
 
 <OBJECT SLOT
@@ -1754,7 +1754,7 @@ nothing. He scratches his head and looks confused." CR>)>)>>
 		<COND (<EQUAL? ,HERE ,MESS-HALL>
 		       <TELL CR
 "The kitchen door slides quietly closed." CR>)>)>>
-^L
+
 
 ;"teleportation stuff"
 
@@ -1817,7 +1817,7 @@ nothing. He scratches his head and looks confused." CR>)>)>>
 	 <COND (<EQUAL? ,HERE ,BOOTH-1 ,BOOTH-2 ,BOOTH-3>
 		<TELL CR "The ready light goes dark." CR>)>>
 
-^L
+
 
 ;"shuttle system"
 
@@ -2270,7 +2270,7 @@ condition to care.">)>
 <CONSTANT SIGN-PASS
 "You pass a sign, surrounded by blinking red lights, which says ">
 
-^L
+
 
 "To sleep, perchance to dream..."
 
@@ -2543,7 +2543,7 @@ sleeping on the floor,\" he says." CR>)>)>>
 		<JIGS-UP
 "Unfortunately, you don't seem to have survived the night.">)>>
 
-^L
+
 
 "Feed me!"
 
@@ -2576,7 +2576,7 @@ You collapse from extreme thirst and hunger.">)>>
 
 <CONSTANT NOT-HUNGRY "Thanks, but you're not hungry.">
 
-^L
+
 
 "Sickness and disease"
 

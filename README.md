@@ -2,22 +2,15 @@
 
 Planetfall is a 1983 interactive fiction game written by Steve Meretzky and published by Infocom.
 
-Further information on Planetfall:
-
-* [Wikipedia](https://en.wikipedia.org/wiki/Planetfall)
-* [The Digital Antiquarian](https://www.filfre.net/2013/03/planetfall/)
-* [The Interactive Fiction Database](https://ifdb.tads.org/viewgame?id=xe6kb3cuqwie2q38)
-* [The Infocom Gallery](http://infocom.elsewhere.org/gallery/planetfall/planetfall.html)
-* [IFWiki](http://www.ifwiki.org/index.php/Planetfall)
-
 __What is this Repository?__
 
 This repository is a modification of the original Planetfall source code, with the goal to make it more playable by a modern audience with some minor tweaks and all known bugs fixed.
 
 __Overview of Changes__
 
-CLASSIC allows the player to take advantage of the bug fixes while still playing the game as it was intended.
-MODERN allows the player to enjoy the game without having to worry about unfair deaths or hunger.
+CLASSIC (default) allows the player to take advantage of the bug fixes while still playing the game as it was intended.
+
+MODERN (type MODERN at the prompt) allows the player to enjoy the game without having to worry about unfair deaths or hunger.
 
 * addition of CLASSIC and MODERN pseudo-verbs
 * bug fixes (in progress)
@@ -43,6 +36,7 @@ __Bugs fixed__
 * fixed GIVE DIAL/GOO/FLUID/MEDICINE TO FLOYD (Simpson #28, #33)
 * fixed EMPTY/SHAKE BOTTLE (Simpson #31)
 * fixed medicine bottle bugs by making only the medicine fit inside (Simpson #32)
+* fixed FLOYD, PRESS RED followed by FLOYD, PRESS RED BUTTON (Simpson #34)
 * prevented kitchen door from being manually closed (Simpson #35)
 * fixed Floyd leaving closed rooms when seeing the breastplate (Simpson #37)
 * fixed Floyd entering lab when not there (Simpson #37)
@@ -58,7 +52,6 @@ __Bugs fixed__
 __To do list__
 
 * Cree #10 is a tough one because it's pervasive (sleeping pauses timers etc). Some combo of delaying sleeping and killing the player should do it.
-* Simpson #34 is also tough (FLOYD, PUSH RED [BUTTON]) because it's deep in the guts of the parser. Probably have to hack it...
 * some more CLASSIC/MODERN modifications...?
 
 Where appropriate, bugs taken from

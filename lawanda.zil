@@ -68,7 +68,7 @@ is the top of a long escalator.")
       (PSEUDO "ESCALATOR" ESCALATOR-PSEUDO)
       (FLAGS FLOYDBIT RLANDBIT ONBIT)>
 
-^L
+
 
 "He's dead, Jim"
 
@@ -336,7 +336,7 @@ larger than the one in the Kalamontee Complex. The only exit is westward.")
       (FLAGS FLOYDBIT RLANDBIT ONBIT)
       (PSEUDO "EQUIPMENT" EQUIPMENT-PSEUDO)>
 
-^L
+
 
 "Planetary systems and repairs"
 
@@ -593,7 +593,7 @@ The other light reads \"Kritikul diivurjins frum pland kors.\"">)>
 		       <TELL
 "You can't get a grip on the bedistor with that." CR>)>)>>
 
-^L
+
 
 "The Library"
 
@@ -2343,7 +2343,7 @@ station. The exit is on the northern side.")
       (VALUE 4)
       (PSEUDO "BOOTH" IN-BOOTH-PSEUDO)>
 
-^L
+
 
 ;"INSIDE THE COMPUTER"
 
@@ -2524,7 +2524,7 @@ current size.">)>
 	(ADJECTIVE BLUE)
 	(FLAGS NDESCBIT)>
 
-^L
+
 
 ;"Laserium"
 
@@ -2848,7 +2848,7 @@ With a furious storm of electrical mayhem, Sector 384 comes to life. A
 few microvolts course through the silicon strip on which you stand.
 Unfortunately, at your current size, this is enough to barbecue you.">)>>
 
-^L
+
 
 ;"The microbe battle"
 
@@ -2995,7 +2995,7 @@ it. Both the laser and the microbe plummet into the void. (Whew!)" CR>
                     <REMOVE ,PRSO>
                     <TELL "The " D ,PRSO " flies over the edge of the strip and disappears into the void." CR>)>)>)>>
 
-^L
+
 
 ;"Endgame -- The mutant chase scene"
 

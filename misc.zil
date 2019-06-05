@@ -71,7 +71,7 @@
 	<FORM COND (<FORM L? .NUM 0> <FORM - 0 .NUM>)
 	           (T .NUM)>>
 
-^L
+
 
 "old MAIN or VERMONT file"
 
@@ -449,7 +449,7 @@ Class Blather, the bane of your shipboard existence, could appear." CR CR>)>
 			<RETURN .OBJ>)
 		       (ELSE
 			<SET OBJ <LOC .OBJ>>)>>>
-^L
+
 
 "old CLOCK file"
 

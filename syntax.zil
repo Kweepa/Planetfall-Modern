@@ -459,7 +459,7 @@
 
 <SYNTAX SCOLD OBJECT (FIND ACTORBIT) = V-SCOLD>
 
-^L 
+ 
 
 ;"debugging and game-testing features"
 
