@@ -300,8 +300,7 @@ deserted now. There are openings at the north and south ends of the room.">
 <CONSTANT SANFAC-DESC
 "This must be the sanitary facility for the adjacent dormitory. The fixtures
 are dry and dusty, the room dead and deserted. You marvel at how little the
-millennia and cultural gulfs have changed toilet bowl design. The only exit is
-north.">
+millennia and cultural gulfs have changed toilet bowl design. The only exit is ">
 
 <ROOM DORM-A
       (LOC ROOMS)
@@ -316,10 +315,19 @@ north.">
 <ROOM SANFAC-A
       (LOC ROOMS)
       (DESC "SanFac A")
-      (LDESC ,SANFAC-DESC)
       (NORTH TO DORM-A)
       (FLAGS ONBIT RLANDBIT FLOYDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-SOUTH-F)>
+      
+<ROUTINE SANFAC-SOUTH-F (RARG)
+	 <COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL SANFAC-DESC "north." CR>)>>
+      
+<ROUTINE SANFAC-NORTH-F (RARG)
+	 <COND (<EQUAL? .RARG ,M-LOOK>
+		<TELL SANFAC-DESC "south." CR>)>>
+
 
 <ROOM DORM-B
       (LOC ROOMS)
@@ -334,10 +342,10 @@ north.">
 <ROOM SANFAC-B
       (LOC ROOMS)
       (DESC "SanFac B")
-      (LDESC , SANFAC-DESC)
       (SOUTH TO DORM-B)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-NORTH-F)>
 
 <ROOM DORM-C
       (LOC ROOMS)
@@ -352,10 +360,10 @@ north.">
 <ROOM SANFAC-C
       (LOC ROOMS)
       (DESC "SanFac C")
-      (LDESC ,SANFAC-DESC)
       (NORTH TO DORM-C)
       (FLAGS FLOYDBIT ONBIT RLANDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-SOUTH-F)>
 
 <ROOM DORM-D
       (LOC ROOMS)
@@ -370,10 +378,10 @@ north.">
 <ROOM SANFAC-D
       (LOC ROOMS)
       (DESC "SanFac D")
-      (LDESC ,SANFAC-DESC)
       (SOUTH TO DORM-D)
       (FLAGS ONBIT FLOYDBIT RLANDBIT)
-      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)>
+      (PSEUDO "FIXTURES" TOILET-PSEUDO "TOILET" TOILET-PSEUDO)
+      (ACTION SANFAC-NORTH-F)>
 
 <ROOM MESS-CORRIDOR
       (LOC ROOMS)
@@ -603,7 +611,7 @@ spanning the precipice." CR>)
 
 <ROUTINE SHORT-LADDER-RIFT-F ()
 	<TELL "The ladder is far too short to reach the other edge of the rift. It ">
-	<COND (<EQUAL? ,MODERN 1> <TELL "would plunge into the rift and be lost forever!" CR>)
+	<COND (<EQUAL? ,MODERN T> <TELL "would plunge into the rift and be lost forever!" CR>)
 		  (T <REMOVE ,LADDER> <TELL "plunges into the rift and is lost forever!" CR>)>>
 
 <ROOM DORM-CORRIDOR
@@ -731,6 +739,9 @@ its mouth resting just below the spout of the machine." CR>)
 			     (T
 			      <REMOVE ,HIGH-PROTEIN>
 			      <SETG C-ELAPSED 15>
+               <COND (<EQUAL? ,MODERN <>>
+                  <SETG HUNGER-LEVEL 0>
+                  <ENABLE QUEUE I-HUNGER-WARNINGS 3600>)>
 			      <TELL
 "Mmmm... that was good. It certainly quenched your thirst and satisfied your
 hunger." CR>)>)>)
@@ -1102,7 +1113,7 @@ doorway which lies to the east. Another exit leads west.")
    (ACTION CARD-F)>
 
 <ROUTINE CARD-F ()
-   <COND (<VERB? RUB> <TELL "You optimistically rub the magnetic stripe." CR> <FCLEAR ,PRSO ,SCRAMBLEDBIT>)>>
+   <COND (<AND <EQUAL? ,MODERN T> <VERB? RUB>> <TELL "You optimistically rub the magnetic stripe." CR> <FCLEAR ,PRSO ,SCRAMBLEDBIT>)>>
 
 <ROOM LARGE-OFFICE
       (LOC ROOMS)
@@ -1484,10 +1495,11 @@ splashes across the floor. Floyd jumps up and down, giggling." CR>)>>
 	 <COND (<AND <VERB? PUT-UNDER>
 		     <EQUAL? ,PRSI ,CHEMICAL-DISPENSER>>
 		<COND (<EQUAL? ,SPOUT-PLACED ,GROUND>
-		       <MOVE ,PRSO ,HERE>
-		       <TELL
-"The " D ,PRSO " is now sitting under the spout." CR>
-		       <SETG SPOUT-PLACED ,PRSO>)
+            <COND (<FSET? ,PRSO ,PARTBIT> <TELL "You can't do that." CR>)
+                  (T
+                   <MOVE ,PRSO ,HERE>
+                   <TELL "The " D ,PRSO " is now sitting under the spout." CR>
+                   <SETG SPOUT-PLACED ,PRSO>)>)
 		      (T
 		       <TELL
 "The " D ,SPOUT-PLACED " is already resting under the spout." CR>)>)>>
@@ -2244,7 +2256,7 @@ entiir popyuulaashun. Tiim iz kritikul. Eemurjensee asistins reekwestid.
 "The mutants lap up the chemical, howling with delight. One immediately
 grows three new mouths." CR>)
 	       (<VERB? PUT POUR>
-		<COND (<NOT <HELD? ,FLASK>>
+		<COND (<AND <NOT <HELD? ,FLASK>> <NOT <EQUAL? ,PRSI ,SPOUT-PLACED>>>
 		       <TELL "You're not holding the flask." CR>
 		       <RTRUE>)
 		      (<EQUAL? ,PRSI ,CANTEEN>

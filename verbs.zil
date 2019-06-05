@@ -21,14 +21,24 @@
 	 <SETG SUPER-BRIEF T>
 	 <TELL "Superbrief descriptions." CR>>
 
-<GLOBAL MODERN 0>
+<GLOBAL MODERN <>>
 
 <ROUTINE V-CLASSIC ()
-	<SETG MODERN 0>
+	<SETG MODERN <>>
+   <SETG HUNGER-LEVEL 0>
+   <ENABLE <QUEUE I-HUNGER-WARNINGS 2000>>
+   <SETG FUMBLE-NUMBER 7>
+   <SETG FUMBLE-PROB 8>
+   <SETG LOAD-ALLOWED 100>
 	<TELL "Planetfall is now in classic mode. It may kill you or leave you in an unwinnable situation unfairly. You will also need to eat to survive." CR>>
 
 <ROUTINE V-MODERN ()
-	<SETG MODERN 1>
+	<SETG MODERN T>
+   <SETG HUNGER-LEVEL 1>
+   <DISABLE INT I-HUNGER-WARNINGS>
+   <SETG FUMBLE-NUMBER 9>
+   <SETG FUMBLE-PROB 5>
+   <SETG LOAD-ALLOWED 200>
 	<TELL "Planetfall is now in modern mode. It won't kill you or leave you in an unwinnable situation unfairly, by some definition of unfairly. You will not need to eat to survive." CR>>
 
 <ROUTINE V-LOOK ()
@@ -337,7 +347,7 @@ position, end this session of the game, or look at hints?|
 "PLANETFALL|
 Infocom interactive fiction -- a science fiction story|
 By Steve Meretzky|
-Modernized (butchered?) by Steve McCrea|
+Modernized and bug fixed by Steve McCrea. To play in modern mode, type MODERN at the prompt.|
 Copyright (c) 1983, 1988 by Infocom, Inc. All rights reserved.|
 PLANETFALL is a registered trademark of Infocom, Inc.|
 Release " N .V " / Serial number ">
@@ -350,7 +360,6 @@ Release " N .V " / Serial number ">
 	 <V-$ID>
 	 <CRLF>>
 
-
 ;"death"
 
 <ROUTINE JIGS-UP (DESC "OPTIONAL" (PLAYER? <>))
@@ -523,9 +532,9 @@ dangerous now?\"" CR CR>)>
 	 <COND (<EQUAL? <ITAKE> T>
 		<TELL "Taken." CR>)>>
 
-<GLOBAL FUMBLE-NUMBER 9> "once carrying this many, possible fumble"
+<GLOBAL FUMBLE-NUMBER 7> "once carrying this many, possible fumble"
 
-<GLOBAL FUMBLE-PROB 5> "percentage chance of fumbling per each carried object"
+<GLOBAL FUMBLE-PROB 8> "percentage chance of fumbling per each carried object"
 
 <ROUTINE TRYTAKE ()
 	 <COND (<IN? ,PRSO ,WINNER>
@@ -660,10 +669,10 @@ the place and then evaporates." CR>)>
 
 <ROUTINE IDROP ()
 	 <COND (<NOT <HELD? ,PRSO>>
-		<TELL "You're not carrying the " D ,PRSO "." CR>
+         <COND (<EQUAL? ,PRSO ,HANDS> <TELL "Your hands are not detachable." CR>)(T <TELL "You're not carrying the " D ,PRSO "." CR>)>
 		<RFALSE>)
-          (<EQUAL? ,PRSO ,LASER-DIAL>
-		<TELL "The dial is attached to the laser!" CR>
+          (<FSET? ,PRSO ,PARTBIT>
+		<TELL "The " D ,PRSO " is attached to the " D <LOC ,PRSO> "!" CR>
 		<RFALSE>)
 	       (<FSET? ,PRSO ,LIQUIDBIT>
 		<TELL "That would make a mess!" CR>
@@ -1463,10 +1472,23 @@ D ,PRSO "? Dr. Quarnsboggle, the Feinstein's psychiatrist, would ">
 		       <TELL "quite">)
 		      (T
 		       <TELL "sort of">)>
-		<TELL " tired." CR>)>>
+		<TELL " tired." CR>)>
+      <COND (<EQUAL? ,MODERN <>>
+       <COND (<EQUAL? ,HUNGER-LEVEL 0>	
+         <TELL "You seem to be well-fed." CR>)	
+             (T	
+         <TELL "You seem to be ">	
+         <COND (<G? ,HUNGER-LEVEL 4>	
+                <TELL "awesomely phenomenally">)	
+               (<G? ,HUNGER-LEVEL 2>	
+                <TELL "noticeably">)	
+               (T	
+                <TELL "fairly">)>	
+         <TELL " thirsty and hungry." CR>)>)>>
 
 <ROUTINE V-WEAR ()
 	 <COND (<FSET? ,PRSO ,WEARBIT> 
+      <COND (<NOT <IN? ,PRSO ,ADVENTURER>> <ITAKE> <TELL "(First taking the " D ,PRSO ")" CR>)>
 		<TELL "You are wearing the " D ,PRSO "." CR>
 		<SETG C-ELAPSED 18>
 		<FSET ,PRSO ,WORNBIT>)
@@ -1704,22 +1726,51 @@ computer. You are fried by powerful electric currents.">)>)
 	 <TELL "Pouring or spilling nonliquids is specifically forbidden
 by section 17.9.2 of the Galactic Adventure Game Compendium of Rules." CR>>
 
-<ROUTINE V-EMPTY ("AUX" X)
-	 <COND (<NOT <FSET? ,PRSO ,OPENBIT>>
-		<TELL "You can't empty it when it's closed!" CR>)
+<ROUTINE V-EMPTY ()
+	 <COND (<NOT <FSET? ,PRSO ,CONTBIT>>
+            <TELL "That's not a container!" CR>)
+          (<NOT <FSET? ,PRSO ,OPENBIT>>
+            <TELL "You can't empty it when it's closed!" CR>)
 	       (<FIRST? ,PRSO>
+            <COND (,PRSI <TRY-EMPTY-INTO-OTHER>)
+                  (T <EMPTY-ONTO-FLOOR>)>)
+	       (T
+		<TELL "There's nothing in the " D ,PRSO "." CR>)>>
+      
+<ROUTINE EMPTY-ONTO-FLOOR ("AUX" X)
 		       <REPEAT ()
 			       <COND (<SET X <FIRST? ,PRSO>>
-			              <COND (<EQUAL? .X ,HIGH-PROTEIN
-					                ,CHEMICAL-FLUID>
+			              <COND (<FSET? .X ,LIQUIDBIT>
+                         <TELL "You pour the " D .X " onto the floor and it evaporates!" CR>
 				             <REMOVE .X>)
 				            (T
 				             <MOVE .X ,HERE>)>)
 			             (T
 				      <RETURN>)>>
-		       <TELL "The " D ,PRSO " is now empty." CR>)
-	       (T
-		<TELL "There's nothing in the " D ,PRSO "." CR>)>>
+		       <TELL "The " D ,PRSO " is now empty." CR>>   
+
+<ROUTINE TRY-EMPTY-INTO-OTHER ()
+      <COND (<NOT <FSET ,PRSI ,CONTBIT>> <TELL "The " D ,PRSI " is not a container!" CR>)
+            (<NOT <FSET ,PRSI ,OPENBIT>> <TELL "The " D ,PRSO " is closed!" CR>)
+            (T <EMPTY-INTO-OTHER>)>>
+
+<ROUTINE EMPTY-INTO-OTHER ("AUX" W X Y)
+   <SET W <WEIGHT ,PRSO>>
+   <SET X <FIRST? ,PRSO>>
+   <REPEAT ()
+      <COND (.X
+             <SET Y <NEXT? .X>>
+             <TELL "Trying " D .X ": " N <WEIGHT, PRSI> " + " N <WEIGHT .X> "-" N <GETP ,PRSI ,P?SIZE> ">" N <GETP ,PRSI ,P?CAPACITY> CR>
+             <COND (<AND <NOT <FSET? .X ,LIQUIDBIT>>
+                     <NOT <G? <- <+ <WEIGHT ,PRSI> <WEIGHT .X>> <GETP ,PRSI ,P?SIZE>> <GETP ,PRSI ,P?CAPACITY>>>>
+                    <MOVE .X ,PRSI>)>
+             <SET X .Y>)
+            (T <RETURN>)>>
+   <COND (<EQUAL? <WEIGHT ,PRSO> <GETP ,PRSO ,P?SIZE>> <TELL "You move everything">)
+         (<EQUAL? .W <WEIGHT ,PRSO>> <TELL "You can't move anything">)
+         (T <TELL "You move what you can">)>
+   <TELL " from the " D ,PRSO " to the " D ,PRSI "." CR>>
+
 
 <ROUTINE V-THROW-OFF ()
 	 <TELL "It's difficult to see how that can be done." CR>>

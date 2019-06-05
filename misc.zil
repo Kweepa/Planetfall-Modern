@@ -71,7 +71,7 @@
 	<FORM COND (<FORM L? .NUM 0> <FORM - 0 .NUM>)
 	           (T .NUM)>>
 
-^L
+
 
 "old MAIN or VERMONT file"
 
@@ -110,6 +110,7 @@
 	 <ENABLE <QUEUE I-AMBASSADOR -1>>
 	 <ENABLE <QUEUE I-RANDOM-INTERRUPTS 1>>
 	 <ENABLE <QUEUE I-SLEEP-WARNINGS 3600>>
+	 <ENABLE <QUEUE I-HUNGER-WARNINGS 2000>>    
 	 <ENABLE <QUEUE I-SICKNESS-WARNINGS 1000>>
 ;"set up and go"
 	 <SETG SPOUT-PLACED ,GROUND>
@@ -448,7 +449,7 @@ Class Blather, the bane of your shipboard existence, could appear." CR CR>)>
 			<RETURN .OBJ>)
 		       (ELSE
 			<SET OBJ <LOC .OBJ>>)>>>
-^L
+
 
 "old CLOCK file"
 

@@ -68,7 +68,7 @@ is the top of a long escalator.")
       (PSEUDO "ESCALATOR" ESCALATOR-PSEUDO)
       (FLAGS FLOYDBIT RLANDBIT ONBIT)>
 
-^L
+
 
 "He's dead, Jim"
 
@@ -142,10 +142,17 @@ it." CR>)>>
 	(SYNONYM BOTTLE LABEL)
 	(ADJECTIVE MEDICINE SMALL WHITE TRANSLUCENT)
 	(SIZE 7)
-	(CAPACITY 7)
+	(CAPACITY 2)
 	(TEXT
 "\"Dizeez supreshun medisin -- eksperimentul\"")
-	(FLAGS CONTBIT SEARCHBIT TAKEBIT TRANSBIT READBIT)>
+	(FLAGS CONTBIT SEARCHBIT TAKEBIT TRANSBIT READBIT)
+   (ACTION MEDICINE-BOTTLE-F)>
+   
+<ROUTINE MEDICINE-BOTTLE-F ()
+   <COND (<VERB? LOOK-INSIDE>
+      <COND (<FIRST? ,PRSO> <TELL "The bottle contains a quantity of medicine." CR>)(T <TELL "The bottle is empty." CR>)>)
+         (<VERB? SHAKE>
+      <COND (<FIRST? ,PRSO> <TELL "The medicine swirls around in the bottle." CR>)(T <TELL "The bottle is empty." CR>)>)>>
 
 <OBJECT MEDICINE
 	(LOC MEDICINE-BOTTLE)
@@ -153,7 +160,7 @@ it." CR>)>>
 	(FDESC "At the bottom of the bottle is a small quantity of medicine.")
 	(SYNONYM MEDICINE QUANTITY)
 	(ADJECTIVE SMALL QUANTITY EXPERIMENTAL)
-	(SIZE 7)
+	(SIZE 2)
 	(FLAGS FOODBIT LIQUIDBIT)
 	(ACTION MEDICINE-F)>
 
@@ -329,7 +336,7 @@ larger than the one in the Kalamontee Complex. The only exit is westward.")
       (FLAGS FLOYDBIT RLANDBIT ONBIT)
       (PSEUDO "EQUIPMENT" EQUIPMENT-PSEUDO)>
 
-^L
+
 
 "Planetary systems and repairs"
 
@@ -586,7 +593,7 @@ The other light reads \"Kritikul diivurjins frum pland kors.\"">)>
 		       <TELL
 "You can't get a grip on the bedistor with that." CR>)>)>>
 
-^L
+
 
 "The Library"
 
@@ -1803,10 +1810,12 @@ are heading straight toward the open door! Floyd shrieks and yells to you to
 close the door." CR>)
 		      (<AND <NOT ,FLOYD-FORAYED>
 			    <EQUAL? <GET <INT I-CHASE-SCENE> ,C-ENABLED?> 0>>
-		       <TELL
+               <TELL
 "Opening the door reveals a Bio-Lab full of horrible mutations. You stare at
 them, frozen with horror. Growling with hunger and delight, the mutations
-march toward the bio-lock to devour you. You slam the door just in time.">)
+march ">
+               <COND (<EQUAL? ,MODERN <>> <JIGS-UP "into the bio-lock and devour you.">)
+                     (T <TELL "toward the bio-lock to devour you. You slam the door just in time.">)>)
 		      (T
 		       <FSET ,BIO-DOOR-EAST ,OPENBIT>
 		       <ENABLE <QUEUE I-BIO-EAST-CLOSES 30>>
@@ -2334,7 +2343,7 @@ station. The exit is on the northern side.")
       (VALUE 4)
       (PSEUDO "BOOTH" IN-BOOTH-PSEUDO)>
 
-^L
+
 
 ;"INSIDE THE COMPUTER"
 
@@ -2515,7 +2524,7 @@ current size.">)>
 	(ADJECTIVE BLUE)
 	(FLAGS NDESCBIT)>
 
-^L
+
 
 ;"Laserium"
 
@@ -2537,7 +2546,7 @@ the lower shelves.")
 	(DESC "laser setting dial")
 	(SYNONYM DIAL)
 	(ADJECTIVE LASER SETTING)
-	(FLAGS MUNGBIT NDESCBIT)
+	(FLAGS MUNGBIT NDESCBIT PARTBIT)
 	(ACTION LASER-DIAL-F)>
 
 <ROUTINE LASER-DIAL-F ()
@@ -2839,7 +2848,7 @@ With a furious storm of electrical mayhem, Sector 384 comes to life. A
 few microvolts course through the silicon strip on which you stand.
 Unfortunately, at your current size, this is enough to barbecue you.">)>>
 
-^L
+
 
 ;"The microbe battle"
 
@@ -2981,12 +2990,12 @@ it. Both the laser and the microbe plummet into the void. (Whew!)" CR>
 		      (T
 		       <COND (<EQUAL? ,PRSO ,LASER>
 			      <DISABLE <INT I-WARMTH>>)>
-		       <REMOVE ,PRSO>
-		       <TELL
-"The " D ,PRSO " flies over the edge of the strip and disappears into the
-void." CR>)>)>>
+             <COND (<EQUAL? ,PRSO ,HANDS> <TELL "Your hands remain firmly attached." CR>)
+                   (T 
+                    <REMOVE ,PRSO>
+                    <TELL "The " D ,PRSO " flies over the edge of the strip and disappears into the void." CR>)>)>)>>
 
-^L
+
 
 ;"Endgame -- The mutant chase scene"
 
