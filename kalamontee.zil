@@ -13,6 +13,7 @@ Currents buffet you against the sharp rocks of an underwater
 cliff. A dim light filters down from above.")
       (UP PER UNDERWATER-UP-F)
       (DOWN TO UNDERWATER)
+      (EAST TO UNDERWATER)
       (WEST TO UNDERWATER)
       (NORTH TO UNDERWATER)
       (SOUTH TO UNDERWATER)
@@ -29,11 +30,13 @@ cliff. A dim light filters down from above.")
 "A mighty undertow drags you across some underwater obstructions.">)>)>>
 
 <ROUTINE UNDERWATER-UP-F ()
-	 <SETG DROWN 0>
-	 <COND (<L? ,DAY 2> ,CRAG)
-	       (<L? ,DAY 4> ,BALCONY)
-	       (<L? ,DAY 6> ,WINDING-STAIR)
-		   (T ,COURTYARD)>>
+	 <COND (,MODERN 
+		 <SETG DROWN 0>
+		 <COND (<L? ,DAY 2> ,CRAG)
+			   (<L? ,DAY 4> ,BALCONY)
+			   (<L? ,DAY 6> ,WINDING-STAIR)
+			   (T ,COURTYARD)>>
+			(T ,CRAG)>>
 
 <ROOM CRAG
       (LOC ROOMS)
