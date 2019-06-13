@@ -12,6 +12,7 @@ OFF!-INITIAL	;"makes debugging possible -- pdl"
 <FUNNY-GLOBALS? T>
 <FREQUENT-WORDS?>
 <SET REDEFINE T>
+<CONSTANT RELEASEID 1>
 
 <DIRECTIONS ;"Do not change the order of the first 8 without consulting MARC!"
  	    NORTH NE EAST SE SOUTH SW WEST NW UP DOWN IN OUT>
