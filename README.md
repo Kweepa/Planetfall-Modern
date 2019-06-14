@@ -13,10 +13,10 @@ CLASSIC (default) allows the player to take advantage of the bug fixes while sti
 MODERN (type MODERN at the prompt) allows the player to enjoy the game without having to worry about unfair deaths or hunger.
 
 * addition of CLASSIC and MODERN pseudo-verbs
-* bug fixes (in progress)
-* spelling corrections (done)
-* removal of need to eat for MODERN mode (done)
-* removal of some egregious deaths in MODERN mode (in progress)
+* bug fixes
+* spelling corrections
+* removal of need to eat for MODERN mode
+* removal of some egregious deaths in MODERN mode
 * removal of "walking deads" in MODERN mode (in progress)
 
 __Bugs fixed__
@@ -25,6 +25,7 @@ __Bugs fixed__
 * fixed switched off Floyd responding to things (Cree #7, Simpson #36)
 * fixed behavior of water level as the days progress (Cree #8)
 * prevented the pod from being opened from the webbing (Cree #9)
+* prevented the player from falling asleep while some interrupts are running (Cree #10)
 * fixed diary interfering with the elevator controls (Simpson #24)
 * fixed "You're not holding the flask" when non-flask under spout (Simpson #25)
 * fixed wearing uniform in carried container (Simpson #26)
@@ -51,7 +52,6 @@ __Bugs fixed__
 
 __To do list__
 
-* Cree #10 is a tough one because it's pervasive (sleeping pauses timers etc). Some combo of delaying sleeping and killing the player should do it.
 * some more CLASSIC/MODERN modifications...?
 
 Where appropriate, bugs taken from

@@ -2276,8 +2276,21 @@ condition to care.">)>
 
 <GLOBAL SLEEPY-LEVEL 0>
 
+<ROUTINE CAN-SLEEP-F ()
+  <COND (<OR <GET <INT I-CHASE-SCENE> ,C-ENABLED?>
+							<GET <INT I-SHUTTLE> ,C-ENABLED?>
+							<GET <INT I-UPPER-ELEVATOR-TRIP> ,C-ENABLED?>
+							<GET <INT I-LOWER-ELEVATOR-TRIP> ,C-ENABLED?>
+							<GET <INT I-MICROBE> ,C-ENABLED?>
+							<GET <INT I-WARMTH> ,C-ENABLED?>
+							<GET <INT I-NUKED-BLUE> ,C-ENABLED?>
+							<EQUAL? ,HERE ,BIO-LAB ,BIO-LOCK-EAST ,BIO-LOCK-WEST>>
+								<RFALSE>)
+				(T <RTRUE>)>>
+
 <ROUTINE I-SLEEP-WARNINGS ()
-	 <SETG SLEEPY-LEVEL <+ ,SLEEPY-LEVEL 1>>
+   <COND (<OR <LESS? ,SLEEPY-LEVEL 4> <CAN-SLEEP-F>>
+	    <SETG SLEEPY-LEVEL <+ ,SLEEPY-LEVEL 1>>)>
 	 <COND (<IN? ,ADVENTURER ,BED>
 		<TELL CR
 "You suddenly realize how tired you were and how comfortable the bed is.
