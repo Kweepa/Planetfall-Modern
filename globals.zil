@@ -25,6 +25,8 @@ contains the opening sequence which occurs prior to planetfall."
 <CONSTANT SL-TABLE:TABLE <ITABLE NONE 80>>	"status line constructed here"
 <GLOBAL OHERE:OBJECT <>>
 <GLOBAL OLD-LEN:NUMBER 0>
+<GLOBAL SHOW-DEMERITS T>
+<GLOBAL DEMERITS 3720>
 
 <ROUTINE INIT-STATUS-LINE ()
 	 <COND (<L? ,WIDTH 38>
@@ -38,8 +40,8 @@ contains the opening sequence which occurs prior to planetfall."
 	 <CURSET 1 1>	 
 	 <PRINT-SPACES ,WIDTH>
 	 <COND (<G? ,WIDTH 74>
-		<CURSET 1 51>
-		<TELL "Score:">
+      <COND (<EQUAL? ,SHOW-DEMERITS T> <CURSET 1 48> <TELL "Demerits:">)
+            (T <CURSET 1 51> <TELL "Score:">)>
 		<CURSET 1 64>
 		<TELL "Time:">)>
 	 <HLIGHT ,H-NORMAL>
@@ -62,7 +64,8 @@ contains the opening sequence which occurs prior to planetfall."
 		<SAY-HERE>)>
 	 <COND (<G? ,WIDTH 74>
 		<CURSET 1 58>
-		<TELL N ,SCORE " ">  ;"for 110 to 80 score bug"
+      <COND (<EQUAL? ,SHOW-DEMERITS T> <TELL N ,DEMERITS>)
+            (T <TELL N ,SCORE " ">  ;"for 110 to 80 score bug")>
 		<CURSET 1 70>
 		<COND (<IN? ,CHRONOMETER ,ADVENTURER> <TELL N ,MOVES>) (T <TELL "????">)>)
 	       (T
@@ -697,6 +700,7 @@ on a strange planet.">)>
 		       <TELL
 " You suddenly realize how warm it is. You also feel naked and vulnerable.">)>
 		<COND (<IN? ,BLATHER ,HERE>
+             <SETG DEMERITS <+ ,DEMERITS 500>>
 		       <TELL
 " \"Removing your uniform while on duty? Five hundred demerits!\"">)
 		      (<FLOYD-HERE-AWAKE>
@@ -733,6 +737,7 @@ includes a little button">
 " and a microphone/speaker. To read its screen, type READ DIARY." CR>)
 	       (<VERB? READ>
 		<COND (<IN? ,BLATHER ,HERE>
+             <SETG DEMERITS <+ ,DEMERITS 200>>
 		       <TELL
 "Blather stops you, scribbling madly. \"I warned you, Ensign!
 That's another two hundred demerits!\"" CR>)
@@ -950,6 +955,7 @@ turning a deepening shade of crimson." CR>)>)
 		      (<EQUAL? ,BLOWUP-COUNTER 0>
 		       <MOVE ,BLATHER ,HERE>
 		       <THIS-IS-IT ,BLATHER>
+             <SETG DEMERITS <+ ,DEMERITS 20>>
 		       <TELL CR
 "Ensign Blather, his uniform immaculate, enters and notices you are away
 from your post. \"Twenty demerits, Ensign Seventh Class!\" bellows Blather.
@@ -960,6 +966,7 @@ into a hideous mask of disgust at your unbelievable negligence." CR>)>)
 			    <IN? ,BLATHER ,HERE>>
 		       <SETG BLATHER-LEAVE 0>
 		       <REMOVE ,BLATHER>
+             <SETG DEMERITS <+ ,DEMERITS 50>>
 		       <TELL CR
 "Blather, adding fifty more demerits for good measure, moves off in search
 of more young ensigns to terrorize." CR>)
@@ -971,12 +978,14 @@ of more young ensigns to terrorize." CR>)
 			    <PROB 5>>
 		       <MOVE ,BLATHER ,HERE>
 		       <THIS-IS-IT ,BLATHER>
+             <SETG DEMERITS <+ ,DEMERITS 30>>
 		       <TELL CR
 "Ensign First Class Blather swaggers in. He studies your work with half-closed
 eyes. \"You call this polishing, Ensign Seventh Class?\" he sneers. \"We have
 a position for an Ensign Ninth Class in the toilet-scrubbing division,
 you know. Thirty demerits.">
 		       <COND (<NOT <FSET? ,PATROL-UNIFORM ,WORNBIT>>
+               <SETG DEMERITS <+ ,DEMERITS 60>>
 			      <TELL
 " And another sixty for improper dress!">)>
 		       <TELL
@@ -996,6 +1005,7 @@ demerits onto an oversized clipboard.")
 <ROUTINE BLATHER-F ()
 	 <COND (<OR <VERB? TALK HELLO>
 		    <EQUAL? ,BLATHER ,WINNER>>		
+       <SETG DEMERITS <+ ,DEMERITS 80>>
 		<TELL
 "Blather shouts \"Speak when you're spoken to, Ensign Seventh Class!\" He
 breaks three pencil points in a frenzied rush to give you more demerits." CR>
@@ -1006,16 +1016,20 @@ breaks three pencil points in a frenzied rush to give you more demerits." CR>
 		<JIGS-UP
 "Blather removes several of your appendages and internal organs.">)
 	       (<VERB? SALUTE>
+       <SETG DEMERITS <+ ,DEMERITS 5>>
 		<TELL
 "Blather's sneer softens a bit. \"First right thing you've done today. Only
 five demerits.\"" CR>)
 	       (<AND <VERB? THROW>
 		     <EQUAL? ,BLATHER ,PRSI>>
-           <COND (<EQUAL? ,PRSO ,HANDS> <TELL
+           <COND (<EQUAL? ,PRSO ,HANDS>
+             <SETG DEMERITS <+ ,DEMERITS 100>>
+            <TELL
 "Your hands remain firmly attached. Blather interprets the attempt as a
 feeble salute and gives you a hundred demerits." CR>)
                  (T
                   <MOVE ,PRSO ,HERE>
+                  <SETG DEMERITS <+ ,DEMERITS 10000>>
                   <TELL
 "The " D ,PRSO " bounces off Blather's bulbous nose. He becomes livid, orders
 you to do five hundred push-ups, gives you ten thousand demerits, and assigns
@@ -1451,6 +1465,9 @@ had made it to an escape pod...">)
 "Through the viewport of the pod you see the Feinstein dwindle as you head
 away. Bursts of light dot its hull. Suddenly, a huge explosion blows the
 Feinstein into tiny pieces, sending the escape pod tumbling away! " CR>
+             <SETG SHOW-DEMERITS <>>
+             <INIT-STATUS-LINE>
+             <UPDATE-STATUS-LINE>
 		       <ENABLE <QUEUE I-POD-TRIP -1>>
 		       <DISABLE <INT I-BLOWUP-FEINSTEIN>>
 		       <COND (<AND <NOT <IN? ,ADVENTURER ,SAFETY-WEB>>
