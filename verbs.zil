@@ -225,7 +225,7 @@ long description (fdesc or ldesc), otherwise will print short."
 	 <SETG QUOTE-FLAG <>>
 	 <RFATAL>>
 
-
+
 ;"scoring"
 
 <GLOBAL MOVES 0>
@@ -688,7 +688,7 @@ the place and then evaporates." CR>)>
 		<MOVE ,PRSO ,HERE>
 		<RTRUE>)>>
 
-
+
 ;"plain old verbs"
 
 <ROUTINE V-OPEN ("AUX" F STR)
@@ -1930,7 +1930,7 @@ We control the disk drives..." CR>)>>
 	 <SETG COURSE-CONTROL-FIXED T>
 	 <TELL "Mother-stabbing grotch-tossing mega-wimp!!!" CR>>
 
-
+
 ;"useful utility routines"
 
 <CONSTANT YUKS

@@ -1002,7 +1002,7 @@ asistins, kawl xe liibrereein.\"">
 
 <CONSTANT MAIN-MENU
 "    1. Histooree|
-    2. Kulchur|
+    2. Kulcur|
     3. Teknolojee|
     4. Jeeografee|
     5. Xe Prajekt|
@@ -1016,7 +1016,7 @@ asistins, kawl xe liibrereein.\"">
 
 <CONSTANT CULTURE-MENU
 "    0. Maan Menyuu|
-    1. Liturachur|
+    1. Lituracur|
     2. Art|
     3. Muusik">
 
@@ -1048,7 +1048,7 @@ asistins, kawl xe liibrereein.\"">
 
 <CONSTANT 11-TEXT
 "\"Xe aanshint lejindz saa xat ships frum xe Sekund Yuunyun wuns fild ar skiis
-and wil wun daa kum agen. Madern siientists, huu wuns dismist such lejindz
+and wil wun daa kum agen. Madern siientists, huu wuns dismist suc lejindz
 and felt xat liif eevolvd heer on Resida, now feel xat ar planit wuz reelee
 setuld bii men uv xe Sekund Yuunyun.\"">
 
@@ -1061,11 +1061,11 @@ aaj lasteeng senshureez.\"">
 <CONSTANT 13-TEXT
 "\"Wixin xe last fiiv senshureez, xe riiz uv xe Nuu Teknakrasee haz reeturnd
 sivilizaashun tuu xe levul ataand beefoor xe Hiiaatus. Sooshul histooreeunz
-xink xat wen xe Dizeez struk, ar raas had acheevd aa levul uv sufistikaashun
+xink xat wen xe Dizeez struk, ar raas had aceevd aa levul uv sufistikaashun
 eekwal tuu xe pree-Hiiaatus.\"">
 
 <CONSTANT 21-TEXT
-"\"Menee volyuumz on xe deevelupmint uv Residan liturachur ar on fiil in xe
+"\"Menee volyuumz on xe deevelupmint uv Residan lituracur ar on fiil in xe
 liibreree. Alsoo, kopeez uv awl graat wurks uv riiteeng, sum daateeng bak tuu
 xe mixikul daaz uv xe Sekund Yuunyun, ar lookaatid heer.\"">
 
@@ -1098,7 +1098,7 @@ invenshun uv nuukleeur-fyuuld enjinz.\"">
 "\"Untoold senshureez agoo, entiir teemz uv roobots wur reekwiird tuu purfoorm
 eevin xe simplist tasks... wun roobot wud handul viszuuwul funkshunz, wun roobot
 wud handul awditooree funkshunz, and soo foorx. Now, xanks tuu advansis in
-minichurizaashun, xeez tasks kan bee purfoormd bii singul roobots, such az
+minicurizaashun, xeez tasks kan bee purfoormd bii singul roobots, suc az
 xe multiipurpis B-19 seereez.\"">
 
 <CONSTANT 35-TEXT
@@ -1125,25 +1125,25 @@ spaas kolooneez establisht at Residaz troojin points.\"">
 
 <CONSTANT 51-TEXT
 "\"Xe oorijin uv Xe Dizeez haz bin linkt tuu xe Sentur foor Advanst Kriioojenik
-Reesurch, wich wuz kondukteeng reesurch intuu waaz uv ekstendeeng xe Kriioojenik
-peereeid indefinitlee. Alxoo xis reesurch wuz aa sukses, sumhow Xe Dizeez
+Reesurc, wic wuz kondukteeng reesurc intuu waaz uv ekstendeeng xe Kriioojenik
+peereeid indefinitlee. Alxoo xis reesurc wuz aa sukses, sumhow Xe Dizeez
 wuz reeleest and beegan spredeeng.\"">
 
 <CONSTANT 52-TEXT
 "\"Xe tuu kompleksiz wur establisht on xe twin peek platooz uv Kalamontee and
-Lawanda. Xeez lookaashunz wur choozin beekawz xaar hiit wud maak
+Lawanda. Xeez lookaashunz wur coozin beekawz xaar hiit wud maak
 transpoortaashun and komyuunikaashunz eezeeur, and soo xat xe vast reeakturz
-and kriioojeniks chaamburz kud bee kunstruktid in xe mowntinz beeloo.\"">
+and kriioojeniks caamburz kud bee kunstruktid in xe mowntinz beeloo.\"">
 
 <CONSTANT 53-TEXT
 "\"Faaz Wun: xe kunstrukshun uv xe Kalamontee and Lawanda Kompleksiz. Faaz
 Tuu: mass kriioojenik freezeeng uv Residan popyuulaashun. Faaz Xree:
-siimultaaneeus monitureeng uv kriioojeniks wiil awtoomaatid reesurch iz
+siimultaaneeus monitureeng uv kriioojeniks wiil awtoomaatid reesurc iz
 konduktid bii inkrediblee soofistikaatid kumpyuuturiizd fasiliteez. Faaz
 Foor: reeviivul and inokyuulaashun uv xe popyuulaashun.\"">
 
 <CONSTANT 61-TEXT
-"\"Xe Zoork triloojee, an advenchur klasik, taaks plaas in aa deeliitful
+"\"Xe Zoork triloojee, an advencur klasik, taaks plaas in aa deeliitful
 but daanjuris undurgrownd seteeng.\"">
 
 <CONSTANT 62-TEXT
@@ -1151,7 +1151,7 @@ but daanjuris undurgrownd seteeng.\"">
 its wurxee suksesur.\"">
 
 <CONSTANT 63-TEXT
-"\"Starkros iz Infookamz miind-bendeeng siiens-fikshun advenchur. Suspendid
+"\"Starkros iz Infookamz miind-bendeeng siiens-fikshun advencur. Suspendid
 iz aa kriioojenik siiens-fikshun niitmaar.\"">
 
 <OBJECT SPOOL-READER
@@ -1247,7 +1247,7 @@ treemenduslee frum pursin tuu pursin, raanjeeng frum wun daa tuu sevrul
 rootaashunz. Wuns xe furst simptumz ar shoon, dex alwaaz okurz in aat tuu
 ten daaz.|
 Xe priimeree simptum iz aa hii feevur. Xe sekunderee simptum iz aa sharp
-inkrees in xe amownt uv sleep needid eech niit.\"|
+inkrees in xe amownt uv sleep needid eec niit.\"|
 The rest of the information is about symptoms which can be detected only by
 using complicated medical procedures.">
 
@@ -1553,7 +1553,7 @@ the north.")
 	(SIZE 3)
 	(FLAGS TAKEBIT NDESCBIT INVISIBLE READBIT)
 	(VALUE 1)
-	(TEXT "The card is embossed \"minichurizaashun akses kard.\"")
+	(TEXT "The card is embossed \"minicurizaashun akses kard.\"")
 	(ACTION MINI-CARD-F)>
 
 <ROUTINE MINI-CARD-F ()
@@ -2260,7 +2260,7 @@ one item of interest, a memo of some sort. The desk itself is ">
 	(SYNONYM MEMO)
 	(FLAGS READBIT ACIDBIT TAKEBIT)
 	(TEXT
-"\"Memoo tuu awl lab pursunel: Duu tuu xe daanjuris naachur uv xe biioo
+"\"Memoo tuu awl lab pursunel: Duu tuu xe daanjuris naacur uv xe biioo
 eksperiments, an eemurjensee sistum haz bin instawld. Xis sistum wud flud
 xe entiir Biioo Lab wix aa dedlee fungasiid. Propur preecawshunz shud bee
 taakin if xis sistum iz evur yuuzd.\"")>

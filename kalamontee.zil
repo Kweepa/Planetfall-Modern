@@ -661,7 +661,7 @@ leads back to the corridor. A door to the south is ">
 
 <ROUTINE KITCHEN-DOOR-F ()
 	 <COND (<VERB? OPEN>
-	        <TELL "A light flashes \"Pleez yuuz kichin akses kard.\"" CR>)
+	        <TELL "A light flashes \"Pleez yuuz kicin akses kard.\"" CR>)
           (<AND <VERB? CLOSE> <FSET? ,KITCHEN-DOOR ,OPENBIT>>
            <TELL "There's no obvious way to do that." CR>)>>
 
@@ -1076,7 +1076,7 @@ doorway which lies to the east. Another exit leads west.")
 	(ADJECTIVE KITCHEN ACCESS)
 	(SIZE 3)
 	(FLAGS TAKEBIT READBIT)
-      (TEXT "The card is embossed \"kichin akses kard.\"")
+      (TEXT "The card is embossed \"kicin akses kard.\"")
 	(VALUE 1)
    (ACTION CARD-F)>
 
