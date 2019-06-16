@@ -1668,7 +1668,7 @@ sectors ...clearing entry... please type damaged sector number.\"" CR>)
 "A recorded voice says \"Databanks indicate no computer sector corresponding
 to that number. Please check with your supervisor.\"" CR>)
 			     (T
-			      <JIGS-UP
+			      <JIGS-NOT-UP
 "Ooops! You seem to have transported yourself into an active sector of the
 computer. You are fried by powerful electric currents.">)>)
 		      (T

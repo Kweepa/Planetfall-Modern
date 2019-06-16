@@ -941,6 +941,7 @@ down, and to fore is the Hyperspatial Jump Machinery Room.")
 		<COND (<IN? ,BLATHER ,HERE>
 		       <SETG BRIGS-UP <+ ,BRIGS-UP 1>>
 		       <COND (<G? ,BRIGS-UP 3>
+               <SETG DEMERITS <+ ,DEMERITS 5000>>
 			      <TELL CR
 "Blather loses his last vestige of patience and drags you to the Feinstein's
 brig. He throws you in, and the door clangs shut behind you." CR CR>
@@ -949,6 +950,7 @@ brig. He throws you in, and the door clangs shut behind you." CR CR>
 			      <MOVE ,PADLOCK ,HERE>
 			      <FCLEAR ,PADLOCK ,TAKEBIT>)
 			     (T
+               <SETG DEMERITS <+ ,DEMERITS 40>>
 			      <TELL CR
 "\"I said to return to your post, Ensign Seventh Class!\" bellows Blather,
 turning a deepening shade of crimson." CR>)>)
@@ -1471,7 +1473,7 @@ Feinstein into tiny pieces, sending the escape pod tumbling away! " CR>
 		       <ENABLE <QUEUE I-POD-TRIP -1>>
 		       <DISABLE <INT I-BLOWUP-FEINSTEIN>>
 		       <COND (<AND <NOT <IN? ,ADVENTURER ,SAFETY-WEB>>
-				   <PROB 20>>
+				   <PROB 20> <EQUAL? ,MODERN <>>>
 			      <JIGS-UP
 "|
 You are thrown against the bulkhead, head first. It seems that getting in
@@ -2654,7 +2656,7 @@ about, your pain subsiding into a dull numbness." CR>)
 		       <JIGS-UP
 "|
 You finally succumb to the ravages of your illness and collapse.">)>)>>
-
+
 
 "Oh, Boy! Pseudo objects!"
 
@@ -2854,7 +2856,7 @@ blueprints. They are all empty now." CR>)>>
 		<TELL
 "These heavy cables merely run from the two consoles up into the ceiling." CR>)
 	       (<VERB? MUNG>
-		<JIGS-UP
+		<JIGS-NOT-UP
 "So, that's what it's like to have twenty million volts run through your
 body!">)>>
 

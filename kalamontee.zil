@@ -1263,7 +1263,7 @@ beyond. In front of the window is a wide wooden desk. The only exit is east.")
 <ROUTINE GOOD-BEDISTOR-F ()
 	 <COND (<AND <VERB? TAKE>
 		     ,COURSE-CONTROL-FIXED>
-		<JIGS-UP
+		<JIGS-NOT-UP
 "Kerzap!! You should know better than to touch an active bedistor!">)>>
 
 <ROOM PHYSICAL-PLANT
