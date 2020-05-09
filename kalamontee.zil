@@ -741,7 +741,7 @@ its mouth resting just below the spout of the machine." CR>)
 			      <SETG C-ELAPSED 15>
                <COND (<EQUAL? ,MODERN <>>
                   <SETG HUNGER-LEVEL 0>
-                  <ENABLE QUEUE I-HUNGER-WARNINGS 3600>)>
+                  <ENABLE <QUEUE I-HUNGER-WARNINGS 3600>>)>
 			      <TELL
 "Mmmm... that was good. It certainly quenched your thirst and satisfied your
 hunger." CR>)>)>)
