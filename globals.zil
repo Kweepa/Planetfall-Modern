@@ -2586,7 +2586,7 @@ sleeping on the floor,\" he says." CR>)>)>>
 	 <COND (<EQUAL? ,HUNGER-LEVEL 1>	
 		<ENABLE <QUEUE I-HUNGER-WARNINGS 450>>	
 		<TELL CR	
-"A growl from your stomach warns that you're getting pretty hungry and	
+"A growl from your stomach warns that you're getting pretty hungry and
 thirsty." CR>)	
 	       (<EQUAL? ,HUNGER-LEVEL 2>	
 		<ENABLE <QUEUE I-HUNGER-WARNINGS 150>>	
@@ -2599,11 +2599,11 @@ thirsty." CR>)
 	       (<EQUAL? ,HUNGER-LEVEL 4>	
 		<ENABLE <QUEUE I-HUNGER-WARNINGS 50>>	
 		<TELL CR	
-"If you don't eat or drink something in a few millichrons, you'll probably	
+"If you don't eat or drink something in a few millichrons, you'll probably
 pass out." CR>)	
 	       (<EQUAL? ,HUNGER-LEVEL 5>	
 		<JIGS-UP	
-"|	
+"|
 You collapse from extreme thirst and hunger.">)>>
 
 <CONSTANT NOT-HUNGRY "Thanks, but you're not hungry.">
