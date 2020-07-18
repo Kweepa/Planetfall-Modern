@@ -322,11 +322,11 @@ millennia and cultural gulfs have changed toilet bowl design. The only exit is "
       
 <ROUTINE SANFAC-SOUTH-F (RARG)
 	 <COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL SANFAC-DESC "north." CR>)>>
+		<TELL ,SANFAC-DESC "north." CR>)>>
       
 <ROUTINE SANFAC-NORTH-F (RARG)
 	 <COND (<EQUAL? .RARG ,M-LOOK>
-		<TELL SANFAC-DESC "south." CR>)>>
+		<TELL ,SANFAC-DESC "south." CR>)>>
 
 
 <ROOM DORM-B
